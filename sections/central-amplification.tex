@@ -1,0 +1,362 @@
+\section{The active three-plane and ambient amplification}
+All cross products in this section are taken solely in the oriented Euclidean
+three-plane $E$. They define an orthonormal basis of $E$; they are never used
+as a divergence or pressure identity on $\R^d$. Write $M=\nabla u(t,0)$ for
+the parent central gradient and $H=\nabla^2P(t,0)$. Oddness fixes the central
+particle at zero. Reflection makes $M,H$ block diagonal on $E\oplus E^\perp$.
+The active block need not be trace free.
+
+The geometric input at a stage is the decomposition
+\begin{equation}\label{eq:central-decomposition}
+ M=B+hqp^T+\mathcal E,\qquad |\mathcal E|\leq E_*,\qquad h(t_0)=h_*,
+\end{equation}
+where $p,q$ are the normalized transported normal and primary velocity of
+the preceding packet. They lie in $E$ and are orthogonal; put $n=p\times q$.
+The shear is the actual preceding packet amplitude,
+$h=c_0|m_{\rm old}||v_{\rm old}|$ with constant $c_0>0$.
+Consequently $\dot h/h=-B_{pp}-B_{qq}$, by the two transport equations
+for the preceding normal and velocity.
+Here $B$ is the gradient of the preceding background solution.
+On the stage interval $|B|\leq C G_*$ and $|\dot B|\leq C G_*^2$.
+The transported normal and velocity satisfy
+\begin{equation}\label{eq:ray-velocity}
+ \dot m=-M^Tm,\qquad
+ \dot v=-Mv+2m\frac{m\cdot Mv}{|m|^2},\qquad m\cdot v=0.
+\end{equation}
+The coefficient 2 follows by differentiating the last constraint. These
+are full ambient equations; for central data in $E$ they preserve $E$.
+
+At activation put
+\begin{gather*}
+ a=p\cdot Bq\in[1/2,2],\quad \beta=(n\cdot Bq)/a,
+ \quad \tfrac12\leq\beta x_{\rm prev}^2\leq2,\\
+ \epsilon=\sqrt{a/h_*},\quad
+ \tau=a(t-t_0)/\epsilon,\quad x=\sqrt\beta\,\tau.
+\end{gather*}
+The target is $x=x_{\rm tar}\geq2$. Let
+$\Theta\geq2+\beta^{-1/2}+x_{\rm tar}/\sqrt\beta$ bound the scaled time,
+with at most $\Theta^{-60}$ scaled time retained after the target.
+The geometric error parameter is
+\begin{equation}\label{eq:geometric-error}
+ e=C_d\bigl(\epsilon\Theta G_*^2+E_*+
+                   \rho K_h^{c_d}/\epsilon\bigr),
+ \qquad e\Theta^{60}\leq c_d x_{\rm prev}^{-10}.
+\end{equation}
+Here $\rho$ is the physical packet length and $K_h$ bounds the actual
+parent particle map, its inverse deformation and required derivatives.
+The small constant on the right is fixed before the scales are chosen.
+
+\begin{lemma}[Endpoint selection]\label{lem:actual-endpoint}
+On a positive history interval $[0,t_0]$, assume the one-sided
+pressure bound $H\leq K_+I$ and $K_+t_0^2/2\leq1/2$, provided by
+the mean reserve. Suppose $\|M\|_\infty\leq C_Mh_*$,
+$\|H\|_\infty\leq C_Hh_*h_{\rm old}$, $1\leq h_{\rm old}\leq h_*$,
+and $t_0^{-1}\leq h_*$. Suppose also
+$\overline B=B(t_0)+\mathcal E(t_0)$ has
+$\overline B_{pp}<0$ and $\|\overline B\|\leq\zeta h_*$.
+For sufficiently small $\zeta$, depending only on $C_M,C_H$, an endpoint
+$Y\in E\cap n^\perp$ of size at most $C/h_*$ gives a stationary displacement
+whose terminal primary velocity satisfies
+\[
+ v_q=1,\qquad -C\leq v_p\leq0,\qquad v_{E^\perp}=0.
+\]
+The displacement is stationary in the full transverse space.
+\end{lemma}
+\begin{proof}
+Choose $m_0=F(t_0,0)^Tn/|F(t_0,0)^Tn|$ and transport it by $F^{-T}$.
+Let $\Lambda$ be the endpoint operator of Lemma~\ref{lem:endpoint-symmetry}.
+Integration by parts in its stationary equation gives
+\[
+ Y\cdot\Lambda Z=\int_0^{t_0}
+    (\eta_Y'\cdot\eta_Z'-H\eta_Y\cdot\eta_Z)\,dt.
+\]
+The stationary paths start at zero. The inequality
+$\int|\eta|^2\leq(t_0^2/2)\int|\eta'|^2$ therefore makes their
+action nonnegative even for a nonzero terminal value. Thus $\Lambda$
+is symmetric and positive semidefinite. To bound it, put
+$L_0=t_0^{-1}+\|M\|_\infty+\|H\|_\infty^{1/2}+1$.
+A comparison path vanishes before $t_0-L_0^{-1}$ and then equals
+$L_0(t-t_0+L_0^{-1})\operatorname{proj}_{m(t)^\perp}Y$.
+Since $\|\partial_t\operatorname{proj}_{m^\perp}\|\leq C\|M\|$,
+its action is at most
+$C(L_0+\|M\|_\infty^2/L_0+\|H\|_\infty/L_0)|Y|^2
+\leq C_0h_*|Y|^2$.
+Minimality yields $0\leq\Lambda\leq C_0h_*I$ on the whole transverse
+space, and reflection reduces its restriction to $E\cap n^\perp$ to a
+symmetric two-by-two matrix.
+
+Write $b=\Lambda_{pq}$, $d_0=\Lambda_{qq}$ and
+$u_*=\Lambda_{pp}-\overline B_{pp}>0$. The terminal velocity
+$v=\eta'-M\eta$ has active coordinates
+\[
+ \binom{v_p}{v_q}=
+ \begin{pmatrix}u_*&b-\overline B_{pq}\\
+ b-h_*-\overline B_{qp}&d_0-\overline B_{qq}\end{pmatrix}
+ \binom{Y_p}{Y_q}.
+\]
+If $b\leq h_*/2$, take $Y=-p$. Then $v_p=-u_*\leq0$ and
+$v_q=h_*+\overline B_{qp}-b\geq h_*/3$.
+If $b>h_*/2$, positivity implies
+$\Lambda_{pp}\geq b^2/d_0\geq h_*/(4C_0)$.
+Take $Y=q-(b-\overline B_{pq})p/u_*$. Its norm is bounded by a
+constant depending on $C_0$, and $v_p=0$. Moreover
+\[
+ v_q=\left(d_0-\frac{b^2}{u_*}\right)-\overline B_{qq}
+ +\frac{bh_*+b(\overline B_{pq}+\overline B_{qp})
+       -h_*\overline B_{pq}-\overline B_{qp}\overline B_{pq}}{u_*}.
+\]
+The parenthesis is nonnegative because $u_*\geq\Lambda_{pp}$.
+The numerator is at least $h_*^2/2-C(C_0+1)\zeta h_*^2$.
+Since $u_*\leq(C_0+\zeta)h_*$, choosing $\zeta$ small gives
+$v_q\geq c h_*$. Divide the displacement, endpoint and velocity by
+this positive terminal value. Both cases give the asserted normalization
+and endpoint bound. Reflection gives exactly zero extra components
+before and after normalization. At $t_0=0$ the prescription is simply
+$v=q$, and no stationary history problem is needed.
+\end{proof}
+
+\begin{lemma}[The scalar growing solution]\label{lem:scalar-growth}
+Let $0<\beta\ll1$, $P_0=\beta\tau^2$, $Q_0=-2\beta\tau$, and
+$D=1+P_0^2$. The equation
+\[
+ (DV')'=2(1-\beta P_0)V,\qquad V_\lambda(0)=1,
+ \qquad V_\lambda'(0)=\lambda\geq0
+\]
+has a positive solution to every target under consideration, and
+$V_\lambda(x=1)\geq e^{b/\sqrt\beta}$. For $x\geq1$ put
+$r_\lambda=-V_\lambda'/V_\lambda$. There is a bounded nonnegative $z$
+such that
+\[
+ r_\lambda=\frac{\sqrt\beta}{x}-\frac z{x^2},\qquad
+ z^2=\frac2{1+x^{-4}}+O(\sqrt\beta)\quad(x\geq2).
+\]
+Writing $g(\tau)=V_0(\tau)$, the two-component propagator for
+$(-V',V)$ obeys
+\[ \|\Phi_0(t,s)\|\leq C\Theta^8g(t)/g(s). \]
+All statements concern a scalar equation and are dimension independent.
+\end{lemma}
+\begin{proof}
+On $x\leq1$, integrating twice with $D\leq2$ and
+$2(1-\beta P_0)\geq1$ gives
+$V_\lambda\geq1+\lambda\tau/2+\tfrac12\int_0^\tau(\tau-s)V_\lambda(s)ds$.
+Positive iteration bounds it below by $\cosh(\tau/\sqrt2)$.
+Its logarithmic derivative $l$ satisfies $0\leq l$ and
+$l'\leq2-l^2$, whence $l\leq\sqrt2\coth(\sqrt2\tau)$.
+For $x\geq1$, first write $\widehat V(x)=V(x/\sqrt\beta)$,
+and then put $s=1-\rho$, $\rho=x^{-1}$ and
+$f(\rho)=\widehat V(1/\rho)/\rho$. Direct substitution gives
+\[
+ ((1+\rho^4)f_\rho)_\rho=(2/\beta-2\rho^2)f.
+\]
+Starting from $f(1)>0$, $f_\rho(1)<0$, backward integration preserves
+both signs. For $z=-\sqrt\beta f_\rho/f$ and
+$\mu=\sqrt{(2-2\beta\rho^2)/(1+\rho^4)}$,
+\[
+ \sqrt\beta z_s=\mu^2-z^2+
+               \sqrt\beta\frac{4\rho^3}{1+\rho^4}z.
+\]
+This gives a uniform upper bound and preserves nonnegativity.
+Indeed its initial value at $\rho=1$ is
+$z(1)=\sqrt\beta+V_\lambda'(1/\sqrt\beta)/V_\lambda(1/\sqrt\beta)$,
+which is bounded independently of $\lambda$ by the preceding
+logarithmic-derivative estimate.
+The equation for $z-\mu$ has damping coefficient $z+\mu\geq c>0$
+and a bounded forcing multiplied by $\sqrt\beta$. Its integrating
+factor gives $|z-\mu|\leq Ce^{-c(1-\rho)/\sqrt\beta}+C\sqrt\beta$,
+which proves the direction formula for $\rho\leq1/2$.
+
+Reduction of order gives
+$V_\lambda=g(1+\lambda I)$, where $I(\tau)=\int_0^\tau(Dg^2)^{-1}$
+and $I(1)\geq c>0$. Positivity before $x=1$, and increase of $xg$
+afterwards, give $g(s)/g(u)\leq C\Theta$ for $s\leq u$.
+For arbitrary scalar data at $s$,
+\[
+ V(t)=\frac{g(t)}{g(s)}\left[
+ V(s)+D(s)\left(V'(s)-\frac{g'(s)}{g(s)}V(s)\right)
+ \int_s^t\frac{(g(s)/g(u))^2}{D(u)}\,du\right].
+\]
+The integral is at most $C\Theta^3$, $D(s)\leq C\Theta^4$, and
+$|g'/g|\leq C$. Near $\tau=0$ the latter bound follows from
+$g'(0)=0$ and $l'\leq2-l^2$; away from zero it follows from the
+displayed bounds for $l$ and $z$.
+Differentiating this formula costs at most one further
+power of $\Theta$, proving the propagator assertion. This is the scalar
+calculation in \cite[\S\S4.4--4.5]{OAI}, reproduced to specify exactly the
+part of that argument used here.
+\end{proof}
+
+The selected initial conditions at activation are
+$m(t_0)=s_0n(t_0)$, $v_q(t_0)=1$, $v_n(t_0)=0$ and
+$-C\leq v_p(t_0)\leq0$. At the central label express
+$m=s_0(Pp+\epsilon Qq+Nn)$ and
+$v=\epsilon Up+Vq+\epsilon Wn$. The moving-frame connection has
+$(S_f)_{12}=B_{pq}$, $(S_f)_{13}=B_{pn}$ and
+$(S_f)_{32}=-B_{nq}$; skew symmetry determines its other entries.
+Equations~\eqref{eq:ray-velocity} then give
+\[
+ (P,Q,N)=(\beta\tau^2,-2\beta\tau,1)+O(e\Theta^5),
+ \qquad W=-(PU+QV)/N,\quad N\geq1/2.
+\]
+The reference ray system is $P'=-Q$, $Q'=-2\beta N$, $N'=0$.
+Its triangular propagator costs $C\Theta^2$. The exact error integral
+is at most $Ce\Theta^5+Ce\Theta^3\sup|\mathrm{error}|$, and the last
+term is absorbed by \eqref{eq:geometric-error}. Substitution in the
+velocity equation gives a coefficient error at most $Ce\Theta^{13}$
+from the two-component ideal system
+\[
+ U'=-2V+\frac{2P_0((P_0+\beta)V+Q_0U)}{1+P_0^2},\qquad V'=-U.
+\]
+Indeed the only unsuppressed contributions to
+$J=(m\cdot Mv)/(s_0a)$ are $PB_{pq}V/a$, $h\epsilon^2QU/a$
+and $NB_{nq}V/a$. The identity $\dot h/h=-B_{pp}-B_{qq}$ gives
+$h/h_*=1+O(\epsilon\Theta G_*)$ on this interval, so
+$h\epsilon^2/a=1+O(\epsilon\Theta G_*)$. The remaining contributions
+contain either $\epsilon G_*$ or the error in
+\eqref{eq:geometric-error}. Transversality bounds
+$|W|\leq C\Theta^2(|U|+|V|)$; the denominator $|m|^2/s_0^2$
+is at least $1/4$. These observations bound every rational coefficient
+without using a trace condition on the active block.
+The full matrix estimate, including all transverse coordinates, is
+derived in Section~\ref{sec:parameter-envelope}.
+
+Weighting Duhamel by $g(s)/g(t)$, Lemma~\ref{lem:scalar-growth} makes
+its error operator at most $Ce\Theta^{22}$. A geometric series therefore
+gives the exact active propagator bound $2C\Theta^8g(t)/g(s)$.
+For the selected data, $\lambda=-v_p(t_0)/\epsilon\geq0$,
+\[
+ |U-U_\lambda|+|V-V_\lambda|
+       \leq Ce\Theta^{30}(1+\lambda)g.
+\]
+For $\tau\geq1$, $V_\lambda\geq c(1+\lambda)g$, so this is a
+relative error. In particular
+\begin{equation}\label{eq:positive-flux}
+ J/V=P_0+\beta+Q_0r_\lambda+O(e\Theta^{34})>0.
+\end{equation}
+For $x\leq1$ its leading term is at least $\beta$, since
+$Q_0,r_\lambda\leq0$. For $x\geq1$ it equals
+$x^2-\beta+2\sqrt\beta z/x$. The error is less than half the
+lower bound by \eqref{eq:geometric-error}.
+
+\begin{lemma}[Central frame renewal]\label{lem:central-renewal}
+At the target set $p_2=m/|m|$, $q_2=v/|v|$, $n_2=p_2\times q_2$,
+$a_2=p_2\cdot Mq_2$ and $\beta_2=(n_2\cdot Mq_2)/a_2$. Then
+\begin{align*}
+ a_2/a&=1+O(x_{\rm tar}^{-4}+\beta x_{\rm tar}^{-2}
+       +\sqrt\beta x_{\rm tar}^{-3}+e\Theta^{40}),\\
+ \beta_2x_{\rm tar}^2&=1+O(\sqrt\beta+x_{\rm tar}^{-4}+e\Theta^{40}),\\
+ p_2\cdot Mp_2&\leq-\frac{c\sqrt{h_*}}{x_{\rm prev}x_{\rm tar}}
+                                     +C(G_*+E_*).
+\end{align*}
+Moreover $A_{\rm tar}=|m||v|$ at the target satisfies
+$A_{\rm tar}\geq K_h^{-c}\Theta^{-c}e^{b x_{\rm prev}}$.
+\end{lemma}
+\begin{proof}
+Put $r=U/V$, $w=W/V$, $D_a=|m|^2/s_0^2$ and
+$E_v=1+\epsilon^2(r^2+w^2)$. Normalize the two vectors directly:
+\[
+ a_2/a=\frac{J/V}{\sqrt{D_a}\sqrt{E_v}},\quad
+ \beta_2=\frac{[(P,\epsilon Q,N)\times(\epsilon r,1,\epsilon w)]
+                    \cdot(M(v/V)/a)}{(J/V)\sqrt{E_v}}.
+\]
+In the second numerator substitute
+$P=x^2$, $Q=-2\sqrt\beta x$, $r=\sqrt\beta/x-z/x^2$.
+The terms of size $\beta x^2$ and $\sqrt\beta xz$ cancel, leaving
+\[
+ -1+(1+x^{-4})z^2+\beta x^{-2}-2\sqrt\beta z x^{-3}
+       =1+O(\sqrt\beta).
+\]
+The perturbation contributes at most $Ce\Theta^{36}$.
+Also $J/V=x^2-\beta+2\sqrt\beta z/x+O(e\Theta^{34})$,
+$D_a=1+x^4+O(e\Theta^7)$ and $E_v=1+O(\epsilon^2\Theta^4)$.
+These identities prove the first two estimates. The rank-one part of
+\eqref{eq:central-decomposition} gives
+$p_2\cdot Mp_2=h\epsilon QP/D_a+O(G_*+E_*)$.
+Since $QP\leq-c\sqrt\beta x^3$, $D_a\leq Cx^4$ and
+$h\epsilon\asymp\sqrt{h_*}$, this proves compression.
+Finally $V_\lambda(x_{\rm tar}/\sqrt\beta)\geq x_{\rm tar}^{-1}
+V_\lambda(1/\sqrt\beta)\geq x_{\rm tar}^{-1}e^{b/\sqrt\beta}$ and
+$s_0^{-1}\leq K_h^c$; the relative-error estimates give the lower bound
+for $A_{\rm tar}$.
+\end{proof}
+
+Let $\mathcal P\geq1$ bound the source quantities
+$K_h,\Theta,\epsilon^{-1},h_{\rm child},\delta^{-1}$ and the fixed
+coefficient and inverse costs. These quantities are estimated in
+Section~\ref{sec:parameter-envelope} before the frequency is selected.
+The choice $\alpha=\delta h_{\rm child}/A_{\rm tar}$ therefore satisfies
+$\alpha\leq\mathcal P^c e^{-b x_{\rm prev}}$.
+At the central target the cutoff equals one, the phase is zero and
+$f_\delta'(0)=\delta^{-1}$, so the leading gradient is exactly
+$\alpha\delta^{-1}v\otimes m=h_{\rm child}q_2p_2^T$.
+Section~\ref{sec:parameter-envelope} proves the corresponding full
+transverse propagator and pressure-sign estimates in a neighborhood of
+the central label. The following consequence of that comparison gives
+a bound uniform over the stages of the iteration.
+
+\begin{lemma}[Uniform target-size comparison]\label{lem:uniform-packet-size}
+For the selected primary, on every label in the quantitative packet
+neighborhood, the full ambient relative estimates of
+Section~\ref{sec:parameter-envelope} give
+\[
+ \frac{|m(t,y)||v(t,y)|}{A_{\rm tar}}\leq C_d
+       \qquad(1\leq\tau\leq\tau_{\rm end}).
+\]
+On the history interval and on $0\leq\tau<1$ the same ratio is at most
+$K_h^{c_d}\Theta^{c_d}\epsilon^{-c_d}e^{-b x_{\rm prev}}$.
+For $g(\tau)=V_0(\tau)$ and
+$\alpha=\delta h_{\rm child}/A_{\rm tar}$, one also has
+$\sup\alpha g\leq\mathcal P^{c_d}$ and
+$\alpha\leq\mathcal P^{c_d}e^{-b x_{\rm prev}}$.
+\end{lemma}
+\begin{proof}
+The full relative comparison, including its extra components, and
+$\epsilon\Theta^2\ll1$ imply, for $\tau\geq1$,
+\[
+ |m(t,y)||v(t,y)|\asymp_d
+       s_0\sqrt{1+x^4}\,V_\lambda(x/\sqrt\beta).
+\]
+The small perturbations of the initial label and of $s_0$ are included
+in the same constants. At the central target this equivalence bounds
+$A_{\rm tar}$ from below by a fixed multiple of the right side.
+These constants do not grow with $\Theta$ or the stage.
+
+For $0\leq x\leq1$, $V_\lambda$ is increasing. For $x\geq1$ the
+reciprocal-variable proof of Lemma~\ref{lem:scalar-growth} shows that
+$xV_\lambda(x/\sqrt\beta)$ is increasing. Hence for
+$1\leq x\leq x_{\rm tar}$,
+\[
+ (1+x^2)V_\lambda(x/\sqrt\beta)
+ \leq (x+x^{-1})x_{\rm tar}
+             V_\lambda(x_{\rm tar}/\sqrt\beta)
+ \leq2x_{\rm tar}^2V_\lambda(x_{\rm tar}/\sqrt\beta).
+\]
+For $x\leq1$ the same conclusion follows by comparison first with
+$V_\lambda(1/\sqrt\beta)$ and then with the target. Since
+$\sqrt{1+x^4}\asymp1+x^2$, this proves the constant size comparison
+up to the target. Afterwards the logarithmic derivative in $\tau$ of
+$\sqrt{1+x^4}V_\lambda$ is
+\[
+ \frac{2\sqrt\beta x^3}{1+x^4}-\frac{\sqrt\beta}{x}
+                                          +\frac z{x^2},
+\]
+which is bounded for $x\geq x_{\rm tar}\geq2$. The retained scaled
+interval has length at most $\Theta^{-60}$, so its extra factor is at
+most two. The full relative errors preserve this fixed bound.
+
+The stationary history inverse bounds the unnormalized history by
+$K_h^{c_d}$. On $\tau\leq1$, the scaled system has bounded
+coefficients and initial norm at most $C(1+\lambda)$, with
+$\lambda\leq C/\epsilon$; converting the coordinates therefore costs
+only the displayed old-data polynomial. Divide these estimates by
+the exponential target lower bound from
+Lemma~\ref{lem:central-renewal} to obtain the early and history ratio.
+Finally $V_0\leq V_\lambda$. The monotonicity argument just used gives
+$\sup g\leq C x_{\rm tar}V_\lambda(x_{\rm tar}/\sqrt\beta)$,
+whereas
+$A_{\rm tar}\geq c_d s_0x_{\rm tar}^2
+V_\lambda(x_{\rm tar}/\sqrt\beta)$.
+Their growing factors cancel in $\alpha g$. The remaining factors
+$\delta,h_{\rm child},s_0^{-1},x_{\rm tar}$ have the fixed polynomial
+source bounds. The target exponential lower bound similarly proves
+the assertion for $\alpha$ itself.
+\end{proof}

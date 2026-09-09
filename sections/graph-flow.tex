@@ -1,0 +1,295 @@
+\section{Polynomial bounds from the lifted particle flow}
+The estimates in this section control the particle flow through the
+small lifted transport field. The resulting bounds depend polynomially
+on the physical frequency.
+
+Write $\mathcal L=\R^d\times\R$, with its product norm, and put
+$J_kx=(x,k\langle m_0,x\rangle)$, $|m_0|=1$. For a solved lifted packet
+$z(t,y,\theta)$ the lifted transport field is
+\[
+ b(t,y,\theta)=\bigl(\kappa z(t,y,\theta),\,
+                         \langle m_0,z(t,y,\theta)\rangle\bigr),
+ \qquad k\kappa=1.
+\]
+All occurrences of $z$ in this section refer to the same finite packet
+plus its actual residual-removing correction. The normal component in
+the second entry retains the cancellation that gives the small drift estimate.
+
+\begin{lemma}[Actual graph invariance]\label{lem:graph-invariant}
+Let $b$ be a smooth bounded Lipschitz field on $\mathcal L$, continuous
+in time, of the displayed form. Its global flow $\Psi_{s,t}$ satisfies
+\[
+ \Psi_{s,t}(J_kx)=J_k\psi_{s,t}(x),\qquad
+ \psi_{s,t}(x)=\pi\Psi_{s,t}(J_kx),
+\]
+where $\pi(y,\theta)=y$. The map $\psi$ is the actual flow of
+$v(t,x)=\pi b(t,J_kx)$ and $\psi_{t,s}$ is its inverse.
+For any $\ell>0$, the actual flow of
+$v_\ell(t,x)=\ell v(t,x/\ell)$ is
+$\ell\psi_{s,t}(x/\ell)$.
+\end{lemma}
+\begin{proof}
+The linear functional $q(y,\theta)=\theta-k\langle m_0,y\rangle$
+satisfies $q(b)=0$. Its derivative along every trajectory is zero.
+Therefore the level set $q=0$, which is precisely the image of $J_k$,
+is invariant. Projection of the actual lifted ODE gives the ODE for
+$v$; uniqueness identifies its flow and inverse. Substitution and the
+chain rule prove the scaling identity. These arguments use no
+dimension-specific representation of a solenoidal field.
+\end{proof}
+
+\begin{lemma}[Small lifted flow bounds]\label{lem:small-lift}
+Suppose, for $0\leq t\leq T$ and every $n\geq0$,
+\[
+ \|D^n b(t)\|_\infty\leq B R^n(n!)^2,
+ \quad B\geq0,\ R>0,\quad BRT\leq\tfrac18.
+\]
+Then the actual displacement $f_t=\Psi_{0,t}-\mathrm{id}$ obeys
+\begin{equation}\label{eq:lift-disp}
+ \|D^n f_t\|_\infty\leq Bt(4R)^n(n!)^2 \quad(n\geq0).
+\end{equation}
+Put $\mathscr R(S)=(4R+1)((1+BT)S+2)$.
+If also $\|D^n b_t\|_\infty\leq B_1R_1^n(n!)^2$ with
+$B_1\ge0$ and $R_1\ge0$, then the actual
+material velocity and acceleration satisfy
+\begin{align}
+ \|D^n(b(t)\circ\Psi_{0,t})\|_\infty
+   &\leq B\mathscr R(R)^n(n!)^2,\label{eq:lift-velocity}\\
+ \|D^n((b_t+Db\,b)(t)\circ\Psi_{0,t})\|_\infty
+   &\leq(B_1+3B^2R)\mathscr R(4R+R_1)^n(n!)^2.
+   \label{eq:lift-acceleration}
+\end{align}
+These estimates hold in every finite-dimensional normed space.
+\end{lemma}
+\begin{proof}
+We use the finite generating-sum argument for the actual integral flow
+equation from \cite[\S3.8]{OAI}. For a finite derivative cutoff $N$, let
+\[
+ F_N(t)=\sum_{n=1}^N\frac{r^n}{(n!)^2}
+                 \|D^n f_t\|_\infty,\qquad r=(4R)^{-1}.
+\]
+The differentiated equation $f_t=\int_0^t b(s)\circ
+(\mathrm{id}+f_s)\,ds$ and the finite Fa\`a di Bruno convolution give
+\[
+ F_N(t)\leq\int_0^t
+  \frac{BR(r+F_N(s))}{1-R(r+F_N(s))}\,ds
+\]
+as long as the denominator is positive. The algebra behind this
+inequality is the scalar factorial majorant for a composition: after
+division by $(n!)^2$, each partition coefficient is bounded by the
+corresponding geometric-series coefficient. It applies to operator
+norms of multilinear derivatives, independently of the ambient
+dimension. On the bootstrap region $F_N\leq Bt$, one has
+$R(r+F_N)\leq1/4+BRT\leq3/8$, so the integrand is at most $3B/5$.
+Continuity and a first-contact argument give $F_N(t)\leq Bt$ for all
+$t\leq T$, uniformly in $N$. The $n$th summand gives
+\eqref{eq:lift-disp} for $n>0$; order zero follows by directly integrating
+$\|b\|_\infty\leq B$. Equivalently one may use the pointwise finite
+generating sums followed by their supremum; no differentiability of
+a supremum is required.
+
+Adding the identity gives, for $n>0$,
+$\|D^n\Psi_{0,t}\|_\infty\leq
+(1+BT)(4R+1)^n(n!)^2$. The same finite composition formula implies
+that composing a field bounded by $C S^n(n!)^2$ with this map is bounded
+by $C\mathscr R(S)^n(n!)^2$. This gives
+\eqref{eq:lift-velocity}. Differentiating a factorial bound once and
+using $(n+1)^2\leq4^n$ bounds $Db$ by $BR(4R)^n(n!)^2$.
+The factorial Leibniz convolution is at most three times the product
+of the two amplitudes. At the common radius $4R+R_1$ this bounds
+$b_t+Db\,b$ by $(B_1+3B^2R)(4R+R_1)^n(n!)^2$.
+The composition estimate proves \eqref{eq:lift-acceleration}.
+\end{proof}
+
+\begin{lemma}[Physical labels and their inverse]\label{lem:physical-labels}
+The graph and physical scaling in Lemma~\ref{lem:graph-invariant}
+convert a bound $\|D^n f\|_\infty\leq C S^n(n!)^2$ into
+\[
+ \left\|D^n\bigl[\ell\pi f(J_k(\cdot/\ell))\bigr]\right\|_\infty
+ \leq C\bigl(\ell^{-1}S(1+|k|)\bigr)^n(n!)^2
+ \quad(0<\ell\leq1).
+\]
+Consequently the physical displacement, material velocity and material
+acceleration have factorial bounds with amplitudes and radii polynomial
+in $1+B+R+B_1+R_1+T+\ell^{-1}+|k|$. If the physical field is
+solenoidal, its inverse deformation, evaluated in particle labels, has
+factorial bounds polynomial in
+the same parameters, with exponents allowed to depend on $d$.
+\end{lemma}
+\begin{proof}
+The chain rule for a linear inner map gives the factor
+$\|J_k/\ell\|^n$, and $\|J_k\|\leq1+|k|$. The outer map has norm at
+most $\ell\leq1$. This proves the first assertion, including order
+zero. Apply it to \eqref{eq:lift-disp}--\eqref{eq:lift-acceleration}.
+The first spatial derivative of a flow is the identity plus the
+derivative of its displacement, so it has the same type of polynomial
+factorial bound after enlarging the parameters.
+
+Solenoidality gives $\det D\psi=1$ by the variational equation and
+Jacobi's formula. Thus $(D\psi)^{-1}=\operatorname{adj}(D\psi)$.
+Every entry of the adjugate is a sum of $(d-1)!$ products of $d-1$
+entries. For a product of $r$ factorially bounded fields, the
+multinomial Leibniz formula and
+$\prod_{i=1}^r n_i!\leq n!$ show that its $n$th derivative is bounded
+by $C_d C^r(rR)^n(n!)^2$. Here $r=d-1$ is fixed.
+Hence the inverse deformation has a polynomial factorial bound, with
+no exponential in the physical frequency. The same reasoning applies
+to composition with the given parent flow: the finite composition and
+product formulas involve its existing factorial bounds and the actual
+graph-flow bounds just proved. Time differentiation twice uses the
+actual material velocity and acceleration above.
+\end{proof}
+
+The trace identity needed in this construction is also
+dimension independent. If a lifted field is tangent to the graph,
+$b=J_k\pi b$. Differentiating and cyclically commuting the trace gives
+\[
+ \operatorname{tr}_{\R^d}(\pi Db\,J_k)
+   =\operatorname{tr}_{\mathcal L}(J_k\pi Db)
+   =\operatorname{tr}_{\mathcal L}(Db).
+\]
+Thus lifted divergence zero implies ordinary divergence zero for the
+graph velocity. Scaling preserves it. When the graph flow is joined
+to the parent particle map, both maps preserve ordinary $d$-dimensional
+volume, and their composition does as well.
+
+\subsection{Cylinder and graph bounds in \texorpdfstring{$L^2$}{L2}}
+The preceding supremum estimates also give the needed quantitative
+$L^2$ estimates; a supremum bound alone would not do so on the whole
+space. Let $b$ be periodic in its last variable with period $P$, and
+assume its actual cylinder divergence is zero. Suppose the input bounds
+of Lemma~\ref{lem:small-lift} hold both in supremum norm and in
+$L^2(\R^d\times\mathbb T_P)$, with common amplitudes $B,B_1$ and
+radii $R,R_1$. These input $L^2$ bounds are supplied by the packet's
+weighted Sobolev estimates, including the true time derivative.
+
+The flow satisfies
+$\Psi_t(y,\theta+P)=\Psi_t(y,\theta)+(0,P)$ by uniqueness.
+It therefore descends to the cylinder. Its variational Jacobian obeys
+\[
+ \partial_t\det D\Psi_t
+       =\bigl(\operatorname{div}b\bigr)(t,\Psi_t)\det D\Psi_t=0.
+\]
+The inverse flow exists by the same bounded Lipschitz ODE, so change of
+variables gives
+\begin{equation}\label{eq:lift-volume-l2}
+ \|a\circ\Psi_t\|_{L^2(\R^d\times\mathbb T_P)}=\|a\|_2.
+\end{equation}
+For the lifted velocity of the actual corrected packet,
+$\operatorname{div}b=\kappa\operatorname{div}_y z+
+\partial_\theta(m_0\cdot z)=0$ is exactly its already proved closed
+solenoidal constraint, promoted to a pointwise identity by smoothness.
+
+Set $S_v=\mathscr R(R)$ and $S_a=\mathscr R(4R+R_1)$, with
+$\mathscr R$ as in Lemma~\ref{lem:small-lift}. Then the actual fields
+satisfy
+\begin{align}
+ \|D^n(b(t)\circ\Psi_t)\|_2
+    &\le B S_v^n(n!)^2,\label{eq:lift-velocity-l2}\\
+ \|D^n((b_t+Db\,b)(t)\circ\Psi_t)\|_2
+    &\le(B_1+3B^2R)S_a^n(n!)^2,\label{eq:lift-acceleration-l2}\\
+ \|D^n(\Psi_t-\mathrm{id})\|_2
+    &\le Bt S_v^n(n!)^2.\label{eq:lift-displacement-l2}
+\end{align}
+To prove these assertions, expand the derivative of a composition into
+its finite Fa\`a di Bruno sum. In each term place the single factor
+$D^r a\circ\Psi_t$ in $L^2$ using \eqref{eq:lift-volume-l2}; place
+all derivatives of the inner flow in $L^\infty$ using
+Lemma~\ref{lem:small-lift}. The numerical composition convolution is
+then exactly the one used for the supremum bound, so its radius is
+$\mathscr R(S)$ for an outer radius $S$. For $Db\,b$, put one factor
+in $L^2$ and the other in $L^\infty$ in each Leibniz term.
+The factorial convolution costs at most three, giving amplitude
+$3B^2R$ at radius $4R$. This proves the first two estimates.
+Finally integrate the actual identity
+$\Psi_t-\mathrm{id}=\int_0^t b(s)\circ\Psi_s\,ds$ and apply
+Minkowski's inequality to each derivative. This proves the last one,
+including order zero. In particular its stated radius is $S_v$;
+no claim that the $L^2$ displacement has radius $4R$ is needed.
+
+Here is the graph trace with the scaling factors retained. If a smooth
+periodic field $a$ has
+$\|D^n a\|_2\le C S^n(n!)^2$, then
+\begin{equation}\label{eq:graph-l2-jet}
+ \left\|D^n\{\ell\pi a(J_k(\cdot/\ell))\}\right\|_{L^2(\R^d)}
+ \le C_P\ell^{1+d/2}C(1+S)
+       \left(\frac{4S(1+|k|)}\ell\right)^n(n!)^2.
+\end{equation}
+Indeed the one-dimensional periodic estimate
+\[
+ \sup_\theta|v(\theta)|^2
+   \le\frac2P\int_{\mathbb T_P}|v|^2
+                   +2P\int_{\mathbb T_P}|v_\theta|^2
+\]
+follows from the fundamental theorem of calculus, the triangle
+inequality and Cauchy--Schwarz. The same constants apply to any
+finite-dimensional normed target, in particular to the operator norm
+of $D^n a$, independently of $n$. Applied at each spatial point it
+bounds evaluation on any phase graph by
+$C_P(\|a\|_2+\|\partial_\theta a\|_2)$; the phase slope does not
+enter this trace estimate. Differentiating the affine graph costs
+$\|J_k\|^n\le(1+|k|)^n$ before applying that trace. Its one extra
+angular derivative is bounded using
+$(n+1)^2\le4^n$. Finally $x=\ell y$ gives the exact factor
+$\ell^{1+d/2-n}$. For $0<\ell\le1$ the prefactor
+$\ell^{1+d/2}$ may be discarded upwards. This proves
+\eqref{eq:graph-l2-jet}. The argument applies separately to the
+actual displacement, material velocity and material acceleration in
+\eqref{eq:lift-velocity-l2}--\eqref{eq:lift-displacement-l2}.
+
+For the bounds used in the parameter induction, take $0<\chi<1/100$
+and suppose the source bounds satisfy
+$T,R,R_1,B_1\le k^\chi$, while $B\le2k^{-1/2}$ and
+$BRT\le1/8$. The two composition radii satisfy
+$S_v,S_a\le Ck^{2\chi}$. Thus the graph amplitudes for displacement
+and velocity are at most $Ck^{-1/2+3\chi}$ and
+$Ck^{-1/2+2\chi}$, respectively; the acceleration amplitude is at
+most $Ck^{3\chi}$. Their graph radii are at most
+$C\ell^{-1}k^{1+2\chi}$. After one fixed numerical lower bound on
+$k$, these give the convenient bounds
+\[
+ \|D^n a\|_{2,\infty},\ \|D^n b_{\mathrm{mat}}\|_{2,\infty}
+       \le k^{-1/4}(\ell^{-1}k^{5/4})^n(n!)^2,
+ \qquad
+ \|D^n c_{\mathrm{mat}}\|_{2,\infty}
+       \le k^{1/4}(\ell^{-1}k^{5/4})^n(n!)^2.
+\]
+Here $a,b_{\mathrm{mat}},c_{\mathrm{mat}}$ are the actual physically scaled
+relative displacement, material velocity and material acceleration.
+These three fields are obtained from the same lifted flow and graph
+restriction.
+
+\subsection{Fixed Sobolev shifts}
+The passage from $L^2$ jets to supremum jets uses only a fixed number of
+additional derivatives. Let $q>d/2$ be an integer, let $r\ge0$ be fixed,
+and suppose a smooth finite-dimensional vector-valued field on $\R^d$
+satisfies
+\[
+ \|D^n a\|_2\le A R^n(n!)^2\qquad(n\ge0).
+\]
+Then
+\begin{equation}\label{eq:fixed-sobolev-jet-shift}
+ \|D^nD^r a\|_\infty
+ \le C_{d,q,r}A(1+R)^{q+r}(4R)^n(n!)^2\qquad(n\ge0).
+\end{equation}
+Indeed, apply the $H^q$ embedding to
+$D^{n+r}a[v_1,\ldots,v_{n+r}]$ for arbitrary fixed unit vectors
+$v_i$, and then take their supremum. Each of its derivatives of order
+$j\le q$ is bounded in $L^2$ by $\|D^{n+r+j}a\|_2$.
+The embedding constant is independent of $n$ and of the vectors $v_i$.
+Finally
+\[
+ ((n+r+j)!)^2\le4^{n+r+j}(n!)^2((r+j)!)^2
+\]
+gives \eqref{eq:fixed-sobolev-jet-shift} after summing the fixed range
+$0\le j\le q$.
+
+In particular, if the composed particle displacement, velocity and
+acceleration have $L^2$ Gevrey amplitude at most $k$ and radius at most
+$k^2$, then their first spatial derivatives have supremum amplitude
+at most $k^{2q+4}$ and radius at most $4k^2$, for a sufficiently large
+fixed lower bound on $k$. The additive identity in the deformation
+matrix is absorbed by the same bound. This applies to the second frame
+coefficient $F_2=D W_0$, where $W_0$ is the material acceleration.
+The shift depends only on the fixed dimension and derivative order;
+it is independent of the packet grade and truncation.

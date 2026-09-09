@@ -1,0 +1,331 @@
+\section{The scale choice and the finite-stage induction}
+\label{sec:iteration}
+The construction uses one prescribed scale sequence. The quantitative source estimate supplies a fixed exponent $D_d$
+for the particle-map invariant and a finite list of polynomial construction
+guards. All choices in this section are made after those exponents have
+been fixed.
+
+\subsection{The base flow and the order of choices}
+Choose an oriented orthonormal basis $(p,q,n)$ of $E$ and let the full
+matrix $L_B$ vanish on $E^\perp$ and satisfy
+\[
+ L_Bq=p+X^{-2}n,\qquad L_Bp=L_Bn=0.
+\]
+It is trace free. Lemma~\ref{lem:potential}, with a fixed radial cutoff,
+gives a compact, odd, reflection-equivariant solenoidal datum equal to
+$L_Bx$ near zero. Its Sobolev and Gevrey bounds are uniform for $X\geq1$.
+Lemma~\ref{lem:local} gives its actual Euler solution $u_B$ on a uniform
+short interval. Its Gevrey bounds also persist on a uniform shorter
+interval: with fixed base order $q_d> (d+1)/2+2$ and radius $r(t)$,
+set
+\[
+ \mathcal X_r=\sum_{n\geq0}\frac{r^n}{(n!)^2}
+                  \sum_{|I|=n}\|\partial_Iu_B\|_{H^{q_d}},
+ \qquad
+ \mathcal Y_r=\sum_{n\geq0}\frac{nr^n}{(n!)^2}
+                  \sum_{|I|=n}\|\partial_Iu_B\|_{H^{q_d}}.
+\]
+At each finite cutoff the differentiated transport cancellation and
+factorial product convolution give
+$\mathcal X_r'\leq C_d\mathcal X_r^2+
+(r'/r+C_d\mathcal X_r/r)\mathcal Y_r$.
+Choose $r'$ a sufficiently negative fixed constant. A short-time
+bootstrap bounds $\mathcal X_r$ and keeps $r>0$ uniformly in the
+cutoff. Passing to the increasing sums proves the claim. The projected
+Euler equation controls the time derivative and material acceleration
+at a smaller radius. The integral flow equation then bounds the actual
+particle map and its first two time derivatives in the same manner.
+This proof uses the fixed legal-dimensional Sobolev embedding only.
+Write $K_B$ for a uniform upper bound on its pressure Hessian.
+
+First fix $d$, the packet base order and all finite inverse, coefficient,
+flow and source exponents, including $D_d$. Fix $C_M,C_H$ large enough
+for the global gradient and Hessian induction below. These fix the
+endpoint constant and then its small threshold $\zeta$.
+Choose $D_0$ sufficiently large for the first geometric comparison;
+$D_0=1000$ suffices for the displayed exponent $60$.
+All seed mean-cutoff and boundary costs are fixed powers of $X$.
+Choose $D_k$ larger than the resulting seed polynomial exponent divided
+by each of the finitely many frequency margins. Then choose the starting
+index $J$ to pay all normal-stage exponent comparisons, and finally
+choose $X$ large enough for their finite constants and total error budgets.
+No choice is altered during the induction.
+
+Put $h_{J-2}=1$, $x_{J-1}=X$, and $x_j=j^2x_{j-1}$ for $j\geq J$.
+The auxiliary value $h_{J-2}$ records the uniform scale of the base
+solution. Prescribe
+\begin{align}
+ h_{J-1}=X^{D_0},\quad k_{J-1}=X^{D_k},\quad
+ \rho_{J-1}=X^{-D_0},\quad \delta_{J-1}=X^{-(D_0+10)},
+ \label{eq:seed-scales}\\
+ h_j=e^{x_{j-1}/j^5},\quad k_j=e^{x_{j-1}/j^2},\quad
+ \delta_j=e^{-x_{j-1}/j^3},\quad
+ \rho_j=e^{-x_{j-1}/j^{7/2}}\quad(j\geq J).
+ \label{eq:normal-scales}
+\end{align}
+The seed frequency is fixed by its polynomial source bound in $X$;
+the source-envelope lemma pays the prescribed normal frequencies.
+Use the explicit physical mean-cutoff parameters
+\[
+ \ell_*=1,\qquad r_*=\frac{\rho_{J-1}}{4a_d}
+                   =\frac{X^{-D_0}}{4a_d}.
+\]
+For large $X$, $r_*\le1/4$. The splitting ball of radius
+$a_dr_*/\ell_*$ is exactly the seed support ball of radius
+$\rho_{J-1}/4$. These parameters are fixed functions of the seed value
+before the final choice of $X$; they are retained throughout the
+iteration and are not replaced by the shrinking $\rho_j$.
+Their reciprocals and all subsequent boundary penalties are bounded by
+fixed powers of $X$. The cost multiplier in the full mean reserve is
+bounded by the dimensional constant $1+c_d4^{-d}$, so it causes no
+circular change of the starting index or the source exponents.
+
+\subsection{Time and geometric comparisons}
+Let
+\[
+ W_j=\frac{3x_jx_{j-1}}{\sqrt{h_{j-1}}},\qquad
+ S_{J-1}:=S_{\rm base}=2W_J=6J^2X^{2-D_0/2},\qquad t_{J-1}=0.
+\]
+At stage $j$, the already constructed parent fixes $a_j,\beta_j$.
+Define
+\begin{equation}\label{eq:actual-times}
+ t_j=t_{j-1}+\frac{x_j}{\sqrt{\beta_ja_jh_{j-1}}},
+ \qquad S_j=t_j+2W_{j+1}.
+\end{equation}
+When $a_j,\beta_jx_{j-1}^2\in[1/2,2]$,
+$W_j/6\leq t_j-t_{j-1}\leq2W_j/3$.
+For $j>J$ the exact identities
+\[
+ \log k_{j-1}=\frac{x_{j-1}}{(j-1)^4},\qquad
+ \log h_{j-1}=\frac{x_{j-1}}{(j-1)^7}
+\]
+show that $W_{j+1}/W_j$ is arbitrarily small uniformly after $J$:
+its logarithm is
+\[
+ 2\log j+2\log(j+1)-\frac{x_{j-1}}{2j^5}
+                    +\frac{x_{j-1}}{2(j-1)^7}.
+\]
+At $j=J$ the last term is instead $(D_0/2)\log X$.
+The negative term dominates in both cases. Hence $S_j\leq S_{j-1}$,
+and with the numerical majorant $\Theta_j=C(1+x_jx_{j-1})$ the extra scaled interval obeys
+$2\sqrt{a_jh_{j-1}}W_{j+1}\leq\Theta_j^{-60}$.
+Also $t_J\geq S_{\rm base}/12$, so at positive-history stages
+$t_{j-1}^{-1}\leq12S_{\rm base}^{-1}\leq h_{j-1}$.
+
+Use $E_*=k_{j-1}^{-1/4}$, $G_*=1+h_{j-2}$ and
+$K_h=k_{j-1}^{D_d}$. Each part of \eqref{eq:geometric-error} satisfies
+its smallness guard at the same scale choice. For the spatial term the
+logarithm is at most
+\[
+ -\frac{x_{j-1}}{j^{7/2}}+
+       \frac{c_dD_dx_{j-1}}{(j-1)^4}
+       +\frac{Cx_{j-1}}{(j-1)^7}+C\log x_{j-1}
+ \leq-\frac{x_{j-1}}{2j^{7/2}}.
+\]
+This estimate uses the inherited geometric cost, which excludes the new
+$\delta_j^{-1}$; using the complete source list here would fail.
+The old frequency error has logarithm
+$-x_{j-1}/(4(j-1)^4)$. For $j\geq J+2$,
+\[
+ \log(\epsilon G_*^2)\leq
+ -\frac{x_{j-1}}{2(j-1)^7}+
+ \frac{2x_{j-1}}{(j-1)^2(j-2)^7}+C
+ \leq-\frac{2x_{j-1}}{5(j-1)^7}+C.
+\]
+For $j=J$, $\epsilon\Theta^{61}\leq C(J)X^{122-D_0/2}$;
+for $j=J+1$ the new exponential beats the old polynomial shear.
+These cover the two exceptional stages. Multiplying by any of the
+fixed powers of $x_{j-1},\Theta_j$ still gives the required smallness.
+The same comparisons give
+\begin{equation}\label{eq:shear-separation}
+ h_j/h_{j-1}^2\longrightarrow\text{arbitrarily large uniformly},\qquad
+ \frac{\sqrt{h_{j-1}}}{x_{j-1}x_j}\gg G_*+1,\qquad
+ \rho_j<r_{\rm core}.
+\end{equation}
+Here $r_{\rm core}>0$ is the fixed physical seed core radius.
+Each use of $\gg$ in this proof denotes a fixed finite inequality whose
+constant was chosen before $J,X$.
+
+\subsection{The summed budgets}
+The relative size estimate for the selected packet bounds its history
+and early-time gradient and pressure increments by
+\[
+ b_j=C_dh_jh_{j-1}K_h^{c_d}\Theta_j^{c_d}\epsilon^{-c_d}
+                         e^{-b x_{j-1}}
+       \leq e^{-b x_{j-1}/2}.
+\]
+This follows by dividing the logarithm of the prefactor by $x_{j-1}$;
+it is bounded by $C_d/(j-1)^4+o(1)$, with the seed predecessor treated
+as a polynomial in $X$. During the late interval the pressure sign
+\eqref{eq:positive-flux}, with its ambient neighborhood version, and
+$f_\delta'\geq-1$ give the upper-Hessian increment
+$C_d\delta_jh_jh_{j-1}$. Its scale satisfies
+\[
+ \delta_jh_jh_{j-1}\leq
+                  e^{-x_{j-1}/(2j^3)}.
+\]
+The exact packet remainders are bounded by $k_j^{-1/4}$.
+Consequently valid nonnegative increment budgets are
+\begin{equation}\label{eq:actual-increment-budgets}
+ e_{p,j}=C_d(b_j+\delta_jh_jh_{j-1}+k_j^{-1/4}),\qquad
+ e_{i,j}=C_d(b_j+k_j^{-1/4}).
+\end{equation}
+The second one applies at time zero. For every fixed $A>0$ the positive
+sequence $x_{j-1}/j^A$ increases at least geometrically once $J$ is large.
+Thus the sums of the displayed exponential errors, and of every fixed
+negative power of $x_{j-1}$, tend to zero with $X\to\infty$.
+Their finite partial sums therefore preserve both the desired upper
+pressure bound and the fixed-cutoff reserve of
+\eqref{eq:mean-reserve-increment}. This last budget includes the core
+term $c_dB_cr_*^dS_{\rm base}$; it is not dropped.
+Initially, with the explicit frozen cutoff above, that term is
+\[
+ O_d\!\left(J^2X^{2+(1/2-d)D_0}\right)\longrightarrow0.
+\]
+Indeed $B_c=O(X^{D_0})$, $r_*=O_d(X^{-D_0})$ and
+$S_{\rm base}=6J^2X^{2-D_0/2}$. This proves the assertion directly for
+$d\ge3$, without an unquantified later shrink of the physical cutoff.
+The other reserve terms tend to zero with $S_{\rm base}$.
+This leaves a fixed positive margin before summing the normal stages.
+Choosing their total $\sum_j e_{i,j}\le1$ also gives
+$B_{c,j}\le B_{c,\rm seed}+1=O_d(X^{D_0})$, so every later
+boundary penalty remains within the same polynomial seed envelope.
+
+\subsection{Seed and induction step}
+Set $u_{J-2}=u_B$. Apply Lemma~\ref{lem:exact-packet-child} on
+$[0,S_{\rm base}]$ with the seed scales, $m_0=p$, $v(0)=q$,
+$\alpha=\delta_{J-1}h_{J-1}$ and zero mean boundary penalty.
+For this seed solve take $r=0$, $B_c=0$ and a global base lower bound
+$B_e$; the interior region is empty. Thus the required penalty is indeed
+$\mathcal L=0$, and the seed inverse is coercive on the short interval
+without a special core term.
+At time zero $m\cdot M_Bv=1$ throughout its compact packet support.
+The uniformly bounded base equations preserve $m\cdot M_Bv\geq1/2$
+on the chosen short interval. Thus the seed upper-pressure cost is at
+most $C_dX^{-10}+k_{J-1}^{-1/4}$.
+At $t_0=0$ every forced high and mean grade has zero initial value;
+only the primary and its actual tensor corrector remain. They are
+supported in the fixed seed core. The interior gradient bound is
+$B_c=C_Mh_{J-1}+2$; the exterior lower bound remains that of the base.
+Equip this actual seed output with the already prescribed fixed cutoff
+parameters and penalty $\mathcal L=C_{1,d}B_c$ for subsequent stages.
+Their full reserve is strictly small by the explicit estimate above.
+
+The seed expansion is, at the fixed origin,
+\[
+ M_{J-1}=M_B+h(t)q(t)p(t)^T+\mathcal E(t),\qquad
+ |\mathcal E|\leq k_{J-1}^{-1/4},\qquad h(0)=h_{J-1}.
+\]
+The normalized frame is transported by the actual base gradient.
+Its activation parameters are exactly $a_J=1$ and $\beta_J=X^{-2}$.
+The actual lifted flow estimate gives its polynomial particle-map
+bound at $k_{J-1}$. Thus the complete input state for stage $J$ consists
+of two exact solutions, the actual frame and shear decomposition,
+the global low bounds, the strict fixed-cutoff reserve and the polynomial
+label bounds. The first activation time is zero, so this stage uses the forward
+primary without a history interval.
+
+Assume that state at stage $j$. Keep the actual parent on its available
+long interval $[0,S_{j-1}]$ while forming the endpoint and geometric
+source. Its actual scaled horizon is
+$a_j(S_{j-1}-t_{j-1})/\epsilon_j$, bounded by the numerical majorant
+$\Theta_j$. By $S_{j-1}-t_{j-1}=2W_j$, it contains the target and the
+short retained extension, and the scalar comparison interval lies within these bounds.
+The numerical majorant is not an assertion that coefficient paths have
+been defined beyond their actual time interval. Only after these source
+estimates and the target normalization are obtained do we restrict the
+parent and coefficient fields to $[0,S_j]$ for the packet and correction.
+Their coefficient constants remain those of the long parent.
+All Duhamel and energy estimates may be integrated on the actual scaled
+interval of length at most $\Theta_j$; no extension to the numerical
+majorant is needed. The relative comparison with the target size is
+used only through $S_j$, whose extension past the target is small,
+and is not asserted on the whole longer parent interval. Along the
+older central solution,
+$\dot B=-B^2-H_{j-2}$, which gives the bounds used above on $B,\dot B$.
+Lemma~\ref{lem:actual-endpoint} supplies the actual stationary history
+for $j>J$, and the zero-time prescription supplies it for $j=J$.
+The ambient comparison and source-envelope argument verify the
+quantitative neighborhood, full transverse propagator and every
+coefficient cost at the already prescribed $\rho_j,k_j$.
+Take
+\[
+ \alpha_j=\frac{\delta_jh_j}{|m(t_j,0)||v(t_j,0)|}.
+\]
+The joined construction in Lemma~\ref{lem:exact-packet-child} then gives
+an exact smooth odd reflection-equivariant solution $u_j$ on $[0,S_j]$.
+Its full ambient tensor correctors, all means and the residual correction
+are part of this same solution. The graph-flow identities give the
+next actual particle-map invariant $K_{h,\rm next}\leq k_j^{D_d}$.
+
+The global expansion gives
+\[
+ \|M_j-M_{j-1}\|_\infty\leq C_dh_j+k_j^{-1/4},\qquad
+ \|H_j-H_{j-1}\|_\infty\leq C_dh_jh_{j-1}+k_j^{-1/4}.
+\]
+With \eqref{eq:shear-separation} these preserve
+$\|M_j\|_\infty\leq C_Mh_j$ and
+$\|H_j\|_\infty\leq C_Hh_jh_{j-1}$.
+The one-sided budgets \eqref{eq:actual-increment-budgets} preserve the
+pressure upper bound, the initial interior and exterior quadratic-form
+bounds, and the full fixed-cutoff reserve. No locality of the pressure
+is being used: its signed expansion and its error bound hold globally.
+
+For $t\in[t_j,S_j]$, the new normalized pair $p_2,q_2$ satisfies
+\[
+ M_j=M_{j-1}+h(t)q_2p_2^T+\mathcal E_j,
+ \qquad |\mathcal E_j|\leq k_j^{-1/4},\qquad h(t_j)=h_j.
+\]
+Its frame equations have older field $M_{j-1}$, by the exact ray and
+velocity equations, and $h'/h=-(M_{j-1})_{p_2p_2}-(M_{j-1})_{q_2q_2}$.
+Lemma~\ref{lem:central-renewal} bounds each relative change in $a_j$
+by $C_dx_{j-1}^{-4}$, whose sum is arbitrarily small. Starting at one,
+the product stays in $[1/2,2]$. The same lemma gives directly
+$\beta_{j+1}x_j^2\in[1/2,2]$; that estimate is not multiplied across
+stages. Its compression bound and \eqref{eq:shear-separation} give
+$p_2\cdot M_{j-1}p_2<-1$, while $|\mathcal E_j|<1$.
+Also $(C_Mh_{j-1}+1)/h_j<\zeta$. These prove the two actual activation
+conditions for the next endpoint problem. The low bounds on the entire
+history and $t_j^{-1}\leq h_j$ prove its history hypotheses.
+These estimates establish every component of the induction state
+for the constructed child.
+
+\section{The limiting datum and endpoint}
+\label{sec:endpoint}
+The initial estimates of Section~\ref{sec:initial-summability}, applied
+to the same joined finite families and the actual source envelope, give
+\[
+ \sum_{j\geq J}\|u_j(0)-u_{j-1}(0)\|_{H^m}<\infty
+                         \qquad\text{for every fixed }m.
+\]
+The seed is one fixed smooth increment. Lemma~\ref{lem:common-support}
+places all these initial velocities in one compact set. Sobolev embedding
+at arbitrarily high fixed orders therefore proves that their single limit
+$u_0$ is smooth, compactly supported and divergence free.
+
+The target times increase to a finite positive $T_\infty\leq S_{\rm base}$.
+At the central target the exact expansion gives
+\[
+ |\nabla u_j(t_j,0)|_{\rm F}
+       \geq h_j-C_Mh_{j-1}-k_j^{-1/4}\longrightarrow\infty.
+\]
+Let $u$ be the unique maximal smooth Sobolev solution from $u_0$.
+If its lifetime $T^*$ exceeded $T_\infty$, it would be smooth on a
+closed interval containing all $t_j$, with bounded $H^{s+1}$ norm.
+Apply Lemma~\ref{lem:stability} on the actual varying intervals
+$[0,t_j]$ to $u_j$ and $u$. Their initial $H^s$ difference tends to
+zero, so their gradients converge uniformly on those intervals.
+The displayed divergence of the central gradients would contradict
+boundedness of $\nabla u$ there. Thus $0<T^*\leq T_\infty<\infty$.
+This argument does not assert equality of $T^*$ and $T_\infty$.
+Lemma~\ref{lem:continuation} now supplies the exact Frobenius gradient
+limsup and the once-counted antisymmetric-vorticity integral in $H_d$.
+Lemma~\ref{lem:newton} fixes the literal pressure normalization, and
+Lemma~\ref{lem:local} supplies every required Sobolev order on each
+shorter closed time interval.
+
+The quantitative joined-source estimate and the prescribed scale
+sequence verify the hypotheses at every finite stage. The initial limit,
+finite lifetime and continuation conclusions therefore prove
+Theorem~\ref{target:Hd}, with no additional assumption on the dimension
+or on a prospective solution.

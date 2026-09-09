@@ -1,0 +1,284 @@
+\section{Initial increments at every Sobolev order}
+\label{sec:initial-summability}
+
+We use the joined displacement-history and forward inverse of
+Lemma~\ref{lem:packet-joined-high}. When the activation time is positive,
+the forced high coefficients generally have nonzero initial velocities;
+all of them enter the estimates below.
+
+Fix the dimension $d$ and a legal integer base Sobolev order $s$ for the
+packet estimates. Constants below may depend on $d$ and on a fixed
+derivative order, but the frequency condition will not depend on that
+derivative order. Write $\mathcal P\ge1$ for a bound on the actual source primitives,
+including the coefficient and inverse costs, the terminal datum, the
+reciprocal phase scale, the fixed mean cutoff cost, and the common Gevrey
+radius. Section~\ref{sec:parameter-envelope} bounds these primitives for the
+constructed sources, uniformly along the prescribed scale sequence.
+
+\subsection{The actual three sums at time zero}
+Put $\kappa=k^{-1}$ and let $N$ be the chosen truncation. Since the exact
+nonlinear correction has zero initial value and the parent flow is initially
+the identity, the joined finite construction gives
+\begin{align}
+ u_{\mathrm{osc},0}(a)
+ &=\rho\sum_{p=1}^{N}
+    \bigl[\kappa^p A_p+\kappa^{p+1}C_p\bigr]
+       (0,a/\rho,km_0\cdot a/\rho),\label{eq:initial-osc-sum}\\
+ u_{\mathrm{mean},0}(a)
+ &=\rho\sum_{p=2}^{N}\kappa^p B_p(0,a/\rho),
+ \qquad
+ \Delta u_0=u_{\mathrm{osc},0}+u_{\mathrm{mean},0}.
+ \label{eq:initial-mean-sum}
+\end{align}
+Here $C_p$ is the full ambient antisymmetric-potential corrector and $B_p$
+is independent of the angle. The estimates include every high coefficient, its tensor corrector,
+and every mean coefficient.
+Formula~\eqref{eq:initial-osc-sum} extends
+\cite[\S3.9, (3.60)]{OAI} to the full ambient tensor construction.
+
+Let $\alpha>0$ be the selected primary amplitude. The joined profile is
+\[
+ \gamma(t)=\alpha\quad(0\le t\le t_0),\qquad
+ \gamma(t)=\alpha g(t)\quad(t_0\le t\le T),\qquad g(t_0)=1,
+\]
+and put $H_0=\max(1,\alpha,\sup\alpha g)$. The actual coefficient induction
+assigns the oscillatory profiles $\gamma H_0^{2p-2}$ and the mean profiles
+$H_0^{2p-2}$.
+
+The factor $\alpha$ on the history interval can be checked directly.
+The primary terminal displacement is $\alpha$ times the normalized compact
+datum, and the displacement inverse is linear. In every higher zero-mean
+force, terms containing only means cancel under angle-mean subtraction.
+Every remaining term contains a previous oscillatory factor or a derivative
+of one. The term involving the newly solved mean is
+$-(m\cdot B_p)\partial_\theta A_1$, which also contains this factor.
+Extra oscillatory factors are bounded by the indicated powers of $H_0$.
+The actual history inverse and the angular tensor primitive therefore
+retain $\alpha$ at time zero. This factor is preserved at each step of the graded construction
+by linearity of its high solver.
+
+Suppose first that $t_0>0$. In fixed transverse coordinates, every
+forced history solves
+$\xi(0)=\xi(t_0)=0$ and has velocity $A=FR_\perp\xi_t$.
+The primary instead has $\xi(0)=0$ and
+$\xi(t_0)=\alpha\chi_{\rm in}(y)f_\delta(\theta)\xi_T$, where $\xi_T$ is the
+actual selected terminal coordinate. It is obtained from the physical
+central endpoint by the actual inverse frame; its norm is included in $\mathcal P$.
+Subtracting the affine extension
+$(t/t_0)\alpha\chi_{\rm in}f_\delta\xi_T$ reduces this primary problem to the
+same zero-endpoint inverse. All spatial and phase words of the forced
+problem still have zero endpoint values. For the primary, differentiating
+this explicit affine extension supplies exactly the differentiated
+boundary datum; the differentiated boundary traces are therefore explicit.
+The forward solution starts with the actual trace $FR_\perp\xi_t(t_0)$.
+It agrees there with the history solution, and the common velocity equation
+then gives equality of the time derivatives at the junction. These are
+the boundary conditions of Lemma~\ref{lem:packet-joined-high}.
+When $t_0=0$, the primary instead has its prescribed forward datum
+and the forced high fields have zero initial velocity. The forward
+estimates give the same bounds below, with no history inverse or
+reciprocal factor $t_0^{-1}$. This applies both to the exceptional seed
+and to the first normal stage $j=J$; positive history begins at $j=J+1$.
+
+For completeness, the all-word estimate uses this same inverse. After
+translation in the label and angle, write the equation as
+$L(a)u(a)=f(a)$. At a fixed legal base Sobolev order let its inverse cost
+be $M$, and let the known coefficient derivative costs be
+$B R_c^j(j!)^2$. Differentiating a word of length $n$ gives the exact
+Leibniz identity
+\[
+ L\partial^\omega u=\partial^\omega f-
+ \sum_{\varnothing\ne S\subset\{1,\ldots,n\}}
+ (\partial^{\omega_S}L)\partial^{\omega_{S^c}}u.
+\]
+The homogeneous boundary space is unchanged, so the same inverse applies
+to each term. In the block norm this yields a binomial convolution.
+For $b\ge0$,
+\[
+ \binom nj(j!)^2((n-j+b)!)^2\le((n+b)!)^2.
+\]
+Consequently a forcing bound $F R^{n+b}((n+b)!)^2$ gives
+$2MF R^{n+b}((n+b)!)^2$ for the solution as soon as
+$R\ge R_c(1+2MB)$: the positive-order convolution costs at most
+$MB\sum_{j\ge1}(R_c/R)^j\le1/2$.
+The initial finite base inverse is obtained by the usual finite Sobolev
+commutator recursion. Its order is fixed by $d$, not by the packet grade.
+Time traces follow from the actual $H^1$ equation and cost a polynomial
+in the reciprocal history length and known frame bounds. The same estimate
+on the forward interval uses its proved relative propagator and the actual
+history trace. This proves preservation of the unknown forcing radius;
+known coefficient conversion enlarges $R_c$ only once.
+
+The displacement argument uses the whole transverse space of dimension
+$d-1$. If $R_\perp$ has orthonormal columns, $\eta=FR_\perp\xi$, and
+$\eta(t_0)=0$, then
+\[
+ \int_0^{t_0}\bigl(|\eta_t|^2-\langle H\eta,\eta\rangle\bigr)\,dt
+ \ge \left(1-\frac{K_+t_0^2}{2}\right)
+                       \int_0^{t_0}|\eta_t|^2\,dt
+ \ge\frac12\int_0^{t_0}|\eta_t|^2\,dt.
+\]
+The one-sided Poincar\'e inequality here follows by integrating
+$\eta(t)=-\int_t^{t_0}\eta_t(r)\,dr$. Conversion to $\xi$ uses only the
+known bounds for $F^{-1}$ and its derivative. Thus the inverse cost is
+polynomial in those bounds, and this step has no three-dimensional
+cross-product dependence.
+
+\subsection{Separating derivative order from expansion order}
+For a fixed integer $m\ge0$, the coefficient estimates need derivatives
+only through $m+s+1$. Their shift is at most $100p$; replacing this fixed
+coefficient by a larger dimensional constant makes no change to the
+argument. For $b=m+s+1$,
+\[
+ (b+100p)!\le2^{b+100p}b!(100p)!,\qquad
+ ((b+100p)!)^2\le C_b(Cp)^{200p}.
+\]
+Also $R^{b+100p}=R^b(R^{100})^p$. Consequently all dependence on $m$
+can be put in a prefactor $C_{d,m}\mathcal P^{c_{d,m}}$, while the
+expansion-order bound has the form
+\begin{equation}
+ B_N^{p+1},\qquad B_N=\mathcal P^{c_d}(C_dN)^{L_d}.
+ \label{eq:initial-grade-base}
+\end{equation}
+with one finite exponent $L_d$ independent of $m$.
+For the displayed shifts one may take $L_d=300$ after enlarging constants.
+Choose $N=\lfloor k^\vartheta\rfloor$ with
+$L_d\vartheta<1/100$. A single fixed source-to-frequency guard then
+ensures $B_N\le k^{1/100}$.
+
+At time zero the cylinder Sobolev norms of $A_p$ and $C_p$ are bounded by
+\[ \alpha C_{d,m}\mathcal P^{c_{d,m}}B_N^{p+1}. \]
+The mean has the same bound without $\alpha$. For $k\ge4$,
+\[
+ \sum_{p=1}^{N}k^{-p}B_N^{p+1}\le C,
+ \quad
+ \sum_{p=1}^{N}k^{-p-1}B_N^{p+1}\le C,
+ \quad
+ \sum_{p=3}^{N}k^{-p}B_N^{p+1}\le Ck^{-2}.
+\]
+These follow by summing the geometric series with ratio $k^{-99/100}$.
+In the last sum its first power is $k^{-3+4/100}\le k^{-2}$.
+The grade-two mean is estimated separately at its fixed order, giving
+$C_{d,m}\mathcal P^{c_{d,m}}k^{-2}$ as well. This fixed-order separation prevents
+an artificial loss of a small power of $k$ in the mean estimate.
+
+For $T_kf(y)=f(y,km_0\cdot y)$ and $|m_0|=1$, the chain rule and
+$H^1(\mathbb T)\hookrightarrow L^\infty(\mathbb T)$ give
+\[
+ \|T_kf\|_{H^m(\R^d)}
+       \le C_{d,m}(1+k)^m
+                    \|f\|_{H^{m+1}(\R^d\times\mathbb T)}.
+\]
+Indeed each spatial derivative is a product of the commuting operators
+$\partial_{y_i}+km_{0,i}\partial_\theta$. Apply the periodic one-dimensional
+estimate to each resulting derivative at fixed $y$, then integrate in $y$.
+Exactly one additional angle derivative is needed. For the mean there is
+no graph loss because the field is angle independent.
+Finally, physical scaling multiplies the $L^2$ norm of an order-$r$
+derivative by $\rho^{1+d/2-r}\le\rho^{-m}$ for $r\le m$ and
+$0<\rho\le1$. We obtain the actual estimates
+\begin{align}
+ \|u_{\mathrm{osc},0}\|_{H^m}
+ &\le C_{d,m}\rho^{-m}k^m\alpha \mathcal P^{c_{d,m}},\label{eq:joined-initial-high}\\
+ \|u_{\mathrm{mean},0}\|_{H^m}
+ &\le C_{d,m}\rho^{-m}k^{-2}\mathcal P^{c_{d,m}}.
+ \label{eq:joined-initial-mean}
+\end{align}
+The selected central amplitude satisfies
+\[
+ \alpha\le \mathcal P^{c_d}e^{-b x}
+\]
+for a fixed $b>0$, by the actual central target growth, with
+the normalized terminal and reciprocal phase costs included in $\mathcal P$.
+In the scalar indexing below, $n=j-J$ corresponds to normal stage $j$
+of Section~\ref{sec:iteration}: $a_n=j$, $x_n=x_{j-1}$,
+$k_n=k_j$, and $\rho_n=\rho_j$. The inherited geometric parameter
+is therefore $x_n$, while the new target is $x_{n+1}$. The amplitude
+factor is $e^{-b x_n}$. The required exponential gain is present for
+all initial high coefficients, including those produced by positive
+history intervals.
+
+\subsection{One scale sequence gives all orders of summability}
+\begin{lemma}[Scalar summability]\label{lem:initial-scalar-sum}
+Fix $J\ge2$, $X\ge1$, and define
+\[
+ a_n=J+n,\quad x_0=X,\quad x_{n+1}=a_n^2x_n,
+ \quad k_n=e^{x_n/a_n^2},\quad \rho_n=e^{-x_n/a_n^{7/2}}.
+\]
+Here $\rho_n$ is the physical packet length; it is distinct from the
+fixed physical mean-cutoff parameter $\ell_*$ and from the Gevrey
+weight radius used in the cylinder estimates. Let
+\[
+ \mathcal P_n=C a_n^p x_n^q
+           \exp\left(\frac{c x_n}{(a_n-1)^3}\right)
+\]
+with fixed $C\ge1$, $c\ge0$, $p,q\in\N$ and $b>0$. For every fixed
+$m,\nu\in\N$, both series
+\[
+ \sum_n\rho_n^{-m}\mathcal P_n^\nu k_n^m e^{-b x_n},
+ \qquad
+ \sum_n\rho_n^{-m}\mathcal P_n^\nu k_n^{-2}
+\]
+converge.
+\end{lemma}
+\begin{proof}
+We have $x_n\ge X4^n$ and
+$\log x_n\le\log X+2n\log(J+n)$. Therefore, for every fixed $r\ge0$,
+\[
+ \frac{a_n^r(1+\log a_n+\log x_n)}{x_n}\longrightarrow0.
+\]
+The logarithm of the first summand, divided by $x_n$, tends to $-b$:
+its other exponential terms are $m/a_n^2$, $m/a_n^{7/2}$ and
+$c\nu/(a_n-1)^3$, and its logarithmic terms vanish. Eventually the summand
+is at most $e^{-b x_n/2}$, a summable sequence.
+
+For the second summand, divide its logarithm by $x_n/a_n^2$. The result
+tends to $-2$, since
+\[
+ ma_n^{-3/2}\to0,\qquad
+ c\nu\frac{a_n^2}{(a_n-1)^3}\to0,
+\]
+and the logarithmic terms again vanish. Eventually it is at most
+$e^{-x_n/a_n^2}\le e^{-n}$, proving convergence.
+\end{proof}
+
+The choices of $J,X$ in this lemma are independent of $m$. Only the
+starting index of the convergence comparison depends on $m$; the
+construction itself uses the same scales for every Sobolev order.
+The same proof permits a localization scale whose reciprocal is bounded
+by a polynomial times $\exp(c_0x_n/a_n^\beta)$ for any fixed $\beta>2$.
+The quantitative localization estimate is therefore part of the
+source construction.
+
+To check that the prescribed frequency can satisfy all construction
+guards, consider any finite list $A\mathcal P_n^\nu\le k_n^\theta$ with
+$\theta>0$. Choose $J$ so that
+$c\nu a^2/(a-1)^3\le\theta/2$ for all $a\ge J$ and every guard.
+Writing $x_n=Xb_n$ with $b_n\ge J^{2n}$, the sequences
+$a_n^2/b_n$, $a_n^2\log a_n/b_n$ and $a_n^2\log b_n/b_n$ are bounded.
+Hence a single increase of $X$ pays all the remaining logarithmic terms,
+uniformly in $n$. This proves the guards at the actual $k_n$.
+Only finitely many construction guards enter at fixed $d$; the fixed-$m$
+prefactors in \eqref{eq:joined-initial-high}--\eqref{eq:joined-initial-mean}
+do not create new construction guards.
+
+\subsection{The smooth compact limit}
+Section~\ref{sec:parameter-envelope} bounds the stage-$n$ source
+primitives by $\mathcal P_n$ and verifies the prescribed localization
+scale for the joined construction. The preceding estimates consequently give
+\[
+ \sum_n\|\Delta u_n(0)\|_{H^m}<\infty
+ \qquad\text{for every integer }m\ge0.
+\]
+For each spatial order $r$, take $m>r+d/2$. The legal-dimensional Sobolev
+embedding then gives uniform convergence of the derivative series through
+order $r$. Include the base solution and the one exceptional seed increment in
+$u_{\mathrm{seed},0}$. Consequently the single sum
+$u_0=u_{\mathrm{seed},0}+\sum_n\Delta u_n(0)$ is smooth, has the termwise
+derivatives, and is divergence free. The fixed physical mean-cutoff
+construction puts the supports of all these genuine initial increments
+in one compact ball. Enlarging it to contain the base support proves
+$u_0\in C^\infty_{c,\sigma}(\R^d)$.
+
+All estimates concern the joined family of
+Section~\ref{sec:parameter-envelope} at the prescribed frequencies.

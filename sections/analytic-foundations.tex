@@ -1,0 +1,302 @@
+\section{The ambient equation and the endpoint criteria}
+Fix an integer $d\geq3$. All constants in this paper may depend on $d$.
+We use the Euclidean norm on vectors, the operator norm on linear maps when
+estimating compositions, and the Frobenius norm in the statement of the
+singularity conclusions. Put $s=\lfloor d/2\rfloor+3$. In particular,
+$s>d/2+1$, and $H^s(\R^d)$ embeds into $C^{1,\alpha}_b$ for some
+$\alpha\in(0,1)$ fixed throughout this section. For smooth vector fields,
+$\|u\|_{H^m}^2=\sum_{|\gamma|\leq m}\|\partial^\gamma u\|_2^2$;
+replacing multi-indices by ordered words changes only finite constants.
+
+\begin{lemma}[Local theory and persistence]\label{lem:local}
+Every solenoidal datum in all integer Sobolev spaces has a unique smooth
+Sobolev Euler solution on an interval of length bounded below in terms of
+its $H^s$ norm. The solution belongs to
+$C_tH^m\cap C^1_tH^{m-1}$ on every shorter closed interval, for every
+$m\geq1$. For $m\geq s$ it satisfies
+\begin{equation}\label{eq:tame-energy}
+ \frac{d}{dt}\|u\|_{H^m}\leq C_{d,m}\|\nabla u\|_\infty\|u\|_{H^m}.
+\end{equation}
+The same solution is obtained at every regularity level.
+\end{lemma}
+\begin{proof}
+Let $J_N$ be the orthogonal Fourier projection onto $\{|\xi|\le N\}$
+and solve
+$\partial_tu_N=-J_N\Pi((u_N\cdot\nabla)u_N)$ with
+$u_N(0)=J_Nu_0$, where $\Pi$ is the solenoidal projection.
+The right-hand side is locally Lipschitz on the band-limited subspace.
+Both projections commute with differentiation; $J_Nu_N=u_N$ and
+$\Pi u_N=u_N$. Consequently they disappear when the differentiated
+equation is tested against a derivative of $u_N$. For each differentiated
+transport term the top derivative cancels against its divergence-free
+transport field; the pressure cancels against a solenoidal test field.
+At order one the remaining integral is bounded directly by
+$C_d\|\nabla u\|_\infty\|\nabla u\|_2^2$. For $m\geq2$ the
+remaining terms are products with derivative orders $j$ and $m-j+1$. The Gagliardo--Nirenberg inequalities with endpoints
+$\nabla u\in L^\infty$ and $D^m u\in L^2$ give, for $1\leq j\leq m$,
+\[
+ \|D^j u\|_{L^{2(m-1)/(j-1)}}
+ \leq C_{d,m}\|\nabla u\|_\infty^{1-(j-1)/(m-1)}
+                 \|D^m u\|_2^{(j-1)/(m-1)}.
+\]
+The exponent is interpreted as infinity at $j=1$. The two reciprocal
+Lebesgue exponents sum to $1/2$, and the two interpolation parameters
+sum to one. This proves the homogeneous top-order estimate. Summing the
+lower orders and retaining conservation of $L^2$ energy proves
+\eqref{eq:tame-energy}. The argument uses coordinate differentiation and
+integration by parts, not a three-dimensional curl identity.
+
+At order $s$, the Sobolev embedding gives $y'\leq C_d y^2$. Thus the
+cutoff solutions have a common interval, depending only on the initial
+$H^s$ norm. Every higher norm is bounded there by
+\eqref{eq:tame-energy}. The discarded frequencies of the quadratic term
+have $L^2$ norm tending to zero uniformly on shorter intervals, since
+that term is bounded in arbitrarily high Sobolev spaces. The $L^2$
+difference energy estimate, followed by interpolation with the uniform
+higher bounds, yields convergence in $C_tH^m$ for every fixed $m$.
+The projected equation then gives convergence of time derivatives in
+$C_tH^{m-1}$. It also supplies the one-sided derivatives at the time
+endpoints. The same difference estimate proves uniqueness. Consequently
+the solutions produced using different cutoff orders or Sobolev indices
+agree on their common intervals. This proves persistence and defines a
+single maximal smooth Sobolev solution.
+\end{proof}
+
+\begin{lemma}[Literal Newton pressure]\label{lem:newton}
+For a smooth solenoidal $u$ in all Sobolev spaces, set
+$F=\sum_{i,j}\partial_i\partial_j(u_i u_j)$ and
+$N_d(x)=|x|^{2-d}/((d-2)|\mathbb S^{d-1}|)$ for $x\ne0$.
+Since $|\mathbb S^{d-1}|=d\,|B_1|$, this coefficient is exactly
+$[d(d-2)|B_1|]^{-1}$, as in the frozen normalization. The integral
+$P=N_d*F$ is absolutely convergent at every point and smooth.
+Its gradient is the $L^2$ gradient part of $-(u\cdot\nabla)u$.
+Thus the projected equation gives the Euler equation with exactly this
+pressure, without an undetermined function of time.
+\end{lemma}
+\begin{proof}
+Every derivative of $F$ is both bounded and integrable: expand by the
+product rule and use the $L^2$ bounds for the two factors of each product.
+The kernel is locally integrable and bounded outside the unit ball, so
+the Newton integral is absolutely convergent. Equivalently, with
+$G_t(x)=(4\pi t)^{-d/2}e^{-|x|^2/(4t)}$,
+\[
+ N_d*F=\int_0^\infty G_t*F\,dt.
+\]
+Indeed $\int_0^\infty G_t(x)\,dt=N_d(x)$ for $x\ne0$, by the substitution
+$r=|x|^2/(4t)$ and the Gamma integral. Absolute Fubini follows from
+$\|G_t*|D^\gamma F|\|_\infty\leq
+\min(\|D^\gamma F\|_\infty,C_dt^{-d/2}\|D^\gamma F\|_1)$.
+This envelope is time integrable because $d>2$. It also permits
+differentiation under the integral to every spatial order.
+
+For each coordinate derivative, the small-time $L^2$ bound is
+$\|\partial_i F\|_2$, while the large-time bound is
+$\|\partial_iG_t\|_2\|F\|_1\leq C_dt^{-d/4-1/2}\|F\|_1$.
+The latter is integrable at infinity for $d>2$. Hence $\nabla P\in L^2$,
+and the same argument applies to all its derivatives. The heat equation
+and its limits at zero and infinity give $-\Delta P=F$.
+Writing $B=(u\cdot\nabla)u$, incompressibility gives
+$\operatorname{div}B=F$, so $\nabla P+B$ is solenoidal.
+Moreover $\nabla P$ lies in the closed $L^2$ gradient space. Indeed its
+distributional curl vanishes. After Fourier transformation, its $L^2$
+transform is parallel to $\xi$ for almost every $\xi\ne0$; this is
+exactly the range of the orthogonal gradient multiplier
+$\xi\otimes\xi/|\xi|^2$. The zero frequency is a set of measure zero.
+Cutting off in frequency away from zero and then approximating the
+potentials by compact smooth functions identifies this range with the
+closed $L^2$ gradient space. Orthogonal
+Helmholtz projection therefore yields $\nabla P=\Pi B-B$.
+
+This normalization is also preserved under the limiting procedure in
+Lemma~\ref{lem:local}. More generally, suppose
+$u_n\to u$ in $C([0,S];H^m)$ for every finite $m$, and define $F_n,P_n$
+by the same formulas. For each multi-index $\gamma$, the product rule,
+Cauchy--Schwarz, and Sobolev embedding give
+\[
+ \sup_{t\le S}\bigl(\|D^\gamma(F_n-F)\|_1+
+                    \|D^\gamma(F_n-F)\|_\infty+
+                    \|\nabla D^\gamma(F_n-F)\|_2\bigr)\longrightarrow0.
+\]
+Splitting the heat integral at time one in the two estimates above yields
+\begin{align*}
+ \|D^\gamma(P_n-P)\|_\infty
+ &\le C_d\bigl(\|D^\gamma(F_n-F)\|_\infty+
+                         \|D^\gamma(F_n-F)\|_1\bigr),\\
+ \|\nabla D^\gamma(P_n-P)\|_2
+ &\le C_d\bigl(\|\nabla D^\gamma(F_n-F)\|_2+
+                         \|D^\gamma(F_n-F)\|_1\bigr).
+\end{align*}
+These estimates are uniform on $[0,S]$. Thus the Newton scalars converge
+with every spatial derivative uniformly, and their gradients converge
+in every Sobolev space. The same estimates applied to two nearby times
+give their time continuity. In particular the normalization is specified
+by the convolution before and after passage to the limit.
+\end{proof}
+
+\begin{lemma}[Stability on varying intervals]\label{lem:stability}
+Let $u$ be a smooth Euler solution on $[0,S]$ and let $v_n$ be smooth
+solutions on $[0,S_n]$, where $0<S_n\leq S$. If
+$v_n(0)\to u(0)$ in $H^s$, then
+\[
+ \sup_{0\leq t\leq S_n}\|v_n(t)-u(t)\|_{H^s}\longrightarrow0.
+\]
+No uniform higher norm of $v_n$ is assumed.
+\end{lemma}
+\begin{proof}
+Put $w=v_n-u$. Its equation is
+$w_t+(u+w)\cdot\nabla w+w\cdot\nabla u+\nabla q=0$.
+Differentiation through order $s$, the transport cancellation, and the
+Sobolev product estimate give
+\[
+ y'\leq C_d\|u\|_{H^{s+1}}y+C_d y^2,
+ \qquad y=\|w\|_{H^s}.
+\]
+All coefficients involving $u$ are bounded on $[0,S]$ independently of
+$n$. While $y\leq1$, Gronwall gives $y(t)\leq y(0)e^{CS}$.
+For large $n$ this is less than $1/2$; continuity excludes a first time
+when $y=1$. The estimate therefore holds on the whole actual interval
+$[0,S_n]$. Sobolev embedding also gives uniform convergence of the
+velocity gradients there.
+\end{proof}
+
+\begin{lemma}[Continuation and the exact vorticity norm]\label{lem:continuation}
+Let $u$ be the maximal solution from Lemma~\ref{lem:local}, and suppose
+its maximal lifetime $T^*$ is finite. Write
+$\Omega_{ij}=\partial_i u_j-\partial_j u_i$ and
+$|\Omega|=(\sum_{i<j}|\Omega_{ij}|^2)^{1/2}$. Then
+\[
+ \limsup_{t\uparrow T^*}\|\nabla u(t)\|_{L^\infty,\mathrm F}=\infty,
+ \qquad \int_0^{T^*}\|\Omega(t)\|_\infty\,dt=\infty.
+\]
+\end{lemma}
+\begin{proof}
+If $\|\nabla u\|_\infty$ were bounded, \eqref{eq:tame-energy} would
+bound the $H^s$ norm up to $T^*$. Restarting the local solution at times
+approaching $T^*$ gives a common positive extension length.
+The same energy estimate propagates every higher norm on a smaller
+common interval, so uniqueness gives an extension in the full smooth
+Sobolev class, contrary to maximality. A finite endpoint limsup would
+imply such a bound, since the solution is smooth on shorter intervals.
+The inequalities $\|A\|_{\rm op}\leq\|A\|_{\rm F}\leq
+\sqrt d\,\|A\|_{\rm op}$ identify the required Frobenius conclusion.
+
+For the second assertion, incompressibility gives
+$\sum_i\partial_i\Omega_{ij}=\Delta u_j$. Consequently
+\[
+ \partial_k u_j=-\sum_i\partial_k\partial_i(-\Delta)^{-1}\Omega_{ij}.
+\]
+Each second derivative of the Newton kernel is a principal-value kernel
+homogeneous of degree $-d$, smooth on the sphere and of spherical mean
+zero, together with a constant multiple of the delta distribution.
+For $0<a<1/2$, split its action into $|z|<a$, $a<|z|<2$, and a
+smoothly cut off far part. In the first part subtract $\Omega(x)$.
+The $C^{0,\alpha}$ bound for $\Omega$ makes that part at most
+$C_da^\alpha\|u\|_{H^s}$. The annular part and local delta term are at
+most $C_d\|\Omega\|_\infty(1+\log(2/a))$. In the far part use
+$\Omega_{ij}=\partial_i u_j-\partial_j u_i$ and integrate by parts.
+The differentiated cutoff kernel belongs to $L^2$, because it decays
+as $|z|^{-d-1}$; this part is bounded by $C_d\|u\|_2$.
+Taking $a=c(e+\|u\|_{H^s})^{-1/\alpha}$ gives
+\begin{equation}\label{eq:log-vorticity}
+ \|\nabla u\|_\infty\leq
+ C_d\bigl(1+\|u(0)\|_2+
+       \|\Omega\|_\infty\log(e+\|u\|_{H^s})\bigr).
+\end{equation}
+The finite sum over $i,j,k$ is controlled by the once-counted norm
+$|\Omega|$ with a constant depending only on $d$.
+Set $Z=\log(e+\|u\|_{H^s})$. By \eqref{eq:tame-energy} and
+\eqref{eq:log-vorticity},
+$Z'\leq C_d(1+\|u(0)\|_2)+C_d\|\Omega\|_\infty Z$.
+A finite vorticity integral would bound $Z$ by Gronwall, hence permit
+the same restart beyond $T^*$, a contradiction.
+For smooth fields the pointwise and essential suprema agree: a strict
+pointwise lower bound persists on an open ball of positive measure.
+Thus these are precisely the essential-supremum norms in $H_d$.
+\end{proof}
+
+\section{Full-dimensional solenoidal geometry}
+Let $E=\operatorname{span}(e_1,e_2,e_3)$ and let
+$\mathcal R=I_E\oplus(-I_{E^\perp})$. The fields used below have odd
+parity and satisfy $u(\mathcal R x)=\mathcal R u(x)$.
+They are fields on all of $\R^d$, not extensions constant in the extra
+coordinates.
+
+\begin{lemma}[Antisymmetric potentials]\label{lem:potential}
+If $A_{ij}=-A_{ji}$ is a smooth compactly supported tensor and
+$v_j=\sum_i\partial_iA_{ij}$, then $\operatorname{div}v=0$.
+For any trace-free matrix $L$,
+\[
+ A_{ij}(x)=\frac{x_i(Lx)_j-x_j(Lx)_i}{d}
+ \quad\Longrightarrow\quad \sum_i\partial_i A_{ij}=(Lx)_j.
+\]
+Multiplying this tensor by an even compact Gevrey cutoff equal to one
+near zero produces an odd compact solenoidal velocity equal to $Lx$
+near zero. If $L\mathcal R=\mathcal R L$ and the cutoff is radial, the
+velocity is $\mathcal R$-equivariant.
+\end{lemma}
+\begin{proof}
+Commutation of mixed derivatives and exchange of $i,j$ make
+$\sum_{i,j}\partial_j\partial_iA_{ij}$ equal to its negative.
+For the displayed tensor, differentiation of the first numerator term
+gives $(d+1)(Lx)_j$, and differentiation of the second gives
+$(Lx)_j+x_j\operatorname{tr}L$. Their difference is $d(Lx)_j$.
+The cutoff preserves antisymmetry and compact support. The tensor is
+even, so its divergence is odd. Under $\mathcal R$ the tensor transforms
+as a two-tensor; applying divergence gives the stated equivariance.
+Gevrey bounds follow from the finite product rule with a polynomial.
+\end{proof}
+
+The same replacement removes the use of curl from oscillatory
+solenoidalization. Put $D_i=\kappa\partial_{y_i}+m_i\partial_\theta$.
+These constant-coefficient operators commute. Thus
+$\sum_iD_i\sum_jD_j A_{ji}=0$ for every antisymmetric $A$.
+When $m\cdot v=0$, $|m|=1$ and $F'=f$,
+\[
+ A_{ij}=(m_i v_j-m_j v_i)F(\theta)
+ \quad\Longrightarrow\quad
+ \sum_iD_i A_{ij}=v_jf(\theta)+\kappa\sum_i\partial_{y_i}A_{ij}.
+\]
+The last term is the actual spatial corrector, retained also at the
+terminal truncation order. This identity treats every ambient component.
+
+\begin{lemma}[Symmetry of the ambient pressure and central blocks]\label{lem:reflection}
+If $u$ is $\mathcal R$-equivariant, its Newton pressure obeys
+$P(\mathcal R x)=P(x)$. At $x\in E$, both $\nabla u(x)$ and
+$\nabla^2P(x)$ preserve $E$ and $E^\perp$.
+\end{lemma}
+\begin{proof}
+The chain rule and orthogonality show that
+$\sum_{i,j}\partial_i\partial_j(u_i u_j)$ is invariant under
+$\mathcal R$. The Newton kernel is radial and Lebesgue measure is
+orthogonally invariant, so a change of variables in its absolutely
+convergent convolution proves the pressure identity. Differentiate the
+velocity identity once and the pressure identity twice at a fixed point.
+The resulting maps commute with $\mathcal R$, and therefore preserve its
+two eigenspaces. No assertion that the active block is trace free follows
+or is used: the full trace alone vanishes.
+\end{proof}
+
+\begin{lemma}[The endpoint operator preserves the active plane]\label{lem:endpoint-symmetry}
+Along the central trajectory of an equivariant parent, suppose the normal
+$m(t)$ belongs to $E$. By Lemma~\ref{lem:reflection}, its gradient $M(t)$
+and pressure Hessian $H(t)$ commute with $\mathcal R$. For the
+stationary displacement problem on $[0,t_0]$ with
+$m(t)\cdot\eta(t)=0$, $\eta(0)=0$, prescribed $\eta(t_0)=Y$, and
+coercive action
+$\mathcal A(\eta)=\int_0^{t_0}(|\eta'|^2-\langle H\eta,\eta\rangle)dt$,
+the endpoint map $\Lambda Y=\operatorname{proj}_{m(t_0)^\perp}\eta'(t_0)$
+commutes with $\mathcal R$. In particular a prescribed endpoint in
+$E\cap m(t_0)^\perp$ produces a displacement and velocity in $E$.
+\end{lemma}
+\begin{proof}
+Reflection preserves the constraint, the two endpoints and the action.
+Uniqueness for the coercive variational problem therefore gives
+$\eta_{\mathcal RY}=\mathcal R\eta_Y$. Taking the terminal derivative
+and its orthogonal projection proves the claim about $\Lambda$.
+If $Y=\mathcal RY$, uniqueness also gives
+$\eta_Y=\mathcal R\eta_Y$ at every time. The identity remains true for
+the physical velocity $\eta'-M\eta$ because $M$ commutes with the same
+reflection. Hence its extra components vanish exactly. This argument
+does not infer vanishing from an estimate that could be lost under the
+subsequent endpoint normalization.
+\end{proof}

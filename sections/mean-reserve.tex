@@ -1,0 +1,93 @@
+\section{A fixed compact support and the full mean reserve}
+The initial mean boundary cutoff and the oscillatory packet have
+different spatial scales. In
+physical coordinates fix two parameters $0<\ell_*\leq1$ and
+$0\leq r_*\leq1/4$. Write $c_d$ for the constant in the localized mean
+boundary inequality. Let $L_*$ bound all time horizons. The correct
+quantity to propagate is
+\begin{equation}\label{eq:full-mean-reserve}
+ \mathfrak M=\tfrac12 K L_*^2+(B_e+c_d B_c r_*^d)L_*.
+\end{equation}
+The parameters $K,B_c,B_e$ are nonnegative. Here $K$ bounds the pressure
+Hessian above, while $B_c$ and $B_e$ bound
+the negative part of the initial symmetric gradient inside and outside
+the fixed ball of radius $a_d r_*/\ell_*$, respectively. The boundary
+penalty, denoted $\mathcal L$ to distinguish it from $L_*$, is chosen
+at least $C_{1,d}B_c$.
+
+\begin{lemma}[Fixed-cutoff propagation]\label{lem:fixed-cutoff}
+For a constructed child let $e_p\geq0$ be its upper pressure-Hessian
+increment and $e_i\geq0$ its uniform initial-gradient increment. Retain
+the same physical $\ell_*,r_*$, replace
+\[
+ K\mapsto K+e_p,\quad B_e\mapsto B_e+e_i,\quad
+ B_c\mapsto B_c+e_i,\quad \mathcal L\mapsto C_{1,d}(B_c+e_i).
+\]
+All corresponding mean inequalities hold whenever the resulting
+$\mathfrak M$ is less than $1/2$, and
+\begin{equation}\label{eq:mean-reserve-increment}
+ \mathfrak M_{\rm child}-\mathfrak M_{\rm parent}
+   =\tfrac12 e_p L_*^2+(1+c_d r_*^d)e_iL_*.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The pressure upper bound adds $e_p$. If the difference of the initial
+gradients has operator norm at most $e_i$, its quadratic form is at
+least $-e_i|z|^2$. The old interior and exterior inequalities therefore
+persist on exactly the same regions with the indicated new constants.
+The new boundary penalty meets the same coercivity requirement.
+Expanding \eqref{eq:full-mean-reserve} proves
+\eqref{eq:mean-reserve-increment}. On any shorter horizon the reserve
+only decreases. The child's flow, inverse, time derivatives and pressure
+are the actual ones already constructed by the packet solve; changing
+the parameters for the next mean problem does not replace that child.
+\end{proof}
+
+A one-time initialization suffices. If
+$b=K L_*^2/2+B_e L_*<1/2$, put
+$D=c_dB_c r^dL_*$, $g=1/2-b$, and
+$a=\min(1,g/(2(D+1)))$. Replace $\ell,r$ by $a\ell,ar$ once.
+The physical splitting radius is unchanged, while
+$Da^d\leq Da\leq g/2$, so the full reserve becomes strictly less
+than $1/2$. This choice uses only the already constructed initial
+stage. Its resulting parameters are frozen for every later stage.
+
+Let $b_*<1/2$ bound that initialized reserve, and use the fixed
+dimensional upper bound $\lambda_d=1+c_d4^{-d}$ for $1+c_dr_*^d$.
+In the common scale choice, give the primary terms of
+$\lambda_d(e_p L_*^2/2+e_iL_*)$ total allowance at most
+$(1/2-b_*)/4$, and give their frequency remainders the same total
+allowance. The stage estimates split the two errors into these primary
+terms and remainders. Summing \eqref{eq:mean-reserve-increment} over
+any constructed finite prefix then yields
+\[
+ \mathfrak M_N\leq\frac{b_*+1/2}{2}<\frac12.
+\]
+The multiplier $\lambda_d$ depends only on $d$ and is included in the
+finite list of construction constants before choosing the starting index
+and seed value. The coefficient estimates in
+Section~\ref{sec:parameter-envelope} verify the required bounds at the
+prescribed frequencies.
+
+\begin{lemma}[One compact set for all initial increments]\label{lem:common-support}
+With this fixed-cutoff construction every initial increment is supported
+in $\overline B(0,\max(1/4,\ell_*^{-1}))$, irrespective of its
+frequency, localization length, or finite truncation order.
+\end{lemma}
+\begin{proof}
+At a stage with physical localization length $0<\rho\leq1$, normalized
+labels are $y=x/\rho$, and the mean cutoff is
+$\chi((\rho\ell_*)y)$. The actual mean boundary condition expresses
+its initial velocity as the compactly supported solenoidal boundary
+operator with this cutoff, multiplied by its scalar penalty.
+Hence the normalized mean initial field vanishes for
+$|y|>(\rho\ell_*)^{-1}$. Physical unscaling replaces $y$ by $x/\rho$,
+so it vanishes for $|x|>\ell_*^{-1}$. This is true of every actual
+mean grade. The oscillatory profiles and their full tensor correctors
+are supported in $|y|\leq1/4$, hence after unscaling in
+$|x|\leq\rho/4\leq1/4$. The exact residual-removing correction has
+zero initial value. Summing the actual finite family, including its
+terminal corrector, proves the assertion. Adding the fixed compact
+support of the base datum gives one compact set for all finite-stage
+initial velocities and their pointwise limit.
+\end{proof}

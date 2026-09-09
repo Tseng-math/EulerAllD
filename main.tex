@@ -1,0 +1,126 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdfauthor={Tseng},
+  pdftitle={Finite-time breakdown for smooth compactly supported Euler data in every dimension d >= 3}}
+\newcommand{\mathscr}{\mathcal}
+\renewcommand{\mathfrak}{\mathcal}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\esssup}{\operatorname*{ess\,sup}}
+\newcommand{\dd}{\,\mathrm d}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\title{Finite-time breakdown for smooth compactly supported\\Euler data in every dimension $d\geq3$}
+\author{Tseng}
+\date{}
+\setlength{\emergencystretch}{2em}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every fixed integer $d\geq3$ we construct smooth compactly supported,
+divergence-free initial data for the incompressible Euler equation on
+$\mathbb R^d$ whose maximal smooth Sobolev solution has finite lifetime.
+The Frobenius norm of its velocity gradient has infinite endpoint limsup,
+and the time integral of the $L^\infty$ norm of
+$(\Omega_{ij})_{i<j}$ diverges. The pressure has the standard Newton normalization.
+The proof extends the localized oscillatory construction and scalar
+amplification mechanism introduced in~\cite{OAI}. The higher-dimensional argument retains the whole transverse
+space and the full pressure coupling, replaces curl by antisymmetric
+potentials, uses reflection only for the central endpoint selection, and
+proves a quantitative ambient relative estimate. A variational history
+solver, polynomial bounds for the actual lifted particle flow, and one
+fixed physical mean cutoff give a single frequency sequence and summability
+of the initial increments at every Sobolev order. No bound uniform in the
+dimension is required.
+\end{abstract}
+
+\section{Statement and conventions}
+For each fixed integer $d\geq3$, let
+$C^\infty_{c,\sigma}(\R^d)$ denote smooth compactly supported vector fields
+with zero divergence. All dimension-dependent constants, derivative orders,
+starting indices and scale thresholds may depend on this fixed $d$.
+\begin{theorem}[$H_d$]\label{target:Hd}
+There exists $u_0\in C^\infty_{c,\sigma}(\R^d)$ whose unique maximal smooth
+Sobolev solution of
+\[
+ u_t+(u\cdot\nabla)u+\nabla P=0,\qquad \operatorname{div}u=0,\qquad u(0)=u_0
+\]
+has $0<T^*(u_0)<\infty$. Here the pressure is exactly
+\[
+ P=(-\Delta)^{-1}\sum_{i,j=1}^d\partial_i\partial_j(u_i u_j),
+\]
+and, on every $[0,S]$ with $S<T^*$, the solution lies in
+$C([0,S];H^m)\cap C^1([0,S];H^{m-1})$ for every integer $m\geq1$.
+With $\Omega_{ij}=\partial_i u_j-\partial_j u_i$, it satisfies
+\[
+ \limsup_{t\uparrow T^*}\esssup_x
+   \left(\sum_{i,j}|\partial_i u_j(t,x)|^2\right)^{1/2}=\infty,
+ \qquad
+ \int_0^{T^*}\esssup_x
+   \left(\sum_{i<j}|\Omega_{ij}(t,x)|^2\right)^{1/2}\,dt=\infty.
+\]
+\end{theorem}
+The three-dimensional conclusion is the theorem proved in~\cite{OAI},
+with the Newton pressure and smooth Sobolev class specified above.
+The present argument applies in that dimension with a transverse space
+of dimension two. For $d>3$, every velocity and every localization is
+defined on $\R^d$. In particular, the construction retains compact
+support and finite energy in all spatial variables.
+
+The scalar amplification equation, the variational history method, and
+the finite oscillatory expansion follow the structure of~\cite{OAI}.
+Their scalar and Hilbert-space estimates are reproduced below with their
+hypotheses. The dimension-dependent steps are the antisymmetric-potential
+localization, the full $(d-1)$-dimensional transverse evolution, its
+coupling to the pressure, and the Sobolev orders in the nonlinear
+correction and continuation argument. These steps are proved in the
+ambient dimension. The parameter estimates then provide one frequency
+sequence for which all initial Sobolev increments are summable.
+
+Throughout, $C_d$ denotes a positive constant depending on the fixed
+dimension and on fixed auxiliary cutoffs. Constants may change between
+estimates. Dependence on a derivative order is indicated explicitly.
+The notation $A\lesssim_d B$ means $A\leq C_d B$, and
+$A\asymp_d B$ means both inequalities. The principal stage parameters are
+listed below; each is defined precisely at its first use.
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}ll@{}}
+$t_0,\ \tau$ & physical activation time and scaled forward time\\
+$\rho,\ k,\ \kappa=k^{-1}$ & physical localization length and frequency parameters\\
+$\delta,\ f_\delta$ & angular width and periodic primary profile\\
+$P$ & fixed angular period\\
+$h_*,\ h_{\rm child}$ & inherited shear size and prescribed new shear size\\
+$\Theta,\ e$ & scaled time bound and geometric comparison error\\
+$\alpha,\ A_{\rm tar}$ & primary amplitude and unnormalized target size\\
+$\mathcal P$ & bound for the fixed source coefficients and inverse costs\\
+$\ell_*,\ r_*$ & fixed physical mean-cutoff parameters
+\end{tabular}
+\end{center}
+
+\input{sections/analytic-foundations}
+\input{sections/graph-flow}
+\input{sections/central-amplification}
+\input{sections/exact-packet}
+\input{sections/mean-reserve}
+\input{sections/parameter-envelope}
+\input{sections/initial-summability}
+\input{sections/iteration}
+
+\section*{Disclosure}
+All derivations in this article were completed by artificial intelligence.
+
+\begin{thebibliography}{9}
+\bibitem{OAI}
+OpenAI, \emph{Finite time blowup for the Euler equation}, manuscript,
+\url{https://cdn.openai.com/pdf/315b36cd-ec98-4023-8342-93345194ece1/euler.pdf}.
+\end{thebibliography}
+\end{document}
