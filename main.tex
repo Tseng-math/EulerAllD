@@ -1,14 +1,14 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=27mm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{mathrsfs}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
+\urlstyle{same}
 \hypersetup{pdfauthor={Tseng},
-  pdftitle={Finite-time breakdown for smooth compactly supported Euler data in every dimension d >= 3}}
-\newcommand{\mathscr}{\mathcal}
-\renewcommand{\mathfrak}{\mathcal}
+  pdftitle={Finite-time breakdown of Euler flows from smooth, compactly supported initial data in every fixed dimension d >= 3}}
 \newcommand{\R}{\mathbb R}
 \newcommand{\N}{\mathbb N}
 \newcommand{\esssup}{\operatorname*{ess\,sup}}
@@ -18,28 +18,28 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\title{Finite-time breakdown for smooth compactly supported\\Euler data in every dimension $d\geq3$}
+\title{Finite-time breakdown of Euler flows\\from smooth, compactly supported initial data\\in every fixed dimension $d\geq3$}
 \author{Tseng}
-\date{}
+\date{8 October 2026}
 \setlength{\emergencystretch}{2em}
 \begin{document}
 \maketitle
 \begin{abstract}
-For every fixed integer $d\geq3$ we construct smooth compactly supported,
+For every fixed integer $d\geq3$, we construct smooth, compactly supported,
 divergence-free initial data for the incompressible Euler equation on
 $\mathbb R^d$ whose maximal smooth Sobolev solution has finite lifetime.
 The Frobenius norm of its velocity gradient has infinite endpoint limsup,
 and the time integral of the $L^\infty$ norm of
 $(\Omega_{ij})_{i<j}$ diverges. The pressure has the standard Newton normalization.
 The proof extends the localized oscillatory construction and scalar
-amplification mechanism introduced in~\cite{OAI}. The higher-dimensional argument retains the whole transverse
+amplification mechanism of OpenAI. The higher-dimensional argument retains the full transverse
 space and the full pressure coupling, replaces curl by antisymmetric
 potentials, uses reflection only for the central endpoint selection, and
 proves a quantitative ambient relative estimate. A variational history
-solver, polynomial bounds for the actual lifted particle flow, and one
-fixed physical mean cutoff give a single frequency sequence and summability
-of the initial increments at every Sobolev order. No bound uniform in the
-dimension is required.
+solver, polynomial bounds for the lifted particle flow, and a
+fixed physical mean cutoff yield a single frequency sequence for which
+the initial increments are summable at every Sobolev order. Constants
+may depend on the fixed dimension.
 \end{abstract}
 
 \section{Statement and conventions}
@@ -68,7 +68,7 @@ With $\Omega_{ij}=\partial_i u_j-\partial_j u_i$, it satisfies
    \left(\sum_{i<j}|\Omega_{ij}(t,x)|^2\right)^{1/2}\,dt=\infty.
 \]
 \end{theorem}
-The three-dimensional conclusion is the theorem proved in~\cite{OAI},
+The three-dimensional conclusion is the theorem of OpenAI~\cite{OAI},
 with the Newton pressure and smooth Sobolev class specified above.
 The present argument applies in that dimension with a transverse space
 of dimension two. For $d>3$, every velocity and every localization is
@@ -101,22 +101,4074 @@ $P$ & fixed angular period\\
 $h_*,\ h_{\rm child}$ & inherited shear size and prescribed new shear size\\
 $\Theta,\ e$ & scaled time bound and geometric comparison error\\
 $\alpha,\ A_{\rm tar}$ & primary amplitude and unnormalized target size\\
-$\mathcal P$ & bound for the fixed source coefficients and inverse costs\\
+$\mathcal P$ & bound for the fixed source coefficients and inverse estimates\\
 $\ell_*,\ r_*$ & fixed physical mean-cutoff parameters
 \end{tabular}
 \end{center}
 
-\input{sections/analytic-foundations}
-\input{sections/graph-flow}
-\input{sections/central-amplification}
-\input{sections/exact-packet}
-\input{sections/mean-reserve}
-\input{sections/parameter-envelope}
-\input{sections/initial-summability}
-\input{sections/iteration}
+\section{The ambient equation and the endpoint criteria}
+Fix an integer $d\geq3$. Constants may depend on $d$.
+We use the Euclidean norm on vectors, the operator norm on linear maps when
+estimating compositions, and the Frobenius norm in the statement of the
+singularity conclusions. Put $s=d+2$. In particular $s>d/2+1$, so
+$H^s(\R^d)$ embeds continuously into the space of fields with bounded
+continuous velocity gradients. We use the
+ordered-word Sobolev energy
+\[
+ E_m(u)=\|u\|_{H^m}^2
+ =\sum_{r=0}^m\ \sum_{i_1,\ldots,i_r=1}^d
+   \|\partial_{i_1}\cdots\partial_{i_r}u\|_2^2.
+\]
+It is equivalent, with constants depending only on $d,m$, to the usual
+multi-index norm. The logarithmic estimate below uses the higher fixed
+order $s_{\rm log}=d+5$. Both orders depend on $d$.
 
-\section*{Disclosure}
-All derivations in this article were completed by artificial intelligence.
+\begin{lemma}[Local theory and persistence]\label{lem:local}
+Every solenoidal datum in all integer Sobolev spaces has a unique smooth
+Sobolev Euler solution on an interval of length bounded below in terms of
+its $H^s$ norm. The solution belongs to
+$C_tH^m\cap C^1_tH^{m-1}$ on every shorter closed interval, for every
+$m\geq1$. For $m\geq s$ it satisfies
+\begin{equation}\label{eq:tame-energy}
+ \frac{d}{dt}\|u\|_{H^m}\leq C_{d,m}\|\nabla u\|_\infty\|u\|_{H^m}.
+\end{equation}
+The same solution is obtained at every regularity level.
+\end{lemma}
+\begin{proof}
+Let $J_N$ be convolution with an even, nonnegative, smooth compactly
+supported kernel of integral one and support radius tending to zero.
+Set $S_N=J_N\Pi$, where $\Pi$ is the orthogonal solenoidal projection,
+and solve on $L^2(\R^d)$
+\[
+ \partial_tu_N=-S_N\bigl((S_Nu_N\cdot\nabla)S_Nu_N\bigr),
+ \qquad u_N(0)=u_0.
+\]
+The smoothed quadratic right-hand side is locally Lipschitz on $L^2$.
+The operators $S_N$ are self-adjoint contractions, commute with every
+coordinate derivative, and have solenoidal range. Hence the solution
+remains solenoidal. The integral equation and smoothing give all spatial
+Sobolev derivatives for this fixed-scale solution. If $v_N=S_Nu_N$,
+then for every derivative word $D^w$ the energy pairing is
+\[
+ \langle D^wu_N,D^w\partial_tu_N\rangle
+ =-\langle D^wv_N,D^w((v_N\cdot\nabla)v_N)\rangle.
+\]
+This identity follows from self-adjointness of the mollifier.
+The top differentiated transport term cancels by $\operatorname{div}v_N=0$.
+For a smooth solution of the limiting Euler equation the same cancellation
+holds, and the pressure term pairs to zero against each solenoidal
+velocity derivative.
+At order one the remaining integral is bounded directly by
+$C_d\|\nabla u\|_\infty\|\nabla u\|_2^2$. For $m\geq2$ the
+remaining terms are products with derivative orders $j$ and $m-j+1$. The Gagliardo--Nirenberg inequalities with endpoints
+$\nabla u\in L^\infty$ and $D^m u\in L^2$ give, for $1\leq j\leq m$,
+\[
+ \|D^j u\|_{L^{2(m-1)/(j-1)}}
+ \leq C_{d,m}\|\nabla u\|_\infty^{1-(j-1)/(m-1)}
+                 \|D^m u\|_2^{(j-1)/(m-1)}.
+\]
+The exponent is interpreted as infinity at $j=1$. The two reciprocal
+Lebesgue exponents sum to $1/2$, and the two interpolation parameters
+sum to one. This proves the homogeneous top-order estimate. Summing the
+lower orders and retaining conservation of $L^2$ energy proves
+\eqref{eq:tame-energy}. The argument uses coordinate differentiation and integration by parts
+in the ambient dimension.
+
+Combining the preceding pairings, Sobolev embedding, and contraction of
+$S_N$ in every derivative word gives, for $m\geq s$,
+\[
+ E_m(u_N)'\leq C_{d,m}\sqrt{E_s(u_N)}E_m(u_N),\qquad
+ E_s(u_N)'\leq C_d(1+E_s(u_N))^2.
+\]
+An explicit common lifespan is
+\[
+ T_0=\frac{1}{2(1+C_d)(1+E_s(u_0))}.
+\]
+On this closed interval $E_s(u_N)\leq2E_s(u_0)+1$, uniformly in $N$.
+Gronwall then bounds every higher $E_m(u_N)$ on the same interval.
+These bounds include the $L^2$ norm required for Banach-space
+continuation of the regularized quadratic equation.
+
+To pass to the limit, translation followed by the fundamental theorem
+of calculus gives
+$\|J_Nf-f\|_2\leq\epsilon_N\|\nabla f\|_2$, with
+$\epsilon_N\to0$. Apply this estimate to both inner smoothed factors
+and the outer smoothing of the quadratic term. The uniform bounds
+through order $d+4$ imply that
+\[
+ r_N:=\partial_tu_N+\Pi((u_N\cdot\nabla)u_N)
+ \quad\hbox{satisfies}\quad
+ \sup_{t\leq T_0}\|r_N(t)\|_2\longrightarrow0.
+\]
+For $u_N-u_M$, the solenoidal transport cancellation leaves an $L^2$
+difference inequality with uniformly bounded gradient coefficient and
+forcing $r_N-r_M$. All initial values equal $u_0$, so Gronwall's inequality implies that
+$u_N$ is Cauchy in $C_tL^2$. Interpolation with the uniform higher bounds
+gives convergence in $C_tH^m$ for every fixed $m$. The limits of the
+derivative words are the weak derivatives of the same velocity field;
+Sobolev embedding at arbitrarily high orders supplies its smooth
+representative. Continuity of the projected quadratic term then gives
+the limiting integral equation and its time derivative in every
+$H^{m-1}$. It also supplies the one-sided derivatives at the endpoints.
+The same difference estimate proves uniqueness. Consequently
+the solutions produced using different cutoff orders or Sobolev indices
+agree on their common intervals. This proves persistence and defines a
+single maximal smooth Sobolev solution.
+\end{proof}
+
+\begin{lemma}[Newton pressure with fixed normalization]\label{lem:newton}
+For a smooth solenoidal $u$ in all Sobolev spaces, set
+$F=\sum_{i,j}\partial_i\partial_j(u_i u_j)$ and
+$N_d(x)=|x|^{2-d}/((d-2)|\mathbb S^{d-1}|)$ for $x\ne0$.
+Since $|\mathbb S^{d-1}|=d\,|B_1|$, this coefficient equals
+$[d(d-2)|B_1|]^{-1}$. The integral
+$P=N_d*F$ is absolutely convergent at every point and smooth.
+Its gradient is the $L^2$ gradient part of $-(u\cdot\nabla)u$.
+Thus the projected equation gives the Euler equation with the pressure
+normalization specified by this convolution.
+\end{lemma}
+\begin{proof}
+Every derivative of $F$ is both bounded and integrable: expand by the
+product rule and use the $L^2$ bounds for the two factors of each product.
+The kernel is locally integrable and bounded outside the unit ball, so
+the Newton integral is absolutely convergent. Equivalently, with
+$G_t(x)=(4\pi t)^{-d/2}e^{-|x|^2/(4t)}$,
+\[
+ N_d*F=\int_0^\infty G_t*F\,dt.
+\]
+Indeed $\int_0^\infty G_t(x)\,dt=N_d(x)$ for $x\ne0$, by the substitution
+$r=|x|^2/(4t)$ and the Gamma integral. Absolute Fubini follows from
+$\|G_t*|D^\gamma F|\|_\infty\leq
+\min(\|D^\gamma F\|_\infty,C_dt^{-d/2}\|D^\gamma F\|_1)$.
+This envelope is time integrable because $d>2$. It also permits
+differentiation under the integral to every spatial order.
+
+For each coordinate derivative, the small-time $L^2$ bound is
+$\|\partial_i F\|_2$, while the large-time bound is
+$\|\partial_iG_t\|_2\|F\|_1\leq C_dt^{-d/4-1/2}\|F\|_1$.
+The latter is integrable at infinity for $d>2$. Hence $\nabla P\in L^2$,
+and the same argument applies to all its derivatives. The heat equation
+and its limits at zero and infinity give $-\Delta P=F$.
+Writing $B=(u\cdot\nabla)u$, incompressibility gives
+$\operatorname{div}B=F$, so $\nabla P+B$ is solenoidal.
+Moreover $\nabla P$ lies in the closed $L^2$ gradient space. Indeed its
+distributional curl vanishes. After Fourier transformation, its $L^2$
+transform is parallel to $\xi$ for almost every $\xi\ne0$; this is
+exactly the range of the orthogonal gradient multiplier
+$\xi\otimes\xi/|\xi|^2$. The zero frequency is a set of measure zero.
+Cutting off in frequency away from zero and then approximating the
+potentials by compact smooth functions identifies this range with the
+closed $L^2$ gradient space. Orthogonal
+Helmholtz projection therefore yields $\nabla P=\Pi B-B$.
+
+This normalization is also preserved under the limiting procedure in
+Lemma~\ref{lem:local}. More generally, suppose
+$u_n\to u$ in $C([0,S];H^m)$ for every finite $m$, and define $F_n,P_n$
+by the same formulas. For each multi-index $\gamma$, the product rule,
+Cauchy--Schwarz, and Sobolev embedding give
+\[
+ \sup_{t\le S}\bigl(\|D^\gamma(F_n-F)\|_1+
+                    \|D^\gamma(F_n-F)\|_\infty+
+                    \|\nabla D^\gamma(F_n-F)\|_2\bigr)\longrightarrow0.
+\]
+Splitting the heat integral at time one in the two estimates above yields
+\begin{align*}
+ \|D^\gamma(P_n-P)\|_\infty
+ &\le C_d\bigl(\|D^\gamma(F_n-F)\|_\infty+
+                         \|D^\gamma(F_n-F)\|_1\bigr),\\
+ \|\nabla D^\gamma(P_n-P)\|_2
+ &\le C_d\bigl(\|\nabla D^\gamma(F_n-F)\|_2+
+                         \|D^\gamma(F_n-F)\|_1\bigr).
+\end{align*}
+These estimates are uniform on $[0,S]$. Thus the Newton scalars converge
+with every spatial derivative uniformly, and their gradients converge
+in every Sobolev space. The same estimates applied to two nearby times
+give their time continuity. In particular the normalization is specified
+by the convolution before and after passage to the limit.
+\end{proof}
+
+\begin{lemma}[Stability on varying intervals]\label{lem:stability}
+Let $u$ be a smooth Euler solution on $[0,S]$ and let $v_n$ be smooth
+solutions on $[0,S_n]$, where $0<S_n\leq S$. If
+$v_n(0)\to u(0)$ in $H^s$, then
+\[
+ \sup_{0\leq t\leq S_n}\|v_n(t)-u(t)\|_{H^s}\longrightarrow0.
+\]
+No uniform higher norm of $v_n$ is assumed.
+\end{lemma}
+\begin{proof}
+Put $w=v_n-u$. Its equation is
+$w_t+(u+w)\cdot\nabla w+w\cdot\nabla u+\nabla q=0$.
+Differentiation through order $s$, the transport cancellation, and the
+Sobolev product estimate give
+\[
+ y'\leq C_d\|u\|_{H^{s+1}}y+C_d y^2,
+ \qquad y=\|w\|_{H^s}.
+\]
+All coefficients involving $u$ are bounded on $[0,S]$ independently of
+$n$. While $y\leq1$, Gronwall gives $y(t)\leq y(0)e^{CS}$.
+For large $n$ this is less than $1/2$; continuity excludes a first time
+when $y=1$. The estimate therefore holds on the full interval
+$[0,S_n]$. Sobolev embedding also gives uniform convergence of the
+velocity gradients there.
+\end{proof}
+
+\begin{lemma}[Continuation and the exact vorticity norm]\label{lem:continuation}
+Let $u$ be the maximal solution from Lemma~\ref{lem:local}, and suppose
+its maximal lifetime $T^*$ is finite. Write
+$\Omega_{ij}=\partial_i u_j-\partial_j u_i$ and
+$|\Omega|=(\sum_{i<j}|\Omega_{ij}|^2)^{1/2}$. Then
+\[
+ \limsup_{t\uparrow T^*}\|\nabla u(t)\|_{L^\infty,\mathrm F}=\infty,
+ \qquad \int_0^{T^*}\|\Omega(t)\|_\infty\,dt=\infty.
+\]
+\end{lemma}
+\begin{proof}
+If $\|\nabla u\|_\infty$ were bounded, \eqref{eq:tame-energy} would
+bound the $H^s$ norm up to $T^*$. Restarting the local solution at times
+approaching $T^*$ gives a common positive extension length.
+The same energy estimate propagates every higher norm on a smaller
+common interval, so uniqueness gives an extension in the full smooth
+Sobolev class, contrary to maximality. A finite endpoint limsup would
+imply such a bound, since the solution is smooth on shorter intervals.
+The inequalities $\|A\|_{\rm op}\leq\|A\|_{\rm F}\leq
+\sqrt d\,\|A\|_{\rm op}$ identify the required Frobenius conclusion.
+
+For the second assertion, incompressibility gives
+$\sum_i\partial_i\Omega_{ij}=\Delta u_j$. Use the Gaussian averages
+\[
+ Q_tf(x)=(\pi t)^{-d/2}\int_{\R^d}e^{-|y|^2/t}f(x+y)\,dy,
+ \qquad \partial_tQ_tf=\tfrac14 Q_t\Delta f.
+\]
+For $f=u_j$, $g_i=\Omega_{ij}$, and $0<\epsilon<1$, write
+\[
+ \partial_k f=Q_1\partial_k f+
+       (Q_\epsilon-Q_1)\partial_k f+
+       (I-Q_\epsilon)\partial_k f.
+\]
+The first term is at most $C_d\|f\|_2$, by moving its derivative to
+the Gaussian kernel and using its $L^2$ norm. In the middle term use
+$\Delta f=\sum_i\partial_i g_i$ and move two spatial derivatives to
+the Gaussian kernel. Its second derivative has $L^1$ norm at most
+$C_d/t$, so time integration from $\epsilon$ to one bounds this term by
+$C_d W(-\log\epsilon)$ whenever $|g_i(x)|\leq W$.
+The final term is bounded by
+$C_d\epsilon\|D^2\partial_k f\|_\infty$: integrate the displayed heat
+identity from zero to $\epsilon$, using contraction of Gaussian averaging
+on bounded functions. All integrations by parts are justified by the
+Gaussian decay and the bounded smooth derivatives of the fields.
+
+Let
+$\mathcal H(u)=\sum_{r=0}^{d+5}\|D^ru\|_2$, with the operator tensor
+norm in each $L^2$ term. Sobolev embedding applied to each third derivative
+gives $\|D^2\partial_k u_j\|_\infty\leq C_d\mathcal H(u)$.
+Moreover $\mathcal H(u)\leq C_d\sqrt{E_{s_{\rm log}}(u)}$.
+Choose $\epsilon=(e+C_d\mathcal H(u))^{-4}$ in the three bounds.
+The high remainder is bounded by a dimensional constant, while the middle
+term is logarithmic. Each entry of $\Omega$, including a lower-triangular
+entry by antisymmetry, is bounded by the once-counted norm
+$|\Omega|=(\sum_{i<j}|\Omega_{ij}|^2)^{1/2}$. Summing the finite
+coordinate estimates therefore proves
+\begin{equation}\label{eq:log-vorticity}
+ \|\nabla u\|_{\infty,\mathrm{op}}\leq
+ C_d\bigl(1+\|u(0)\|_2+
+       \|\Omega\|_\infty\log(e+\mathcal H(u))\bigr).
+\end{equation}
+Here $L^2$ energy conservation has replaced $\|u(t)\|_2$ by
+$\|u(0)\|_2$.
+
+Put $K(t)=\|\nabla u(t)\|_{\infty,\mathrm{op}}$,
+$W(t)=\|\Omega(t)\|_\infty$, and $G(t)=\int_0^tK(r)\,dr$.
+The gradient energy inequality at order $s_{\rm log}$ implies
+\[
+ E_{s_{\rm log}}(u(t))\leq E_{s_{\rm log}}(u(0))e^{C_dG(t)},
+ \qquad \log(e+\mathcal H(u(t)))\leq C_0+C_dG(t),
+\]
+where $C_0$ depends only on the initial high norm and $d$.
+Consequently \eqref{eq:log-vorticity} gives
+$G'\leq C(1+W)(1+G)$, and hence
+\[
+ 1+G(t)\leq\exp\!\left(C\left(t+\int_0^tW(r)\,dr\right)\right).
+\]
+A finite vorticity integral on $[0,T^*)$ would bound $G$ uniformly.
+The energy inequality at the lower order $s=d+2$ would then bound
+$E_s$ uniformly, permitting the restart already proved and contradicting
+maximality. This argument differentiates the integral $G$, and does not
+require differentiability of a supremum norm or of $\mathcal H$.
+
+On every shorter closed time interval, the bounded gradient and vorticity
+tensors depend continuously on time in the uniform norm: their differences
+are controlled by the $H^{d+2}$ difference of the velocities. Their norm
+paths are therefore continuous and nonnegative. The ordinary integrals
+on these shorter intervals equal the corresponding nonnegative Lebesgue
+integrals; monotonicity makes a finite integral on $[0,T^*)$ a common
+bound for all of them. Thus the contradiction proves divergence in the
+extended nonnegative sense used in the statement.
+For smooth fields the pointwise and essential suprema agree: a strict
+pointwise lower bound persists on an open ball of positive measure.
+Thus these are the essential-supremum norms in Theorem~\ref{target:Hd}.
+\end{proof}
+
+\section{Full-dimensional solenoidal geometry}
+Let $E=\operatorname{span}(e_1,e_2,e_3)$ and let
+$\mathcal R=I_E\oplus(-I_{E^\perp})$. The fields used below have odd
+parity and satisfy $u(\mathcal R x)=\mathcal R u(x)$.
+The fields are constructed directly on $\R^d$.
+
+\begin{lemma}[Antisymmetric potentials]\label{lem:potential}
+If $A_{ij}=-A_{ji}$ is a smooth compactly supported tensor and
+$v_j=\sum_i\partial_iA_{ij}$, then $\operatorname{div}v=0$.
+For any trace-free matrix $L$,
+\[
+ A_{ij}(x)=\frac{x_i(Lx)_j-x_j(Lx)_i}{d}
+ \quad\Longrightarrow\quad \sum_i\partial_i A_{ij}=(Lx)_j.
+\]
+Multiplying this tensor by an even compact Gevrey cutoff equal to one
+near zero produces an odd compact solenoidal velocity equal to $Lx$
+near zero. If $L\mathcal R=\mathcal R L$ and the cutoff is radial, the
+velocity is $\mathcal R$-equivariant.
+\end{lemma}
+\begin{proof}
+Commutation of mixed derivatives and exchange of $i,j$ make
+$\sum_{i,j}\partial_j\partial_iA_{ij}$ equal to its negative.
+For the displayed tensor, differentiation of the first numerator term
+gives $(d+1)(Lx)_j$, and differentiation of the second gives
+$(Lx)_j+x_j\operatorname{tr}L$. Their difference is $d(Lx)_j$.
+The cutoff preserves antisymmetry and compact support. The tensor is
+even, so its divergence is odd. Under $\mathcal R$ the tensor transforms
+as a two-tensor; applying divergence gives the stated equivariance.
+Gevrey bounds follow from the finite product rule with a polynomial.
+\end{proof}
+
+Antisymmetric potentials also provide oscillatory solenoidal
+corrections. Put $D_i=\kappa\partial_{y_i}+m_i\partial_\theta$.
+These constant-coefficient operators commute. Thus
+$\sum_iD_i\sum_jD_j A_{ji}=0$ for every antisymmetric $A$.
+When $m\cdot v=0$, $|m|=1$ and $F'=f$,
+\[
+ A_{ij}=(m_i v_j-m_j v_i)F(\theta)
+ \quad\Longrightarrow\quad
+ \sum_iD_i A_{ij}=v_jf(\theta)+\kappa\sum_i\partial_{y_i}A_{ij}.
+\]
+The last term is the spatial corrector and is retained at the
+terminal truncation order. This identity treats every ambient component.
+
+\begin{lemma}[Symmetry of the ambient pressure and central blocks]\label{lem:reflection}
+If $u$ is $\mathcal R$-equivariant, its Newton pressure obeys
+$P(\mathcal R x)=P(x)$. At $x\in E$, both $\nabla u(x)$ and
+$\nabla^2P(x)$ preserve $E$ and $E^\perp$.
+\end{lemma}
+\begin{proof}
+The chain rule and orthogonality show that
+$\sum_{i,j}\partial_i\partial_j(u_i u_j)$ is invariant under
+$\mathcal R$. The Newton kernel is radial and Lebesgue measure is
+orthogonally invariant, so a change of variables in its absolutely
+convergent convolution proves the pressure identity. Differentiate the
+velocity identity once and the pressure identity twice at a fixed point.
+The resulting maps commute with $\mathcal R$, and therefore preserve its
+two eigenspaces. The trace of the full velocity gradient vanishes; its restriction to
+$E$ need not be trace free.
+\end{proof}
+
+\begin{lemma}[The endpoint operator preserves the active plane]\label{lem:endpoint-symmetry}
+Along the central trajectory of the equivariant preceding solution,
+suppose the normal
+$m(t)$ belongs to $E$. By Lemma~\ref{lem:reflection}, its gradient $M(t)$
+and pressure Hessian $H(t)$ commute with $\mathcal R$. For the
+stationary displacement problem on $[0,t_0]$ with
+$m(t)\cdot\eta(t)=0$, $\eta(0)=0$, prescribed $\eta(t_0)=Y$, and
+coercive action
+$\mathcal A(\eta)=\int_0^{t_0}(|\eta'|^2-\langle H\eta,\eta\rangle)dt$,
+the endpoint map $\Lambda Y=\operatorname{proj}_{m(t_0)^\perp}\eta'(t_0)$
+commutes with $\mathcal R$. In particular a prescribed endpoint in
+$E\cap m(t_0)^\perp$ produces a displacement and velocity in $E$.
+\end{lemma}
+\begin{proof}
+Reflection preserves the constraint, the two endpoints and the action.
+Uniqueness for the coercive variational problem therefore gives
+$\eta_{\mathcal RY}=\mathcal R\eta_Y$. Taking the terminal derivative
+and its orthogonal projection proves the claim about $\Lambda$.
+If $Y=\mathcal RY$, uniqueness also gives
+$\eta_Y=\mathcal R\eta_Y$ at every time. The identity remains true for
+the physical velocity $\eta'-M\eta$ because $M$ commutes with the same
+reflection. Hence its $E^\perp$ components vanish, including after endpoint
+normalization.
+\end{proof}
+\section{Polynomial bounds from the lifted particle flow}
+The estimates in this section control the particle flow through the
+small lifted transport field. The resulting bounds depend polynomially
+on the physical frequency.
+
+Write $\mathcal L=\R^d\times\R$, with its product norm, and put
+$J_kx=(x,k\langle m_0,x\rangle)$, $|m_0|=1$. For a lifted packet solution
+$z(t,y,\theta)$ the lifted transport field is
+\[
+ b(t,y,\theta)=\bigl(\kappa z(t,y,\theta),\,
+                         \langle m_0,z(t,y,\theta)\rangle\bigr),
+ \qquad k\kappa=1.
+\]
+Throughout this section, $z$ is the finite packet together with the
+correction that eliminates its residual. The normal component in
+the second entry retains the cancellation that gives the small drift estimate.
+
+\begin{lemma}[Invariance of the physical graph]\label{lem:graph-invariant}
+Let $b$ be a smooth bounded Lipschitz field on $\mathcal L$, continuous
+in time, of the displayed form. Its global flow $\Psi_{s,t}$ satisfies
+\[
+ \Psi_{s,t}(J_kx)=J_k\psi_{s,t}(x),\qquad
+ \psi_{s,t}(x)=\pi\Psi_{s,t}(J_kx),
+\]
+where $\pi(y,\theta)=y$. The map $\psi$ is the flow of
+$v(t,x)=\pi b(t,J_kx)$ and $\psi_{t,s}$ is its inverse.
+For any $\ell>0$, the flow of
+$v_\ell(t,x)=\ell v(t,x/\ell)$ is
+$\ell\psi_{s,t}(x/\ell)$.
+\end{lemma}
+\begin{proof}
+The linear functional $q(y,\theta)=\theta-k\langle m_0,y\rangle$
+satisfies $q(b)=0$. Its derivative along every trajectory is zero.
+Therefore the level set $q=0$, which is precisely the image of $J_k$,
+is invariant. Projection of the lifted ODE gives the ODE for
+$v$; uniqueness identifies its flow and inverse. Substitution and the chain rule prove the scaling identity in every
+ambient dimension.
+\end{proof}
+
+\begin{lemma}[Small lifted flow bounds]\label{lem:small-lift}
+Suppose, for $0\leq t\leq T$ and every $n\geq0$,
+\[
+ \|D^n b(t)\|_\infty\leq B R^n(n!)^2,
+ \quad B\geq0,\ R>0,\quad BRT\leq\tfrac18.
+\]
+Then the displacement $f_t=\Psi_{0,t}-\mathrm{id}$ obeys
+\begin{equation}\label{eq:lift-disp}
+ \|D^n f_t\|_\infty\leq Bt(4R)^n(n!)^2 \quad(n\geq0).
+\end{equation}
+Put $\mathscr R(S)=(4R+1)((1+BT)S+2)$.
+If also $\|D^n b_t\|_\infty\leq B_1R_1^n(n!)^2$ with
+$B_1\ge0$ and $R_1\ge0$, then the
+material velocity and acceleration satisfy
+\begin{align}
+ \|D^n(b(t)\circ\Psi_{0,t})\|_\infty
+   &\leq B\mathscr R(R)^n(n!)^2,\label{eq:lift-velocity}\\
+ \|D^n((b_t+Db\,b)(t)\circ\Psi_{0,t})\|_\infty
+   &\leq(B_1+3B^2R)\mathscr R(4R+R_1)^n(n!)^2.
+   \label{eq:lift-acceleration}
+\end{align}
+These estimates hold in every finite-dimensional normed space.
+\end{lemma}
+\begin{proof}
+Apply the finite generating-sum argument of~\cite[\S3.8]{OAI} to
+the integral flow equation. For a finite derivative cutoff $N$, let
+\[
+ F_N(t)=\sum_{n=1}^N\frac{r^n}{(n!)^2}
+                 \|D^n f_t\|_\infty,\qquad r=(4R)^{-1}.
+\]
+The differentiated equation $f_t=\int_0^t b(s)\circ
+(\mathrm{id}+f_s)\,ds$ and the finite Fa\`a di Bruno convolution give
+\[
+ F_N(t)\leq\int_0^t
+  \frac{BR(r+F_N(s))}{1-R(r+F_N(s))}\,ds
+\]
+as long as the denominator is positive. The algebra behind this
+inequality is the scalar factorial majorant for a composition: after
+division by $(n!)^2$, each partition coefficient is bounded by the
+corresponding geometric-series coefficient. It applies to operator
+norms of multilinear derivatives, independently of the ambient
+dimension. Under the bootstrap assumption $F_N\leq Bt$, one has
+$R(r+F_N)\leq1/4+BRT\leq3/8$, so the integrand is at most $3B/5$.
+Continuity and a first-contact argument give $F_N(t)\leq Bt$ for all
+$t\leq T$, uniformly in $N$. The $n$th summand gives
+\eqref{eq:lift-disp} for $n>0$; order zero follows by directly integrating
+$\|b\|_\infty\leq B$. The finite generating sums may be estimated pointwise before taking
+the supremum, so differentiation of the supremum is unnecessary.
+
+Adding the identity gives, for $n>0$,
+$\|D^n\Psi_{0,t}\|_\infty\leq
+(1+BT)(4R+1)^n(n!)^2$. The same finite composition formula implies
+that composing a field bounded by $C S^n(n!)^2$ with this map is bounded
+by $C\mathscr R(S)^n(n!)^2$. This gives
+\eqref{eq:lift-velocity}. Differentiating a factorial bound once and
+using $(n+1)^2\leq4^n$ bounds $Db$ by $BR(4R)^n(n!)^2$.
+The factorial Leibniz convolution is at most three times the product
+of the two amplitudes. At the common radius $4R+R_1$ this bounds
+$b_t+Db\,b$ by $(B_1+3B^2R)(4R+R_1)^n(n!)^2$.
+The composition estimate proves \eqref{eq:lift-acceleration}.
+\end{proof}
+
+\begin{lemma}[Physical labels and their inverse]\label{lem:physical-labels}
+The graph and physical scaling in Lemma~\ref{lem:graph-invariant}
+convert a bound $\|D^n f\|_\infty\leq C S^n(n!)^2$ into
+\[
+ \left\|D^n\bigl[\ell\pi f(J_k(\cdot/\ell))\bigr]\right\|_\infty
+ \leq C\bigl(\ell^{-1}S(1+|k|)\bigr)^n(n!)^2
+ \quad(0<\ell\leq1).
+\]
+Consequently the physical displacement, material velocity and material
+acceleration have factorial bounds with amplitudes and radii polynomial
+in $1+B+R+B_1+R_1+T+\ell^{-1}+|k|$. If the physical field is
+solenoidal, its inverse deformation, evaluated in particle labels, has
+factorial bounds polynomial in
+the same parameters, with exponents allowed to depend on $d$.
+\end{lemma}
+\begin{proof}
+The chain rule for a linear inner map gives the factor
+$\|J_k/\ell\|^n$, and $\|J_k\|\leq1+|k|$. The outer map has norm at
+most $\ell\leq1$. This proves the first assertion, including order
+zero. Apply it to \eqref{eq:lift-disp}--\eqref{eq:lift-acceleration}.
+The first spatial derivative of a flow is the identity plus the
+derivative of its displacement, so it has the same type of polynomial
+factorial bound after enlarging the parameters.
+
+Solenoidality gives $\det D\psi=1$ by the variational equation and
+Jacobi's formula. Thus $(D\psi)^{-1}=\operatorname{adj}(D\psi)$.
+Every entry of the adjugate is a sum of $(d-1)!$ products of $d-1$
+entries. For a product of $r$ factorially bounded fields, the
+multinomial Leibniz formula and
+$\prod_{i=1}^r n_i!\leq n!$ show that its $n$th derivative is bounded
+by $C_d C^r(rR)^n(n!)^2$. Here $r=d-1$ is fixed.
+Hence the inverse deformation has a polynomial factorial bound, with
+no exponential in the physical frequency. For composition with the preceding flow, the finite composition and
+product formulas combine its factorial bounds with the graph-flow bounds
+above. Two time derivatives are controlled by the material velocity and
+acceleration estimates.
+\end{proof}
+
+The trace identity needed in this construction is also
+dimension independent. If a lifted field is tangent to the graph,
+$b=J_k\pi b$. Differentiating and cyclically commuting the trace gives
+\[
+ \operatorname{tr}_{\R^d}(\pi Db\,J_k)
+   =\operatorname{tr}_{\mathcal L}(J_k\pi Db)
+   =\operatorname{tr}_{\mathcal L}(Db).
+\]
+Thus lifted divergence zero implies ordinary divergence zero for the
+graph velocity. Scaling preserves it. The graph flow and the preceding particle map both preserve
+$d$-dimensional volume, as does their composition.
+
+\subsection{Cylinder and graph bounds in \texorpdfstring{$L^2$}{L2}}
+To derive global $L^2$ estimates, let $b$ be periodic in its last
+variable with period $P$ and assume its cylinder divergence is zero. Suppose the input bounds
+of Lemma~\ref{lem:small-lift} hold both in supremum norm and in
+$L^2(\R^d\times\mathbb T_P)$, with common amplitudes $B,B_1$ and
+radii $R,R_1$. The weighted Sobolev estimates for the packet and its time derivative
+provide these input $L^2$ bounds.
+
+The flow satisfies
+$\Psi_t(y,\theta+P)=\Psi_t(y,\theta)+(0,P)$ by uniqueness.
+It therefore descends to the cylinder. Its variational Jacobian obeys
+\[
+ \partial_t\det D\Psi_t
+       =\bigl(\operatorname{div}b\bigr)(t,\Psi_t)\det D\Psi_t=0.
+\]
+The inverse flow exists by the same bounded Lipschitz ODE, so change of
+variables gives
+\begin{equation}\label{eq:lift-volume-l2}
+ \|a\circ\Psi_t\|_{L^2(\R^d\times\mathbb T_P)}=\|a\|_2.
+\end{equation}
+For the lifted velocity of the corrected packet,
+$\operatorname{div}b=\kappa\operatorname{div}_y z+
+\partial_\theta(m_0\cdot z)=0$ is the closed solenoidal constraint, which holds pointwise by
+smoothness.
+
+Set $S_v=\mathscr R(R)$ and $S_a=\mathscr R(4R+R_1)$, with
+$\mathscr R$ as in Lemma~\ref{lem:small-lift}. Then the fields
+satisfy
+\begin{align}
+ \|D^n(b(t)\circ\Psi_t)\|_2
+    &\le B S_v^n(n!)^2,\label{eq:lift-velocity-l2}\\
+ \|D^n((b_t+Db\,b)(t)\circ\Psi_t)\|_2
+    &\le(B_1+3B^2R)S_a^n(n!)^2,\label{eq:lift-acceleration-l2}\\
+ \|D^n(\Psi_t-\mathrm{id})\|_2
+    &\le Bt S_v^n(n!)^2.\label{eq:lift-displacement-l2}
+\end{align}
+To prove these assertions, expand the derivative of a composition into
+its finite Fa\`a di Bruno sum. In each term place the single factor
+$D^r a\circ\Psi_t$ in $L^2$ using \eqref{eq:lift-volume-l2}; place
+all derivatives of the inner flow in $L^\infty$ using
+Lemma~\ref{lem:small-lift}. The numerical composition convolution is
+the same as for the supremum bound, so its radius is
+$\mathscr R(S)$ for an outer radius $S$. For $Db\,b$, put one factor
+in $L^2$ and the other in $L^\infty$ in each Leibniz term.
+The factorial convolution is bounded by three, giving amplitude
+$3B^2R$ at radius $4R$. This proves the first two estimates.
+Finally integrate the identity
+$\Psi_t-\mathrm{id}=\int_0^t b(s)\circ\Psi_s\,ds$ and apply
+Minkowski's inequality to each derivative. This proves the last one,
+including order zero, with radius $S_v$.
+
+The graph trace estimate includes the physical scaling. If a smooth
+periodic field $a$ has
+$\|D^n a\|_2\le C S^n(n!)^2$, then
+\begin{equation}\label{eq:graph-l2-jet}
+ \left\|D^n\{\ell\pi a(J_k(\cdot/\ell))\}\right\|_{L^2(\R^d)}
+ \le C_P\ell^{1+d/2}C(1+S)
+       \left(\frac{4S(1+|k|)}\ell\right)^n(n!)^2.
+\end{equation}
+Indeed the one-dimensional periodic estimate
+\[
+ \sup_\theta|v(\theta)|^2
+   \le\frac2P\int_{\mathbb T_P}|v|^2
+                   +2P\int_{\mathbb T_P}|v_\theta|^2
+\]
+follows from the fundamental theorem of calculus, the triangle
+inequality and Cauchy--Schwarz. The same constants apply to any
+finite-dimensional normed target, in particular to the operator norm
+of $D^n a$, independently of $n$. Applied at each spatial point it
+bounds evaluation on any phase graph by
+$C_P(\|a\|_2+\|\partial_\theta a\|_2)$; the phase slope does not
+enter this trace estimate. Differentiation of the affine graph introduces the factor
+$\|J_k\|^n\le(1+|k|)^n$ before applying that trace. The additional
+angular derivative is bounded using
+$(n+1)^2\le4^n$. Finally $x=\ell y$ gives the exact factor
+$\ell^{1+d/2-n}$. For $0<\ell\le1$ the prefactor
+$\ell^{1+d/2}$ is bounded above by one and may be omitted. This proves
+\eqref{eq:graph-l2-jet}. The argument applies to the
+displacement, material velocity and material acceleration in
+\eqref{eq:lift-velocity-l2}--\eqref{eq:lift-displacement-l2}.
+
+For the parameter induction, use the source polynomial
+$C_{\rm rel}(W)\geq1$ obtained by inserting the packet bounds into
+the preceding finite composition formulas. Here $W\geq1$ bounds the
+source coefficients, the common packet radius, and its profile amplitude.
+The correction that eliminates the residual has amplitude
+$\delta_{\rm corr}(X)$, where $X$ is its expansion parameter.
+The lifted drift bound is a source polynomial times
+$k^{-1}+\delta_{\rm corr}(X)$. Thus, with $T\leq1$ and the physical
+scale $\ell=\rho\leq1$, the same explicit polynomial can be enlarged to
+give
+\[
+ BRT\leq C_{\rm rel}(W)(k^{-1}+\delta_{\rm corr}(X)),\qquad
+ M_{\rm rel}\leq C_{\rm rel}(W),\qquad
+ S_{\rm rel}\leq C_{\rm rel}(W)\rho^{-1}k.
+\]
+Here $M_{\rm rel},S_{\rm rel}\geq1$ are common factorial amplitudes and
+radii for the three relative fields in $L^2$, and for the
+displacement and material velocity also in supremum norm. The latter
+supremum bounds come directly from the small lifted flow estimates;
+applying a physical Sobolev embedding here would introduce unnecessary
+powers of $\rho^{-1}k$ into the amplitude.
+
+The prescribed scales satisfy the smallness conditions
+\[
+ 16C_{\rm rel}(W)\leq k^{1/2},\qquad
+ \rho^{-1}\leq k^{1/2},\qquad
+ \delta_{\rm corr}(X)\leq k^{-1},\qquad k\geq1.
+\]
+Consequently $BRT\leq1/8$, $M_{\rm rel}\leq k$, and
+$S_{\rm rel}\leq k^2$. These bounds will be used in the parameter induction.
+All three fields are restrictions of the same lifted flow. In original
+physical labels their relative map is
+$\psi_t(x)=\rho\,\psi_t^{\rm norm}(x/\rho)$, and the updated
+particle map is $X_{\rm parent}(t,\psi_t(x))$. The composition uses the label bounds of the preceding map in its
+original physical labels.
+
+\subsection{Fixed Sobolev shifts and label renewal}
+For the evaluation step fix $q=d+2$, and suppose a smooth Euclidean
+vector-valued field satisfies
+$\|D^na\|_2\leq C R^n(n!)^2$ for every $n\geq0$, with $C,R\geq0$.
+Define
+\[
+ A_d(C,R)=c_d C\sum_{j=0}^q(4R)^j(j!)^2,
+ \qquad R_d(R)=4\max(1,d)R,
+\]
+where $c_d$ is the fixed Sobolev evaluation constant. Then
+\begin{equation}\label{eq:fixed-sobolev-jet-shift}
+ \|D^na\|_\infty\leq A_d(C,R)R_d(R)^n(n!)^2.
+\end{equation}
+Indeed, apply the fixed $H^q$ evaluation inequality to each coordinate
+word of length $n$. Its derivative of order $j\leq q$ has $L^2$ norm
+bounded by $\|D^{n+j}a\|_2$. The factorial inequality
+\[
+ ((n+j)!)^2\leq4^{n+j}(n!)^2(j!)^2
+\]
+gives the amplitude $A_d$ and coordinate-word radius $4R$.
+The operator norm of an $n$-linear derivative is at most the sum of its
+$d^n$ coordinate evaluations, which gives exactly $R_d(R)$.
+Thus the derivative loss is fixed by $d$, independently of packet grade
+or truncation.
+
+The composition with the preceding flow has the following
+chain-rule expressions. Write $X_{\rm parent}(t,x)=x+A(t,x)$, with material
+velocity $U=\partial_tA$ and acceleration $W_0=\partial_tU$. Write the
+relative fields as $a,b,c$ with $\partial_ta=b$, $\partial_tb=c$, and
+$\psi=x+a$. The updated displacement, velocity, and acceleration are
+\begin{align*}
+ A_{\rm new}&=a+A\circ\psi,\\
+ U_{\rm new}&=U\circ\psi+(I+DA\circ\psi)b,\\
+ W_{\rm new}&=W_0\circ\psi+2(DU\circ\psi)b
+       +(D^2A\circ\psi)[b,b]+(I+DA\circ\psi)c.
+\end{align*}
+Suppose the three preceding fields have both $L^2$ and supremum factorial
+bounds with amplitude and radius $K\leq k$, $K\geq1$. Let
+$M=M_{\rm rel}\leq k$ and $S=S_{\rm rel}\leq k^2$.
+Since $\psi$ preserves volume, each factor composed with the preceding flow retains its
+$L^2$ norm before applying the derivative composition formula. The
+relative displacement and velocity provide the needed supremum factors;
+the relative acceleration is placed in $L^2$. Differentiating a
+factorial bound changes amplitude $C$ and radius $R$ to $CR$ and $4R$.
+The first and second derivative amplitudes of the preceding fields are
+consequently
+$K^2$ and $4K^3$. The finite product and composition estimates bound all
+three updated fields in $L^2$ by the common amplitude and radius
+\[
+ C_{\rm new}=K+M+9K^2M+36K^3M^2,\qquad
+ R_{\rm new}=(1+S)\bigl((1+M)16K+2\bigr)+S.
+\]
+For $k\geq69$ these satisfy
+$C_{\rm new}\leq47k^5\leq k^6$ and
+$R_{\rm new}\leq69k^4\leq k^5$.
+
+The evaluation step \eqref{eq:fixed-sobolev-jet-shift} now applies to
+these composed fields. Enlarge the fixed lower bound on $k$ to include
+$4\max(1,d)$ and $c_d\sum_{j=0}^q(j!)^2$. Since
+$4R_{\rm new}\leq k^6$, it gives
+\[
+ A_d(C_{\rm new},R_{\rm new})\leq k^{6q+7},\qquad
+ R_d(R_{\rm new})\leq k^6.
+\]
+The sum of one and the amplitude and radius bounds in $L^2$ and
+supremum norm is at most
+$5k^{6q+7}\leq k^{6q+8}\leq k^{10(d+4)}$.
+Thus $K_{\rm new}=k^{10(d+4)}$ is a single valid label invariant for
+all three updated fields in both norms. Differentiating these
+fields gives the frame coefficients
+$F=I+DA_{\rm new}$, $F_1=DU_{\rm new}$, and $F_2=DW_{\rm new}$,
+with amplitudes $1+K_{\rm new}^2,K_{\rm new}^2,K_{\rm new}^2$ and
+radius $4K_{\rm new}$. The determinant-one inverse argument above gives
+the corresponding polynomial bound for the inverse frame of the updated
+physical particle map.
+\section{The active three-plane and ambient amplification}
+All cross products in this section are taken in the oriented Euclidean
+three-plane $E$ and define an orthonormal basis of $E$. Write
+$M=\nabla u(t,0)$ for the central gradient of the preceding solution and
+$H=\nabla^2P(t,0)$. Oddness fixes the central
+particle at zero. Reflection implies that $M,H$ are block diagonal on $E\oplus E^\perp$.
+The active block need not be trace free. Norms of $M,H,B$ in this section are suprema in time at the central
+particle. Full-space coefficient bounds enter through the polynomial
+particle-label estimates, and the spatial history inverse uses the global
+one-sided pressure bound.
+
+The geometric input at a stage is the decomposition
+\begin{equation}\label{eq:central-decomposition}
+ M=B+hqp^T+\mathcal E,\qquad |\mathcal E|\leq E_*,\qquad h(t_0)=h_*,
+\end{equation}
+where $p,q$ are the normalized transported normal and primary velocity of
+the preceding packet. They lie in $E$ and are orthogonal; put $n=p\times q$.
+The shear is the preceding packet amplitude,
+$h=c_0|m_{\rm old}||v_{\rm old}|$ with constant $c_0>0$.
+Consequently $\dot h/h=-B_{pp}-B_{qq}$, by the two transport equations
+for the preceding normal and velocity.
+Here $B$ is the gradient of the preceding background solution.
+On the stage interval $|B|\leq C G_*$ and $|\dot B|\leq C G_*^2$.
+The transported normal and velocity satisfy
+\begin{equation}\label{eq:ray-velocity}
+ \dot m=-M^Tm,\qquad
+ \dot v=-Mv+2m\frac{m\cdot Mv}{|m|^2},\qquad m\cdot v=0.
+\end{equation}
+The coefficient 2 follows by differentiating the last constraint. These
+ambient equations preserve $E$ for central data in $E$.
+
+At activation put
+\begin{gather*}
+ a=p\cdot Bq\in[1/2,2],\quad \beta=(n\cdot Bq)/a,
+ \quad \tfrac12\leq\beta x_{\rm prev}^2\leq2,\\
+ \epsilon=\sqrt{a/h_*},\quad
+ \tau=a(t-t_0)/\epsilon,\quad x=\sqrt\beta\,\tau.
+\end{gather*}
+The target is $x=x_{\rm tar}\geq2$. Write
+$\tau_{\rm tar}=x_{\rm tar}/\sqrt\beta$ and use the scaled endpoint
+$\Theta=\tau_{\rm tar}+\Delta\tau$. Here $0<\sqrt\beta\leq1/4$ and
+$0<\Delta\tau\leq\Theta^{-60}$, so in particular
+$\Theta\geq\max\{2,\beta^{-1/2},\tau_{\rm tar}\}$.
+For the next prescribed physical time width $w_{\rm next}$, set
+$\Delta\tau=2\sqrt{a h_*}\,w_{\rm next}$, and
+$(\epsilon/a)\Delta\tau=2w_{\rm next}$.
+The scalar parameter choice provides an envelope $\widehat\Theta\geq\Theta$
+and $\Delta\tau\,\widehat\Theta^{60}\leq1$; monotonicity of reciprocal
+powers proves the stated bound for $\Theta$.
+The geometric error parameter is
+\begin{equation}\label{eq:geometric-error}
+ e=C_d\bigl(\epsilon\Theta G_*^2+E_*+
+                   \rho K_h^{c_d}/\epsilon\bigr),
+ \qquad e\Theta^{40}\leq c_d.
+\end{equation}
+Here $\rho$ is the physical packet length and $K_h$ bounds the
+preceding particle map, its inverse deformation and the required derivatives.
+The small constant on the right is fixed before the scales are chosen.
+
+\begin{lemma}[Endpoint selection]\label{lem:actual-endpoint}
+On a positive history interval $[0,t_0]$, assume the one-sided
+pressure bound $H\leq K_+I$ and $K_+t_0^2/2\leq1/2$, provided by
+the mean reserve. Suppose $\|M\|_\infty\leq C_Mh_*$,
+$\|H\|_\infty\leq C_Hh_*h_{\rm old}$, $1\leq h_{\rm old}\leq h_*$,
+and $t_0^{-1}\leq h_*$. Suppose also
+$\overline B=B(t_0)+\mathcal E(t_0)$ has
+$\overline B_{pp}<0$ and $\|\overline B\|\leq\zeta h_*$.
+For sufficiently small $\zeta$, depending only on $C_M,C_H$, an endpoint
+$Y\in E\cap n^\perp$ of size at most $C/h_*$ gives a stationary displacement
+whose terminal primary velocity satisfies
+\[
+ v_q=1,\qquad -C\leq v_p\leq0,\qquad v_{E^\perp}=0.
+\]
+The displacement is stationary in the full transverse space.
+\end{lemma}
+\begin{proof}
+Choose $m_0=F(t_0,0)^Tn/|F(t_0,0)^Tn|$ and transport it by $F^{-T}$.
+Let $\Lambda$ be the endpoint operator of Lemma~\ref{lem:endpoint-symmetry}.
+Integration by parts in its stationary equation gives
+\[
+ Y\cdot\Lambda Z=\int_0^{t_0}
+    (\eta_Y'\cdot\eta_Z'-H\eta_Y\cdot\eta_Z)\,dt.
+\]
+The stationary paths start at zero. The inequality
+$\int|\eta|^2\leq(t_0^2/2)\int|\eta'|^2$ therefore implies that their
+action is nonnegative even for a nonzero terminal value. Thus $\Lambda$
+is symmetric and positive semidefinite. To bound it, put
+$L_0=t_0^{-1}+\|M\|_\infty+\|H\|_\infty^{1/2}+1$.
+A comparison path vanishes before $t_0-L_0^{-1}$ and then equals
+$L_0(t-t_0+L_0^{-1})\operatorname{proj}_{m(t)^\perp}Y$.
+Since $\|\partial_t\operatorname{proj}_{m^\perp}\|\leq C\|M\|$,
+its action is at most
+$C(L_0+\|M\|_\infty^2/L_0+\|H\|_\infty/L_0)|Y|^2
+\leq C_0h_*|Y|^2$.
+Minimality yields $0\leq\Lambda\leq C_0h_*I$ on the full transverse
+space, and reflection reduces its restriction to $E\cap n^\perp$ to a
+symmetric two-by-two matrix.
+
+Write $b=\Lambda_{pq}$, $d_0=\Lambda_{qq}$ and
+$u_*=\Lambda_{pp}-\overline B_{pp}>0$. The terminal velocity
+$v=\eta'-M\eta$ has active coordinates
+\[
+ \binom{v_p}{v_q}=
+ \begin{pmatrix}u_*&b-\overline B_{pq}\\
+ b-h_*-\overline B_{qp}&d_0-\overline B_{qq}\end{pmatrix}
+ \binom{Y_p}{Y_q}.
+\]
+If $b\leq h_*/2$, take $Y=-p$. Then $v_p=-u_*\leq0$ and
+$v_q=h_*+\overline B_{qp}-b\geq h_*/3$.
+If $b>h_*/2$, positivity implies
+$\Lambda_{pp}\geq b^2/d_0\geq h_*/(4C_0)$.
+Take $Y=q-(b-\overline B_{pq})p/u_*$. Its norm is bounded by a
+constant depending on $C_0$, and $v_p=0$. Moreover
+\[
+ v_q=\left(d_0-\frac{b^2}{u_*}\right)-\overline B_{qq}
+ +\frac{bh_*+b(\overline B_{pq}+\overline B_{qp})
+       -h_*\overline B_{pq}-\overline B_{qp}\overline B_{pq}}{u_*}.
+\]
+The first parenthesized term is nonnegative because $u_*\geq\Lambda_{pp}$.
+The numerator is at least $h_*^2/2-C(C_0+1)\zeta h_*^2$.
+Since $u_*\leq(C_0+\zeta)h_*$, choosing $\zeta$ small gives
+$v_q\geq c h_*$. Divide the displacement, endpoint and velocity by
+this positive terminal value. Both cases give the asserted normalization
+and endpoint bound. Reflection gives vanishing $E^\perp$ components
+before and after normalization. At $t_0=0$, prescribe $v=q$ directly.
+\end{proof}
+
+\begin{lemma}[The scalar growing solution]\label{lem:scalar-growth}
+Let $\beta>0$ be sufficiently small, and set $P_0=\beta\tau^2$,
+$Q_0=-2\beta\tau$ and $D=1+P_0^2$. The equation
+\[
+ (DV')'=2(1-\beta P_0)V,\qquad V_\lambda(0)=1,
+ \qquad V_\lambda'(0)=\lambda\geq0
+\]
+has a positive solution on every target interval under consideration, and
+$V_\lambda(x=1)\geq e^{b/\sqrt\beta}$. For $x\geq1$ put
+$r_\lambda=-V_\lambda'/V_\lambda$. There is a bounded nonnegative $z$
+such that
+\[
+ r_\lambda=\frac{\sqrt\beta}{x}-\frac z{x^2},\qquad
+ z^2=\frac2{1+x^{-4}}+O(\sqrt\beta)\quad(x\geq2).
+\]
+Writing $g(\tau)=V_0(\tau)$, the two-component propagator for
+$(-V',V)$ obeys
+\[ \|\Phi_0(t,s)\|\leq C\Theta^8g(t)/g(s). \]
+The estimates are dimension independent.
+\end{lemma}
+\begin{proof}
+On $x\leq1$, integrating twice with $D\leq2$ and
+$2(1-\beta P_0)\geq1$ gives
+$V_\lambda\geq1+\lambda\tau/2+\tfrac12\int_0^\tau(\tau-s)V_\lambda(s)ds$.
+Positive iteration bounds it below by $\cosh(\tau/\sqrt2)$.
+Its logarithmic derivative $l$ satisfies $0\leq l$ and
+$l'\leq2-l^2$, whence $l\leq\sqrt2\coth(\sqrt2\tau)$.
+For $x\geq1$, write $\widehat V(x)=V(x/\sqrt\beta)$
+and set $s=1-\rho$, $\rho=x^{-1}$ and
+$f(\rho)=\widehat V(1/\rho)/\rho$. Direct substitution gives
+\[
+ ((1+\rho^4)f_\rho)_\rho=(2/\beta-2\rho^2)f.
+\]
+Starting from $f(1)>0$, $f_\rho(1)<0$, backward integration preserves
+both signs. For $z=-\sqrt\beta f_\rho/f$ and
+$\mu=\sqrt{(2-2\beta\rho^2)/(1+\rho^4)}$,
+\[
+ \sqrt\beta z_s=\mu^2-z^2+
+               \sqrt\beta\frac{4\rho^3}{1+\rho^4}z.
+\]
+This gives a uniform upper bound and preserves nonnegativity.
+Indeed its initial value at $\rho=1$ is
+$z(1)=\sqrt\beta+V_\lambda'(1/\sqrt\beta)/V_\lambda(1/\sqrt\beta)$,
+which is bounded independently of $\lambda$ by the preceding
+logarithmic-derivative estimate.
+The equation for $z-\mu$ has damping coefficient $z+\mu\geq c>0$
+and a bounded forcing multiplied by $\sqrt\beta$. Its integrating
+factor gives $|z-\mu|\leq Ce^{-c(1-\rho)/\sqrt\beta}+C\sqrt\beta$,
+which proves the direction formula for $\rho\leq1/2$.
+
+Reduction of order gives
+$V_\lambda=g(1+\lambda I)$, where $I(\tau)=\int_0^\tau(Dg^2)^{-1}$
+and $I(1)\geq c>0$. Positivity before $x=1$, and increase of $xg$
+afterwards, give $g(s)/g(u)\leq C\Theta$ for $s\leq u$.
+For arbitrary scalar data at $s$,
+\[
+ V(t)=\frac{g(t)}{g(s)}\left[
+ V(s)+D(s)\left(V'(s)-\frac{g'(s)}{g(s)}V(s)\right)
+ \int_s^t\frac{(g(s)/g(u))^2}{D(u)}\,du\right].
+\]
+The integral is at most $C\Theta^3$, $D(s)\leq C\Theta^4$, and
+$|g'/g|\leq C$. Near $\tau=0$ the latter bound follows from
+$g'(0)=0$ and $l'\leq2-l^2$; away from zero it follows from the
+displayed bounds for $l$ and $z$.
+Differentiating this formula introduces at most one additional
+power of $\Theta$, proving the propagator assertion. This scalar
+calculation follows~\cite[\S\S4.4--4.5]{OAI}.
+\end{proof}
+
+The selected initial conditions at activation are
+$m(t_0)=s_0n(t_0)$, $v_q(t_0)=1$, $v_n(t_0)=0$ and
+$-C\leq v_p(t_0)\leq0$. At the central label express
+$m=s_0(Pp+\epsilon Qq+Nn)$ and
+$v=\epsilon Up+Vq+\epsilon Wn$. The moving-frame connection has
+$(S_f)_{12}=B_{pq}$, $(S_f)_{13}=B_{pn}$ and
+$(S_f)_{32}=-B_{nq}$; skew symmetry determines its other entries.
+Equations~\eqref{eq:ray-velocity} then give
+\[
+ (P,Q,N)=(\beta\tau^2,-2\beta\tau,1)+O(e\Theta^5),
+ \qquad W=-(PU+QV)/N,\quad N\geq1/2.
+\]
+The reference ray system is $P'=-Q$, $Q'=-2\beta N$, $N'=0$.
+Its triangular propagator is bounded by $C\Theta^2$. The error integral
+is at most $Ce\Theta^5+Ce\Theta^3\sup|\mathrm{error}|$, and the last
+term is absorbed by \eqref{eq:geometric-error}. Substitution in the
+velocity equation gives a coefficient error at most $Ce\Theta^{13}$
+from the two-component ideal system
+\[
+ U'=-2V+\frac{2P_0((P_0+\beta)V+Q_0U)}{1+P_0^2},\qquad V'=-U.
+\]
+Indeed the only unsuppressed contributions to
+$J=(m\cdot Mv)/(s_0a)$ are $PB_{pq}V/a$, $h\epsilon^2QU/a$
+and $NB_{nq}V/a$. The identity $\dot h/h=-B_{pp}-B_{qq}$ gives
+$h/h_*=1+O(\epsilon\Theta G_*)$ on this interval, so
+$h\epsilon^2/a=1+O(\epsilon\Theta G_*)$. The remaining contributions
+contain either $\epsilon G_*$ or a term controlled by
+\eqref{eq:geometric-error}. Transversality bounds
+$|W|\leq C\Theta^2(|U|+|V|)$; the denominator $|m|^2/s_0^2$
+is at least $1/4$. These estimates bound every rational coefficient
+independently of the trace of the active block.
+The full matrix estimate, including all transverse coordinates, is
+derived in Section~\ref{sec:parameter-envelope}.
+
+Apply Duhamel's formula with weight $g(s)/g(t)$.
+Lemma~\ref{lem:scalar-growth} bounds its error operator by $Ce\Theta^{22}$. A geometric series therefore
+gives the active propagator bound $2C\Theta^8g(t)/g(s)$.
+For the selected data, $\lambda=-v_p(t_0)/\epsilon\geq0$,
+\[
+ |U-U_\lambda|+|V-V_\lambda|
+       \leq Ce\Theta^{30}(1+\lambda)g.
+\]
+For $\tau\geq1$, $V_\lambda\geq c(1+\lambda)g$, so this is a
+relative error. In particular
+\begin{equation}\label{eq:positive-flux}
+ J/V=P_0+\beta+Q_0r_\lambda+O(e\Theta^{34})>0.
+\end{equation}
+For $x\leq1$ its leading term is at least $\beta$, since
+$Q_0,r_\lambda\leq0$. For $x\geq1$ it equals
+$x^2-\beta+2\sqrt\beta z/x$. For $x\leq1$, the error is at most
+$C c_d\Theta^{-6}\leq C c_d\beta^3$, hence less than $\beta/2$ after
+fixing $c_d$ sufficiently small. For $x\geq1$ the leading term is
+bounded below by $1-\beta$, and the same error bound suffices.
+
+\begin{lemma}[Central frame renewal]\label{lem:central-renewal}
+At the target set $p_2=m/|m|$, $q_2=v/|v|$, $n_2=p_2\times q_2$,
+$a_2=p_2\cdot Mq_2$ and $\beta_2=(n_2\cdot Mq_2)/a_2$. Then
+\begin{align*}
+ a_2/a&=1+O(x_{\rm tar}^{-4}+\beta x_{\rm tar}^{-2}
+       +\sqrt\beta x_{\rm tar}^{-3}+e\Theta^{40}),\\
+ \beta_2x_{\rm tar}^2&=1+O(\sqrt\beta+x_{\rm tar}^{-4}+e\Theta^{40}),\\
+ p_2\cdot Mp_2&\leq-\frac{c\sqrt{h_*}}{x_{\rm prev}x_{\rm tar}}
+                                     +C(G_*+E_*).
+\end{align*}
+Moreover $A_{\rm tar}=|m||v|$ at the target satisfies
+$A_{\rm tar}\geq K_h^{-c}\Theta^{-c}e^{b x_{\rm prev}}$.
+\end{lemma}
+\begin{proof}
+Put $r=U/V$, $w=W/V$, $D_a=|m|^2/s_0^2$ and
+$E_v=1+\epsilon^2(r^2+w^2)$. Normalize the two vectors directly:
+\[
+ a_2/a=\frac{J/V}{\sqrt{D_a}\sqrt{E_v}},\quad
+ \beta_2=\frac{[(P,\epsilon Q,N)\times(\epsilon r,1,\epsilon w)]
+                    \cdot(M(v/V)/a)}{(J/V)\sqrt{E_v}}.
+\]
+In the second numerator substitute
+$P=x^2$, $Q=-2\sqrt\beta x$, $r=\sqrt\beta/x-z/x^2$.
+The terms of size $\beta x^2$ and $\sqrt\beta xz$ cancel, leaving
+\[
+ -1+(1+x^{-4})z^2+\beta x^{-2}-2\sqrt\beta z x^{-3}
+       =1+O(\sqrt\beta).
+\]
+The perturbation contributes at most $Ce\Theta^{36}$.
+Also $J/V=x^2-\beta+2\sqrt\beta z/x+O(e\Theta^{34})$,
+$D_a=1+x^4+O(e\Theta^7)$ and $E_v=1+O(\epsilon^2\Theta^4)$.
+These identities prove the first two estimates. The rank-one part of
+\eqref{eq:central-decomposition} gives
+$p_2\cdot Mp_2=h\epsilon QP/D_a+O(G_*+E_*)$.
+Since $QP\leq-c\sqrt\beta x^3$, $D_a\leq Cx^4$ and
+$h\epsilon\asymp\sqrt{h_*}$, this proves compression.
+Finally $V_\lambda(x_{\rm tar}/\sqrt\beta)\geq x_{\rm tar}^{-1}
+V_\lambda(1/\sqrt\beta)\geq x_{\rm tar}^{-1}e^{b/\sqrt\beta}$ and
+$s_0^{-1}\leq K_h^c$; the relative-error estimates give the lower bound
+for $A_{\rm tar}$.
+\end{proof}
+
+Let $\mathcal P\geq1$ bound the source quantities
+$K_h,\Theta,\epsilon^{-1},h_{\rm child},\delta^{-1}$ and the fixed
+coefficient bounds and inverse estimates. These quantities are estimated in
+Section~\ref{sec:parameter-envelope} before the frequency is selected.
+The choice $\alpha=\delta h_{\rm child}/A_{\rm tar}$ therefore satisfies
+$\alpha\leq\mathcal P^c e^{-b x_{\rm prev}}$.
+At the central target the cutoff equals one, the phase is zero and
+$f_\delta'(0)=\delta^{-1}$, so the leading gradient is exactly
+$\alpha\delta^{-1}v\otimes m=h_{\rm child}q_2p_2^T$.
+Section~\ref{sec:parameter-envelope} proves the corresponding full
+transverse propagator and pressure-sign estimates in a neighborhood of
+the central label. The following consequence of that comparison gives
+a bound uniform over the stages of the iteration.
+
+\begin{lemma}[Uniform target-size comparison]\label{lem:uniform-packet-size}
+For the selected primary, on every label in the quantitative packet
+neighborhood, the full ambient relative estimates of
+Section~\ref{sec:parameter-envelope} give
+\[
+ \frac{|m(t,y)||v(t,y)|}{A_{\rm tar}}\leq C_d
+       \qquad(1\leq\tau\leq\tau_{\rm end}).
+\]
+On the history interval and on $0\leq\tau<1$ the same ratio is at most
+$K_h^{c_d}\Theta^{c_d}\epsilon^{-c_d}e^{-b x_{\rm prev}}$.
+For $g(\tau)=V_0(\tau)$ and
+$\alpha=\delta h_{\rm child}/A_{\rm tar}$, one also has
+$\sup\alpha g\leq\mathcal P^{c_d}$ and
+$\alpha\leq\mathcal P^{c_d}e^{-b x_{\rm prev}}$.
+\end{lemma}
+\begin{proof}
+The full relative comparison, including the $E^\perp$ components, and
+$\epsilon\Theta^2\ll1$ imply, for $\tau\geq1$,
+\[
+ |m(t,y)||v(t,y)|\asymp_d
+       s_0\sqrt{1+x^4}\,V_\lambda(x/\sqrt\beta).
+\]
+The small perturbations of the initial label and of $s_0$ are included
+in the same constants. At the central target this equivalence bounds
+$A_{\rm tar}$ from below by a fixed multiple of the right side.
+These constants do not grow with $\Theta$ or the stage.
+
+For $0\leq x\leq1$, $V_\lambda$ is increasing. For $x\geq1$ the
+reciprocal-variable proof of Lemma~\ref{lem:scalar-growth} shows that
+$xV_\lambda(x/\sqrt\beta)$ is increasing. Hence for
+$1\leq x\leq x_{\rm tar}$,
+\[
+ (1+x^2)V_\lambda(x/\sqrt\beta)
+ \leq (x+x^{-1})x_{\rm tar}
+             V_\lambda(x_{\rm tar}/\sqrt\beta)
+ \leq2x_{\rm tar}^2V_\lambda(x_{\rm tar}/\sqrt\beta).
+\]
+For $x\leq1$ the same conclusion follows by comparison first with
+$V_\lambda(1/\sqrt\beta)$ and then with the target. Since
+$\sqrt{1+x^4}\asymp1+x^2$, this proves the constant size comparison
+up to the target. Afterwards the logarithmic derivative in $\tau$ of
+$\sqrt{1+x^4}V_\lambda$ is
+\[
+ \frac{2\sqrt\beta x^3}{1+x^4}-\frac{\sqrt\beta}{x}
+                                          +\frac z{x^2},
+\]
+which is bounded for $x\geq x_{\rm tar}\geq2$. The retained scaled
+interval has length at most $\Theta^{-60}$, so the additional factor is at
+most two. The full relative errors preserve this fixed bound.
+
+The stationary history inverse retains the affine endpoint contribution.
+If $C_{\rm hist}$ is its polynomial norm from continuous forcing to
+continuous high velocity, the affine-plus-forced construction gives
+\[
+ \sup_{0\leq t\leq t_0}|b_Y(t,y)|
+ \leq \bigl(2t_0^{-1}\|F_t\|_\infty C_{\rm hist}
+                 +t_0^{-1}\|F\|_\infty\bigr)|Y|.
+\]
+Here $Y$ is the fixed transverse coordinate, so
+$|Y|\leq\|F(t_0,0)^{-1}\|\,|Y_{\rm phys}|\leq C K_h/h_*$.
+The inverse norm is polynomial in the known frame quantities and
+$t_0,t_0^{-1}$. Using $t_0\leq1$, $t_0^{-1}\leq h_*$ and
+$h_*=a\epsilon^{-2}\leq2\epsilon^{-2}$ bounds this expression by
+$K_h^{c_d}\epsilon^{-c_d}$ after enlarging the fixed exponent.
+This also accounts for the generally nonzero initial high velocity.
+On $\tau\leq1$, the scaled system has bounded
+coefficients and initial norm at most $C(1+\lambda)$, with
+$\lambda\leq C/\epsilon$; the coordinate transformation is therefore bounded by
+the displayed polynomial in the preceding-stage quantities. Divide these estimates by
+the exponential target lower bound from
+Lemma~\ref{lem:central-renewal} to obtain the early and history ratio.
+Finally $V_0\leq V_\lambda$. The preceding monotonicity argument gives
+$\sup g\leq C x_{\rm tar}V_\lambda(x_{\rm tar}/\sqrt\beta)$,
+whereas
+$A_{\rm tar}\geq c_d s_0x_{\rm tar}^2
+V_\lambda(x_{\rm tar}/\sqrt\beta)$.
+Their growing factors cancel in $\alpha g$. The remaining factors
+$\delta,h_{\rm child},s_0^{-1},x_{\rm tar}$ have the fixed polynomial
+source bounds. The target exponential lower bound similarly proves
+the assertion for $\alpha$ itself.
+\end{proof}
+\section{The finite packet and its exact Euler correction}\label{sec:exact-packet}
+
+Fix a smooth reference solution, called the parent, on the closed
+interval $[0,T]$. Constants may depend on this solution, on $d$,
+and on the prescribed seed. The higher-order high-frequency coefficients
+are constructed by the variational history and forward-tail method of
+\cite[\S3]{OAI}. All source constants are fixed before the packet frequency
+is chosen. No uniform bound on these constants over an infinite sequence
+of parents is assumed.
+
+Let $U$ be the parent, let $P_U$ be its Newton pressure, and let $\Phi_t$ be
+its volume-preserving flow, with $\Phi_0=\mathrm{id}$. In particle labels put
+\begin{equation}\label{eq:packet-frame}
+ F=D\Phi_t,\qquad M=(DU)\circ\Phi_t=F_tF^{-1},\qquad
+ H=(D^2P_U)\circ\Phi_t=-F_{tt}F^{-1}.
+\end{equation}
+We assume that these flow and coefficient fields have bounded smooth
+spatial derivatives and continuous coefficient paths on $[0,T]$.
+For the quantitative assertions we assume a Gevrey bound on the known
+coefficients $F,F^{-1},F_t,F_{tt}$:
+\begin{equation}\label{eq:packet-known-jets}
+ \sup_{t,y}\|D_y^j C(t,y)\|\le C_C R_C^j(j!)^2,
+ \qquad C\in\{F,F^{-1},F_t,F_{tt}\},\quad j\ge0.
+\end{equation}
+These conditions concern the parent. The lower singular-value bound of
+$F$ follows from its inverse.
+All derivative norms in this section are operator norms unless specified
+otherwise.
+
+Fix a unit vector $m_0\in\R^d$ and set
+\[
+ m(t,y)=F(t,y)^{-\top}m_0.
+\]
+Then $m\ne0$ and $m_t=-M^{\top}m$. The phase variable $\theta$ belongs
+to $\mathbb T_P=\R/P\mathbb Z$, with $P=2\pi$ when a specific periodic seed
+is used. Every vector field below has $d$ components, and the transverse
+space $m^\perp$ has dimension $d-1$.
+
+For physical Sobolev persistence one may use
+$s_d=\lfloor d/2\rfloor+3>d/2+1$. Packet
+estimates on the cylinder $\R^d\times\mathbb T_P$ use the fixed base order
+\begin{equation}\label{eq:packet-base-index}
+ b_d=2(d+2)+1=2d+5.
+\end{equation}
+The cylinder embedding, product, and commutator estimates at this order
+follow by Fourier series in $\theta$ and the ordinary Sobolev estimates in
+$y$. All their constants depend on $d$ and $P$, not on the number of
+additional derivatives.
+
+\subsection{The mean inverse}
+Let $\mathcal H=L^2_\sigma(\R^d;\R^d)$ be the closed solenoidal subspace.
+Choose a nonnegative even smooth cutoff $\chi$, equal to one near zero and
+supported in the unit ball, and put $\chi_\ell(y)=\chi(\ell y)$.
+There is a bounded map from the homogeneous first-order tensor space to
+$L^2$ defined first on compact smooth tensors by
+\[
+ (T_{\chi_\ell}Q)_j
+   =\sum_{i=1}^d\partial_i\{\chi_\ell(Q_{ij}-Q_{ji})\},
+ \qquad A_{\chi_\ell}=T_{\chi_\ell}T_{\chi_\ell}^{*}.
+\]
+The tensor space here is the completion for the square sum of all
+$\partial_kQ_{ij}$, with $1\le i,j,k\le d$. Hardy's inequality for
+$d\ge3$ controls the term $(\partial_i\chi_\ell)Q_{ij}$ and extends $T$
+continuously. Its bound is uniform for $0<\ell\le1$ after dilation.
+Consequently $A_{\chi_\ell}$ is positive and symmetric, its range is
+solenoidal, and every output vanishes off $\operatorname{supp}\chi_\ell$.
+The construction requires only boundedness and spatial support of the
+outputs.
+
+We record the localization inequality used below. There are constants
+$C_{1,d},C_{2,d}$ and a fixed $a_d>0$ such that, if
+\begin{align*}
+ \langle M(0,y)z,z\rangle&\ge-B_e|z|^2
+       &&\text{for }|y|\ge a_dr/\ell,\\
+ \langle M(0,y)z,z\rangle&\ge-B_c|z|^2
+       &&\text{for }|y|<a_dr/\ell,
+\end{align*}
+where $0\le r\le1/4$, then, for $z\in\mathcal H$ and
+$\mathcal L\ge C_{1,d}B_c$,
+\begin{equation}\label{eq:packet-boundary-lower}
+ \langle M(0)z,z\rangle_{L^2}
+ +\mathcal L\langle A_{\chi_\ell}z,z\rangle_{L^2}
+ \ge-(B_e+C_{2,d}B_cr^d)\|z\|_2^2.
+\end{equation}
+Here and below constants absorb the fixed normalization of the
+cutoff plateau. To obtain \eqref{eq:packet-boundary-lower}, set
+$Q=T_{\chi_\ell}^{*}z$. On the plateau, subtract one half of the uncut
+antisymmetric divergence of $Q$ from $z$. The difference is weakly
+harmonic, by the defining Riesz identity for $Q$. Its $L^2$ mass on the
+concentric ball of relative radius $r$ is bounded by $C_dr^d$ times its
+mass on the plateau ball. This follows from the interior harmonic
+estimate, obtained by nested cutoff energy estimates and Sobolev
+embedding, and then by dilation. The other part is controlled by
+$\|Q\|_{\dot H^1}^2=\langle A_{\chi_\ell}z,z\rangle$.
+Combining this local bound with the exterior lower bound proves the
+inequality in every dimension $d\ge3$.
+
+Assume $H(t,y)\le K I$ in quadratic-form order and
+\begin{equation}\label{eq:packet-mean-guard}
+ K\frac{T^2}{2}+(B_e+C_{2,d}B_cr^d)T\le\frac12.
+\end{equation}
+For $v\in L^2(0,T;\mathcal H)$ define
+\[
+ Iv(t)=-\int_t^T v(s)\,ds,\qquad X_v=F Iv,\qquad
+ D_Fv=\partial_t X_v=F_tIv+Fv.
+\]
+The mean form is
+\begin{align}
+ \mathfrak a(v,w)
+ &=\int_0^T\langle D_Fv,D_Fw\rangle\,dt
+   -\int_0^T\langle HX_v,X_w\rangle\,dt\notag\\
+ &\quad+\langle (M(0)+\mathcal L A_{\chi_\ell})X_v(0),
+                         X_w(0)\rangle.\label{eq:packet-mean-form}
+\end{align}
+Spatial integrations are included in each inner product. The form need
+not be symmetric because $M(0)$ need not be symmetric. It is bounded and
+coercive. Indeed $X_v(T)=0$, hence
+\[
+ \|X_v\|_{L^2_tL^2_y}^2\le\frac{T^2}{2}\|D_Fv\|_{L^2_tL^2_y}^2,
+ \qquad \|X_v(0)\|_2^2\le T\|D_Fv\|_{L^2_tL^2_y}^2.
+\]
+Moreover $X_v(0)=Iv(0)\in\mathcal H$, because $F(0)=I$.
+Equations \eqref{eq:packet-boundary-lower} and
+\eqref{eq:packet-mean-guard} give
+$\mathfrak a(v,v)\ge\frac12\|D_Fv\|_2^2$.
+The inverse frame gives a polynomial norm comparison. If
+$I=\|F^{-1}\|_\infty$ and $C_1=\|F_t\|_\infty$, then
+$v=F^{-1}D_Fv-F^{-1}F_tF^{-1}X_v$, so
+$\|v\|_2\le I(1+C_1IT)\|D_Fv\|_2$.
+Thus the Hilbert-space coercive inverse constructs the unique $v$ with
+\begin{equation}\label{eq:packet-mean-weak}
+ \mathfrak a(v,w)=-\int_0^T\langle f,X_w\rangle\,dt
+ \quad\text{for every }w\in L^2(0,T;\mathcal H).
+\end{equation}
+Set $B=Fv$.
+
+\begin{lemma}[Strong mean and its pressure]\label{lem:packet-strong-mean}
+For a forcing $f$ with continuous $L^2$ spatial derivatives of every
+order, the preceding construction gives continuous paths $B$ and $B_t$
+in every spatial Sobolev space and a spatially smooth scalar $q$,
+whose spatial derivatives depend continuously on time locally in space,
+normalized by $q(t,0)=0$, such that
+\begin{equation}\label{eq:packet-mean-pde}
+ B_t+MB+F^{-\top}\nabla_yq=f,
+ \qquad F^{-1}B\in\mathcal H.
+\end{equation}
+These identities hold pointwise, with one-sided time derivatives at both
+endpoints. In addition, there exists $z_0\in\mathcal H$ such that
+\begin{equation}\label{eq:packet-mean-initial}
+ B(0)=\mathcal L A_{\chi_\ell}z_0,
+ \qquad\operatorname{supp}B(0)\subset\overline B(0,\ell^{-1}).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Translate the coefficients and forcing in the spatial variable. The
+coercive inverse is differentiable under each translation; differentiating
+its inverse identity expresses each new derivative using previously
+constructed derivatives and the known coefficient derivatives. This
+constructs the spatial derivatives in $L^2$. The same argument applies to
+the translated cutoff operator on the fixed homogeneous tensor space.
+The argument yields derivatives of every finite order.
+
+Let $Q_t:\mathcal H\to L^2$ be $Q_tz=F(t)z$. Its Gram operator
+$Q_t^*Q_t$ has a positive lower bound from $F^{-1}$. The weak equation,
+$F_{tt}=-HF$, and integration by parts give
+\[
+ v_t=(Q_t^*Q_t)^{-1}Q_t^*\{f-2F_tv\}.
+\]
+First this is an $L^2$ time identity. The $H^1$ trace construction and
+continuity of the coefficients then give continuous representatives of
+$v$ and $v_t$, with the same spatial derivatives. The residual
+$r=f-2F_tv-Fv_t$ satisfies $Q_t^*r=0$; equivalently,
+$F^{\top}r$ lies in the closed $L^2$ gradient space. Its smooth
+representative is curl-free; hence
+\[
+ q(t,y)=\int_0^1\langle F(t,sy)^{\top}r(t,sy),y\rangle\,ds
+\]
+satisfies $q(t,0)=0$ and $\nabla q=F^{\top}r$. This proves
+\eqref{eq:packet-mean-pde}. The pointwise equations follow from equality
+of continuous representatives of the same $L^2$ field. The Gram
+construction and closedness give $v(t)\in\mathcal H$ at every time in
+the closed interval. In particular, $B(0)=v(0)\in\mathcal H$. With $z_0=Iv(0)$,
+the boundary identity in \eqref{eq:packet-mean-weak} is
+\[
+ P_\sigma\{-F_t(0)z_0-B(0)+(M(0)+\mathcal L A_{\chi_\ell})z_0\}=0.
+\]
+Since $F_t(0)=M(0)$ and both $B(0)$ and $A_{\chi_\ell}z_0$ are
+solenoidal, this yields \eqref{eq:packet-mean-initial} as an $L^2$
+identity. Spatial continuity gives the asserted pointwise support.
+\end{proof}
+
+For a transverse
+endpoint problem the map $Q_t$ is replaced by $F(t)R_\perp$, where
+$R_\perp:\R^{d-1}\to m_0^\perp$ is a linear isometry onto the whole
+orthogonal complement. Its Gram lower bound is again supplied by
+$F^{-1}$. The energy, trace, and coercive-inverse arguments are unchanged;
+there are $d-1$ transverse variables throughout.
+
+\subsection{The joined high inverse and the full tensor corrector}
+Fix an activation time $0<t_0<T$. Choose an isometry
+$R_\perp:\R^{d-1}\to m_0^\perp$ onto the whole orthogonal complement
+and put $Q=FR_\perp$. Its range is $m(t,y)^\perp$, and
+$Q_t=MQ$, $Q_{tt}=-HQ$. The fixed coordinate space $\R^{d-1}$ is used at
+every label and time.
+
+For an angular-mean-zero forcing
+$f\in C([0,T];H^q(\R^d\times\mathbb T_P;\R^d))$ for every finite $q$,
+first solve on $[0,t_0]$ the following displacement problem. Find
+$z\in H^1_0(0,t_0;L^2(\R^d\times\mathbb T_P;\R^{d-1}))$ such that
+\begin{equation}\label{eq:packet-high-history}
+ \int_0^{t_0}\!\bigl[\langle (Qz)_t,(Q\zeta)_t\rangle
+            -\langle HQz,Q\zeta\rangle\bigr]dt
+       =-\int_0^{t_0}\!\langle f,Q\zeta\rangle dt
+ \quad(\zeta\in H^1_0).
+\end{equation}
+Both displacement traces are zero. This condition does not prescribe the
+initial high velocity. Set $A=Qz_t$ on the history interval.
+
+\begin{lemma}[The bounded joined high inverse]\label{lem:packet-joined-high}
+Under the known frame bounds and $Kt_0^2/2\le1/2$, problem
+\eqref{eq:packet-high-history} has a unique solution. Its velocity $A$,
+its time derivative, and their spatial derivatives are continuous on
+$[0,t_0]$. At $t_0$ its velocity trace can be continued by the
+forward high equation. This gives a unique joined high operator on
+$[0,T]$ with the specified history boundary conditions. The history
+inverse and trace bounds are polynomial in the known coefficient norms,
+inverse lower bound, $t_0$ and $t_0^{-1}$. No exponential forward
+estimate on $[0,t_0]$ is used.
+\end{lemma}
+\begin{proof}
+Write $X=Qz$. The one-sided Poincar\'e estimate and the curvature upper
+bound give
+\[
+ \int_0^{t_0}(|X_t|^2-\langle HX,X\rangle)dt
+       \ge\tfrac12\|X_t\|_{L^2}^2.
+\]
+If $Q^*Q\ge cI$, then $z=(Q^*Q)^{-1}Q^*X$, and direct differentiation,
+using $X_t=Q_tz+Qz_t$, gives the polynomial estimate
+\[
+ \|z_t\|_2\le
+ c^{-1/2}(1+t_0 c^{-1/2}\|Q_t\|_\infty)\|X_t\|_2.
+\]
+Thus the form is coercive on the fixed Hilbert space of coordinate
+velocities $z_t$ with zero time integral. Its bounded coercive inverse
+constructs $z$. Integration by parts and $Q_{tt}=-HQ$ give
+\[
+ (Q^*Q)z_{tt}=Q^*(f-2Q_tz_t).
+\]
+The positive Gram inverse therefore gives $z_{tt}$ and the
+continuous $H^1$ traces. Repeated differentiation under spatial
+translation is justified on this same fixed Hilbert space, exactly as
+for the mean inverse. It gives all the stated derivatives and preserves
+both homogeneous displacement boundary conditions.
+
+At order zero, a physical-space estimate is available directly.
+Put $M_* =\sup\|M\|$. Testing the form with $z$
+gives $\|X_t\|_2\le2t_0\|f\|_2$. Since $A=X_t-MX$, it follows that
+\[
+ \|A\|_2\le2t_0(1+M_*t_0)\|f\|_2.
+\]
+The velocity equation derived below implies
+$\|A_t\|_2\le3M_*\|A\|_2+\|f\|_2$. The elementary Hilbert-valued
+trace estimate consequently gives
+\begin{equation}\label{eq:packet-history-polynomial-trace}
+ \|A\|_{C_tL^2}\le
+ \bigl[2t_0(1+M_*t_0)(t_0^{-1/2}+3M_*\sqrt{t_0})
+                         +\sqrt{t_0}\bigr]\|f\|_{L^2_tL^2}.
+\end{equation}
+This also bounds the initial datum for the forward segment.
+\end{proof}
+
+The Gram equation and tangency show that the same $A$ satisfies
+\begin{equation}\label{eq:packet-high-ode}
+ A_t=\left(-M+2\frac{m\otimes M^{\top}m}{|m|^2}\right)A
+       +\left(I-\frac{m\otimes m}{|m|^2}\right)f.
+\end{equation}
+Here $(a\otimes b)v=a\langle b,v\rangle$. Indeed the residual
+$f-A_t-MA$ is perpendicular to the whole range of $Q$, hence is a
+multiple of $m$. Differentiating $m\cdot A=0$ gives its coefficient.
+For $t\ge t_0$ use the fundamental evolution of
+\eqref{eq:packet-high-ode} and Duhamel's formula with datum $A(t_0)$.
+The velocities and their derivatives match at $t_0$ by the common
+right-hand side, so the joined field is strongly differentiable there
+as well as at the two closed endpoints.
+
+Let $g$ be a positive continuous function with $g(t_0)=1$, and assume
+the supported forward bound
+\begin{equation}\label{eq:packet-tail-propagator}
+ \|\mathcal U(t,s;y)\|\le C_{\rm f}\,g(t)/g(s),
+ \qquad t_0\le s\le t\le T,
+ \quad y\text{ in the fixed support neighborhood}.
+\end{equation}
+This hypothesis concerns the known parent evolution on the activation
+tail. The polynomial history estimate is supplied separately by
+\eqref{eq:packet-history-polynomial-trace}.
+
+Define the normalized periodic primitive $\partial_\theta^{-1}$ and put
+\begin{equation}\label{eq:packet-high-pressure}
+ \pi=\partial_\theta^{-1}
+       \frac{\langle m,f\rangle-2\langle m,MA\rangle}{|m|^2}.
+\end{equation}
+Then $A_t+MA+m\partial_\theta\pi=f$. The inverse, trace, and forward
+maps commute with the angular integral. They therefore preserve zero
+angular mean. They also commute with multiplication by a fixed spatial
+cutoff, since these linear high equations contain no spatial derivative.
+Their uniqueness proves support preservation and covariance. Thus the
+joined high field and its pressure are smooth in $(y,\theta)$, periodic,
+and supported where the forcing is supported. Their spatial derivatives
+are continuous in time; the high velocity also has the continuous time
+derivative given by \eqref{eq:packet-high-ode}.
+
+The primary field uses a nonzero terminal displacement. To distinguish its
+physical and coordinate forms, let the selected physical endpoint be
+$Y_{\rm phys}\in m(t_0,0)^\perp$, and fix
+\[
+ Y=R_\perp^*F(t_0,0)^{-1}Y_{\rm phys}\in\R^{d-1}.
+\]
+Then $Q(t_0,0)Y=Y_{\rm phys}$ and
+$|Y|\le\|F(t_0,0)^{-1}\|\,|Y_{\rm phys}|$. This same coordinate
+vector is used at every label.
+
+The cylinder problem has terminal datum
+$\alpha\chi_{\rm in}(y)f_\delta(\theta)Y$, which belongs to every
+cylinder Sobolev space, and initial displacement zero. Subtract the
+affine lift $\alpha(t/t_0)\chi_{\rm in}f_\delta Y$. Using
+$Q_{tt}=-HQ$, its remaining zero-trace problem is exactly
+\eqref{eq:packet-high-history} with forcing
+$-2\alpha t_0^{-1}\chi_{\rm in}f_\delta Q_tY$. This forcing is
+continuous in every cylinder Sobolev space and has the prescribed
+compact spatial support.
+
+Equivalently, at each fixed label solve the finite-dimensional homogeneous
+displacement problem with endpoints $0,Y$, and write $b_Y(t,y)=Qz_t$
+for its velocity, continued homogeneously on the tail. The uniform frame
+bounds justify this pointwise solution and its label derivatives. Linearity
+and uniqueness identify the cylinder velocity with the compact
+periodic primary
+\begin{equation}\label{eq:packet-joined-primary}
+ A_1(t,y,\theta)=\alpha\chi_{\rm in}(y)f_\delta(\theta)b_Y(t,y).
+\end{equation}
+Its initial value generally depends on $y$. The first stage,
+whose activation time is zero, instead uses a prescribed homogeneous
+forward datum. The same recursion applies in both cases. For higher grades
+the displacement endpoints in \eqref{eq:packet-high-history} are both
+zero, but their initial velocities are retained.
+
+For every such $A$ define all $d^2$ entries of the potential
+\begin{equation}\label{eq:packet-tensor-potential}
+ Q_{ij}=\partial_\theta^{-1}
+       \frac{m_iA_j-m_jA_i}{|m|^2},\qquad Q_{ij}=-Q_{ji},
+ \qquad
+ C_j=\sum_{i=1}^d D_yQ_{ij}[F^{-1}e_i].
+\end{equation}
+If $\kappa=k^{-1}$ and $\psi=\Phi_t^{-1}$, the chain rule gives
+\begin{equation}\label{eq:packet-pair-curl}
+ A_j(\psi(x),km_0\cdot\psi(x))+
+ \kappa C_j(\psi(x),km_0\cdot\psi(x))
+ =\kappa\sum_{i=1}^d\partial_{x_i}
+    Q_{ij}(\psi(x),km_0\cdot\psi(x)).
+\end{equation}
+Indeed the phase part on the right is
+$\sum_i m_i\partial_\theta Q_{ij}=A_j$, by tangency.
+Taking divergence and interchanging the two ordinary derivatives cancels
+all terms by antisymmetry. This identity holds for every pair $(i,j)$.
+Applying the volume-preserving Piola transformation shows that
+$F^{-1}(A+\kappa C)$ has zero divergence on every phase-shifted label
+graph. Integration over the shift gives its membership in the cylinder's
+closed divergence-free $L^2$ space. The potentials are smooth and have
+the same compact spatial support as $A$, so the integrations by parts
+are legitimate. The time derivative of $C$ is obtained by differentiating
+\eqref{eq:packet-tensor-potential}: it includes the derivatives of $F^{-1}$,
+$m$, $|m|^{-2}$, the primitive, and $A$. The same formula gives the
+one-sided time derivatives at the endpoints.
+
+\subsection{Recursive construction from preceding grades}
+For vector fields $a,b$ on the time-label-angle cylinder write
+\[
+ S(a,b)=D_yb[F^{-1}a],\qquad
+ T(a,b)=\langle m,a\rangle\partial_\theta b,\qquad
+ L a=\partial_ta+Ma.
+\]
+Let $A_1$ be the homogeneous joined primary
+\eqref{eq:packet-joined-primary} (or the first-stage forward primary).
+Put $B_1=q_1=0$, form $C_1$ by
+\eqref{eq:packet-tensor-potential}, and set every grade-zero field to zero.
+Suppose grades below $p\ge2$ have been constructed. Set
+\[
+ V_i=A_i+B_i+C_{i-1}\quad(1\le i<p),\qquad
+ \widehat V_p=C_{p-1},
+\]
+and extend this known sequence by zero above $p$. The forcing determined
+by the preceding grades is
+\begin{equation}\label{eq:packet-known-force}
+ K_p=-LC_{p-1}-F^{-\top}\nabla_y\pi_{p-1}
+       -\sum_{i+j=p}S(\widehat V_i,\widehat V_j)
+       -\sum_{i+j=p+1}T(\widehat V_i,\widehat V_j).
+\end{equation}
+Every term uses only the strict prefix. Let an overline denote normalized
+angular averaging. First solve the mean problem with forcing
+$\overline K_p$, obtaining $B_p,q_p$. Then apply the joined high
+inverse of Lemma~\ref{lem:packet-joined-high} with forcing
+\begin{equation}\label{eq:packet-new-high-force}
+ f_p=K_p-\overline K_p-\langle m,B_p\rangle\partial_\theta A_1,
+\end{equation}
+obtaining $A_p,\pi_p$, and form $C_p$ from $A_p$.
+The final term of \eqref{eq:packet-new-high-force} has zero angular mean.
+Terms in $K_p$ containing only means are angularly constant and disappear
+from $K_p-\overline K_p$. Every remaining term contains a high field or
+corrector, so it has the same compact spatial support as the seed. The
+mean forcing has all continuous $L^2$ spatial derivatives by the
+Sobolev product estimates. The high forcing is smooth, periodic, mean
+zero, and spatially supported. These facts inductively verify the domains
+of the two inverse operators.
+
+In the quadratic
+coefficient, replacing $\widehat V_p$ by
+$\widehat V_p+A_p+B_p$ adds only
+$\langle m,B_p\rangle\partial_\theta A_1$.
+The other potentially new fast terms vanish because $A_p,A_1$ are
+tangent and $B_p$ is angularly constant. This proves both strict-prefix
+coherence and the grade-$p$ momentum equation. In particular, families
+constructed for different finite cutoffs are restrictions of one family.
+
+\subsection{Finite truncation, divergence, and the residual identity}
+For $N\ge1$ define
+\begin{align}
+ V^{[N]}&=\sum_{i=1}^N\kappa^i(A_i+B_i+\kappa C_i),\notag\\
+ p^{[N]}&=\sum_{i=1}^N\kappa^i(q_i+\kappa\pi_i).
+                                                        \label{eq:packet-finite-pairs}
+\end{align}
+Equivalently the velocity grades are $V_i=A_i+B_i+C_{i-1}$ for
+$1\le i\le N$, followed by the terminal grade $V_{N+1}=C_N$.
+The pressure grades are $p_i=q_i+\pi_{i-1}$ for $1\le i\le N$,
+followed by $p_{N+1}=\pi_N$. Grades outside this range are zero.
+In particular the terminal grade does not include unsolved
+$A_{N+1}$ or $B_{N+1}$.
+
+Each high-corrector pair in \eqref{eq:packet-finite-pairs} is exactly
+solenoidal after graph evaluation by \eqref{eq:packet-pair-curl}.
+Each mean has $F^{-1}B_i\in\mathcal H$ by
+Lemma~\ref{lem:packet-strong-mean}; its constant-angle embedding therefore
+belongs to the same cylinder solenoidal space. Thus the complete finite
+sum satisfies the closed divergence constraint. The constant-angle
+embedding of an ordinary $L^2$ gradient lies in the cylinder's closed
+gradient space: approximate it by gradients of compactly supported
+smooth scalars and use $\nabla_\kappa\varphi=\kappa\nabla_y\varphi$
+for an angle-independent scalar. This applies to the mean pressure
+gradients. The compact periodic high scalar pressures themselves give
+gradient generators. Their finite sum therefore belongs to the required
+closed gradient space.
+
+For any $V,p$ define the label momentum residual by
+\begin{equation}\label{eq:packet-raw-residual}
+ \mathcal R_\kappa(V,p)=LV+F^{-\top}\nabla_yp+
+ \kappa^{-1}m\partial_\theta p+S(V,V)+\kappa^{-1}T(V,V).
+\end{equation}
+For the finite grade sequences above, let
+\[
+ R_n=LV_n+F^{-\top}\nabla_yp_n+m\partial_\theta p_{n+1}
+       +\sum_{i+j=n}S(V_i,V_j)+\sum_{i+j=n+1}T(V_i,V_j).
+\]
+The mean and high equations give $R_n=0$ for $0\le n\le N$.
+Expanding the finite sums with their derivatives, including the
+one-sided time derivatives, consequently gives the exact identity
+\begin{equation}\label{eq:packet-tail-identity}
+ \mathcal R_\kappa(V^{[N]},p^{[N]})
+   =\sum_{n=N+1}^{2N+2}\kappa^nR_n.
+\end{equation}
+This finite identity involves no time derivative of $p$.
+In particular, $R_{N+1}$ retains $LC_N$ and
+$F^{-\top}\nabla_y\pi_N$.
+
+\subsection{Quantitative bounds at one known parent}
+We give the estimates in a form that makes the derivative counting
+explicit. For an integer $a\ge0$ set
+$\mathcal G_a(j)=R^{j+a}((j+a)!)^2$.
+Use ordered cylinder derivatives with alphabet $\{1,\ldots,d+1\}$.
+More precisely, the block of order $j$ is
+\[
+ \operatorname{Block}_j(u)=
+ \sum_{|w|=j}\sum_{l=0}^{b_d}\sum_{|v|=l}
+     \|\partial^v\partial^w u\|_{C([0,T];L^2)}.
+\]
+At fixed time the corresponding word Sobolev norm is equivalent to the
+usual $H^{b_d}$ norm, with fixed constants depending only on $d,b_d$.
+A positive time weight is inserted by dividing the field by that
+weight before taking spatial or angular derivatives. For one sufficiently
+large $R$, depending only on the known coefficients, seed, and inverse
+bounds, the preceding recursion gives
+\begin{align}
+ \operatorname{Block}_j(B_p,B_{p,t},\nabla_yq_p)
+   &\le H_0^{2p-2}\mathcal G_{100p-140}(j),&&p\ge2,\notag\\
+ \operatorname{Block}_j(A_p,A_{p,t},C_p,C_{p,t},\nabla_y\pi_p)
+   &\le \gamma(t)H_0^{2p-2}\mathcal G_{100p-80}(j),&&p\ge1.
+                                                        \label{eq:packet-grade-bounds}
+\end{align}
+Here each entry has the stated bound separately. We use
+$\gamma(t)=\alpha$ for $0\le t\le t_0$ and
+$\gamma(t)=\alpha g(t)$ on the tail, with
+$H_0\ge\max(1,\sup\gamma)$. The notation with $\gamma(t)$ means the
+uniform-time block of the field divided by $\gamma$. The supported
+forward constant in \eqref{eq:packet-tail-propagator}, the history trace
+bound, and the terminal datum are included among the known source
+constants controlling $R$. In particular the higher initial high fields
+are bounded with the factor $\alpha$, not set to zero. This is the
+family used below and in Section~\ref{sec:initial-summability}.
+
+For completeness, the derivative estimates underlying
+\eqref{eq:packet-grade-bounds} are as follows. The word Leibniz rule is
+bounded by a binomial convolution. Its Gevrey convolution closes because
+\[
+ \binom jl(l!)^2((j-l)!)^2
+       =\frac{(j!)^2}{\binom jl},
+ \qquad \sum_{l=0}^j {\binom{j}{l}}^{-1}\le3.
+\]
+Fixed-order Sobolev products add a constant depending on $b_d,d$.
+On the history interval, differentiate the fixed-space coercive
+inverse and then use the Gram equation and its trace. On the tail,
+differentiate the Duhamel equation and use
+\eqref{eq:packet-tail-propagator}. The history terminal trace is the
+datum in this Volterra recurrence. The joined high velocity and its time
+derivative require shifts of at most three grades. Differentiating the
+coercive inverse, followed by its Gram reconstruction and the $H^1$ time
+trace, requires shifts of at most three grades for the mean, its time
+derivative, and its pressure gradient. These are estimates on word blocks with the full
+alphabet. The angular mean is a bounded $L^2$ map with norm $P^{-1/2}$,
+and the constant-angle embedding has norm $P^{1/2}$; the factors cancel.
+Thus converting mean input to mean output does not multiply the unknown
+word radius at each grade. Only the known coefficient radius is enlarged
+once. Also the mean time weight is the constant $H_0^{2p-2}$, so no
+commutation of a time-dependent weight with the mean inverse is claimed.
+The history estimate is applied to $f/\alpha$ and the tail estimate
+to $f/(\alpha g)$; linearity preserves the common factor $\alpha$.
+The tail estimate uses the weighted Duhamel operator without differentiating
+$g$. The tensor potential and its time derivative require one spatial
+derivative and a fixed $d$-dependent multiplier bound; the pressure
+source \eqref{eq:packet-high-pressure} and one slow derivative require
+shifts of at most two additional grades. Enlarging $R$ once absorbs these
+fixed constants.
+The grade counting can be made explicit. The mean force has shift at
+most $100p-150$, and the high force has shift at most $100p-90$.
+For example a slow high--high term with $i+j=p$ has shift
+$100p-159$. In a fast term with $i+j=p+1$, the first high factor is
+annihilated by $m\cdot A_i=0$. A first corrector factor has shift
+$100i-180$, so the resulting high term has shift at most $100p-159$;
+a first mean factor gives shift $100p-119$, and has zero angular average.
+The new term $(m\cdot B_p)\partial_\theta A_1$ has the latter shift as
+well. These shifts satisfy the stated forcing bounds. The profile powers close
+because $\gamma\le H_0$; in particular a mean--high fast product has
+the required factor $\gamma H_0^{2p-2}$.
+The at most quadratic number of summands is absorbed by the additional
+factorial shifts: for $a\ge0$,
+$\mathcal G_{a+2}(j)/\mathcal G_a(j)
+ =R^2(j+a+1)^2(j+a+2)^2$.
+The low grades satisfy the bounds after one enlargement of the known radius.
+The mean inverse and the joined high inverse, followed by the corrector
+and pressure estimates, require fewer than ten additional shifts.
+Strong induction proves \eqref{eq:packet-grade-bounds} for this
+joined family using only previously constructed fields.
+
+For the correction use the truncated weighted norm
+\[
+ \|u\|_{r,b_d;J}
+ =\sum_{j=0}^J\frac{r^j}{(j!)^2}
+     \sum_{|w|=j}\sum_{l=0}^{b_d}\sum_{|v|=l}\|\partial^v\partial^wu\|_2.
+\]
+A block bound
+$C\mathcal G_a(j)$ gives a weighted norm bound of at most
+$2C(4R)^a(a!)^2$ when $4Rr\le1/2$.
+This conversion is performed after the word recursion, not at every
+recursive step. In particular, at every derivative cutoff,
+\[
+ \|V_i\|_{r,b_d;J}\le
+  6H_0^{2i}(4R)^{100i}((100i)!)^2\quad(i\ge1),
+\]
+with analogous bounds for the time derivatives and pressure
+forces at a smaller fixed radius. To quantify the dependence on the
+expansion order, choose a known-source constant
+$C_0\ge1$ and put $S_N=C_0(N+1)^{200}$. The inequality
+$(100i)!\le(100(N+1))^{100i}$ for $i\le N+1$ bounds each displayed
+grade by $S_N^i$ after enlarging $C_0$. The time derivatives
+and pressure terms obey the same bound; one slow or angular derivative
+is controlled by one fixed radius reduction, whose reciprocal factor is
+included in $C_0$. A slow product with $i+j=n$ is bounded by
+$C S_N^n$, and a fast product with $i+j=n+1$ by $C S_N^{n+1}$.
+There are at most
+$(N+2)^2$ terms. The terminal linear terms have the same bound, including
+the $C_N$ time derivative and the slow derivative of $\pi_N$.
+Thus $C_1(N+2)^2S_N^{n+1}$ bounds the entire residual grade. Taking
+$B_N=C_2(N+1)^{202}$ with a sufficiently large fixed $C_2$ absorbs this
+factor for every $n\ge N+1$. Thus the fixed tail degree is $202$, and
+\begin{equation}\label{eq:packet-tail-base}
+ B_N\le C_*(N+1)^{202},\qquad
+ \|R_n\|_{r,b_d;J}\le B_N^{n+1}\quad(N+1\le n\le2N+2).
+\end{equation}
+The constant $C_*$ is fixed by the current parent and seed, and is
+independent of $N,k,J$. Spatial derivatives of the high pressure, the
+time derivative of $C_N$, and the terminal linear terms are all included
+in this estimate.
+
+Put
+\begin{equation}\label{eq:packet-coordinate-change}
+ Z=kF^{-1}V^{[N]},\quad Q^a=k^2p^{[N]},\quad
+ \nabla_\kappa=\kappa\nabla_y+m_0\partial_\theta,
+ \quad G=F^{-1}F^{-\top}.
+\end{equation}
+Then the coordinate residual is $\mathcal E=kF^{-1}\mathcal
+R_\kappa(V^{[N]},p^{[N]})$. If $B_N\le k^{1/100}$ and the known inverse
+multiplier bound is at most $k^{1/100}$, the geometric sum in
+\eqref{eq:packet-tail-identity} yields, for $N\ge X-1$, $X\ge6$,
+\begin{equation}\label{eq:packet-small-residual}
+ \|\mathcal E\|_{r,b_d;J}
+       \le \exp(-\tfrac7{10}X\log k).
+\end{equation}
+The field $Z$ and its first cylinder derivatives have fixed weighted
+bounds $B_0,B_1$. More sharply, its cylinder transport vector is
+\[
+ \mathcal V_\kappa Z=(\kappa Z,m_0\cdot Z),
+ \qquad \|\mathcal V_\kappa Z\|_{r,b_d;J}\le D_*/k.
+\]
+The order-one high field is tangent, so its fast transport component
+vanishes exactly. All other contributions carry at least one inverse
+frequency. The radius estimate uses this small transport norm rather than the
+full $O(1)$ norm of $Z$.
+
+\subsection{An exact correction on the cylinder}
+The coordinate equation is
+\begin{equation}\label{eq:packet-coordinate-equation}
+ W_t+(W\cdot\nabla_\kappa)W+2F^{-1}F_tW
+    +\kappa\sum_{i=1}^d W_iF^{-1}(\partial_iF)W
+    +G\mathbf p=0,
+ \qquad \nabla_\kappa\cdot W=0.
+\end{equation}
+Here $\mathbf p$ is a vector pressure variable in
+$\mathscr G_\kappa=\overline{\{\nabla_\kappa\varphi:
+\varphi\text{ smooth, periodic, compact in }y\}}^{L^2}$.
+The construction requires only membership in this closed space, without
+a global periodic scalar potential or a closed-range property for the
+degenerate $d$-component operator on the $(d+1)$-dimensional cylinder.
+The equation contains all $d$ quadratic coefficient matrices.
+Substituting $Z$ and the approximate pressure vector
+$\mathbf p^a=\nabla_\kappa Q^a$ gives exactly the residual $\mathcal E$
+above. The correction pressure is solved in this closed subspace of
+vector-valued cylinder $L^2$.
+The positive matrix $G$ gives a coercive variational pressure inverse on
+that subspace. Its derivatives are controlled by the coefficient
+jets and commutators.
+
+Seek $W=Z+E$ with $E(0)=0$. Use the inverse metric
+$G^{-1}=F^{\top}F$ in the finite weighted Sobolev energy. The top
+pressure term cancels since
+$\langle G^{-1}E,G\mathbf p^e\rangle
+ =\langle E,\mathbf p^e\rangle=0$ for $\mathbf p^e\in\mathscr G_\kappa$.
+The top transport term is integrated by parts using the closed
+solenoidal constraint. Differentiated metric terms and lower products
+have a known coefficient bound. To specify the energy convention, put
+$\|u\|_{F^{\top}F}=(\int\langle F^{\top}Fu,u\rangle)^{1/2}$ and set
+\[
+ \mathcal A_J=\sum_{j=0}^J\frac{r^j}{(j!)^2}
+   \sum_{|w|=j}\sum_{l=0}^{b_d}\sum_{|v|=l}
+       \|\partial^v\partial^w E\|_{F^{\top}F}.
+\]
+The quantity $\mathcal A_J$ is a sum of metric norms and is
+uniformly equivalent to the preceding weighted norm by the known frame
+bounds. Let $\mathcal L_J$ be the same sum with the additional factor
+$j$ in every summand. Derivatives of norms at zero can be justified by
+first replacing each norm by its quadratic regularization and then
+letting the regularization parameter decrease to zero.
+
+The orthogonal gradient projection commutes with every cylinder
+derivative. In the differentiated pressure equation, each nontrivial
+commutator with $G$ lowers the derivative order on the pressure by at
+least one. This compensates for the one derivative in the transport
+source. After the fixed-base Sobolev pressure estimate, its remaining
+coefficient-word convolutions are absorbed by choosing the known radius
+small enough. Thus no unknown derivative of order $J+b_d+1$ is left in
+the energy bound. The word product convolution and the metric transport
+cancellation consequently give a single radius-loss factor. In fact, in
+a transport commutator with $1\le j\le n$, put $l=n-j+1$. The ratio of
+Gevrey weights, including its Leibniz coefficient, is
+\[
+ \frac{r^n}{(n!)^2}\binom nj
+   \frac{(j!)^2(l!)^2}{r^j r^l}
+   =\frac{l^2}{r\binom nj}\le\frac lr,
+\]
+since $\binom nj\ge l$. The excluded term $j=0$ is precisely the
+cancelled principal transport term. Thus the loss is the factor $l$
+in $\mathcal L_J$, with no additional derivative beyond the cutoff. We obtain
+\begin{equation}\label{eq:packet-correction-energy}
+ \mathcal A_J'
+ \le C\{\mathcal A_J+\mathcal A_J^2+\varepsilon\}
+  +\left\{\frac{r'}{r}
+       +C(r^{-1}+R_c)(D_*/k+\mathcal A_J)\right\}\mathcal L_J.
+\end{equation}
+The same $C,R_c$ work for every external derivative cutoff $J$.
+Here $\varepsilon=2\exp(-7X\log k/10)$ includes the metric conversion
+of the residual after a fixed enlargement of constants.
+
+Choose a positive $r_0$ from the known coefficient and packet radii so
+that all pressure absorptions hold, in particular $r_0R_c\le1$, and set
+\[
+ \eta=\exp(-\sqrt X),\qquad
+ r(t)=r_0-2C(D_*/k+\eta)t.
+\]
+If
+\begin{equation}\label{eq:packet-correction-guards}
+ 2\varepsilon e^{3CT}\le\eta/2,
+ \qquad 2C(D_*/k+\eta)T\le r_0/2,
+\end{equation}
+then $r_0/2\le r(t)\le r_0$. In the bootstrap range
+$\mathcal A_J\le\eta\le1$ the loss coefficient in
+\eqref{eq:packet-correction-energy} is nonpositive. The scalar integral
+inequality gives the strict bound $\mathcal A_J\le\eta/2$ and closes
+the bootstrap.
+
+For existence, we follow the pressure projection
+and vanishing-viscosity argument of \cite[\S3.6]{OAI}. Let
+$\mathscr G_\kappa$ be the closed gradient space above and let
+$P_{\mathscr G}$ be its orthogonal projection in cylinder $L^2$.
+On $\mathscr G_\kappa$ the map
+$g\mapsto P_{\mathscr G}(G(t)g)$ is coercive, since
+$\langle g,G(t)g\rangle\ge c\|g\|_2^2$ with $c>0$ supplied by $F$.
+Set
+\[
+ \mathcal T_t=(P_{\mathscr G}G(t)|_{\mathscr G_\kappa})^{-1}
+                         P_{\mathscr G},\qquad
+ \mathcal P_t=I-G(t)\mathcal T_t.
+\]
+Then $P_{\mathscr G}\mathcal P_t=0$,
+$\mathcal P_tu=u$ for $u\in\mathscr G_\kappa^\perp$, and
+$\mathcal P_tG(t)g=0$ for $g\in\mathscr G_\kappa$.
+Differentiating the coercive pressure equation gives the Sobolev bounds
+for $\mathcal T_t$ and $\mathcal P_t$ at every fixed order. Their constants
+may depend on that fixed order; the previously derived weighted energy
+constants do not depend on the external derivative cutoff.
+
+Write the unprojected correction source as
+\[
+ \mathcal N(E)=b_E\cdot\nabla_{y,\theta}E+\mathcal Z(E)+\mathcal E,
+ \qquad b_E=\mathcal V_\kappa(Z+E),
+\]
+where $\mathcal Z(E)$ contains the terms $E\cdot\nabla_\kappa Z$,
+$2F^{-1}F_tE$ and the differences of the two quadratic coefficient
+terms. It has no derivative of $E$. For $0<\nu\le1$, solve
+\begin{equation}\label{eq:packet-viscous-correction}
+ E_t^\nu-\nu\Delta_{y,\theta}E^\nu
+       =-\mathcal P_t\mathcal N(E^\nu),\qquad E^\nu(0)=0.
+\end{equation}
+The right side is locally Lipschitz $H^q\to H^{q-1}$ for
+$q\ge b_d$, and the Fourier heat estimate
+\[
+ \|e^{\nu t\Delta}f\|_{H^q}
+       \le C_q(1+(\nu t)^{-1/2})\|f\|_{H^{q-1}}
+\]
+gives a local mild solution by contraction. Every component of
+$\nabla_\kappa$ has constant coefficients and commutes with the full
+cylinder Laplacian. The heat semigroup therefore preserves the fixed
+space $\mathscr G_\kappa^\perp$. Since the non-heat term in
+\eqref{eq:packet-viscous-correction} takes values in this space, the mild
+solution is exactly divergence free. No time derivative of
+$\mathcal P_t$ and no commutation of $\mathcal P_t$ with the heat
+semigroup is required.
+
+The pressure gradient is
+$-\mathcal T_t\mathcal N(E^\nu)$. The viscosity contributes no pressure,
+because $\Delta E^\nu$ is still divergence free. Heat maximal regularity
+justifies testing differentiated equations by
+$F^{\top}F\partial^wE^\nu$: on each compact existence interval,
+$E^\nu\in L^2_tH^{q+1}$ and $E_t^\nu\in L^2_tH^{q-1}$.
+The differentiated metric-viscosity term satisfies
+\[
+ \nu\int\langle F^{\top}F u,\Delta u\rangle
+       \le-\tfrac{c\nu}{2}\|\nabla u\|_2^2+C\nu\|u\|_2^2.
+\]
+This follows by integration by parts and Young's inequality, using the
+known first derivatives of $F^{\top}F$. Thus it adds only a bounded
+multiple of the lower energy to \eqref{eq:packet-correction-energy},
+uniformly for $\nu\le1$. In the choice of $C$ above we include this
+known metric-viscosity constant before selecting the radius or frequency;
+it depends only on the fixed source and not on $J$ or $\nu$.
+The same norm regularization justifies summing this estimate for
+$\mathcal A_J$. The bootstrap extends every viscous solution
+to $T$. Uniqueness in the low Sobolev class identifies the solutions
+constructed at different higher orders. In particular they have uniform
+bounds in $C_tH^q$ for each finite $q$.
+
+The viscosity limit follows from a Cauchy estimate in the global
+Sobolev spaces. For two viscosities, subtract their equations and use the
+same metric $L^2$ difference energy. The transport and pressure leading
+terms cancel as before. The remaining viscous defect is
+$(\nu-\mu)\Delta E^\mu$, uniformly bounded in $L^2$ by a constant
+of the fixed source times $|\nu-\mu|$. With zero initial difference,
+Gronwall gives
+\[
+ \|E^\nu-E^\mu\|_{C_tL^2}\le C_*|\nu-\mu|.
+\]
+The dissipative term $\nu\Delta(E^\nu-E^\mu)$ is handled by the same
+integration by parts. Interpolation with the uniform higher-order
+bounds now gives a strong limit in $C_tH^q$ for every finite $q$.
+The nonlinear source and the pressure inverse pass to this limit
+one order lower; $\nu\Delta E^\nu\to0$ there. The gradient and
+solenoidal constraints are closed, the finite weighted energies pass to
+the limit, and the initial trace remains zero. The limiting equation
+supplies the continuous strong time derivative at every Sobolev order,
+including the within-interval endpoint derivatives.
+
+These steps use the heat Fourier multiplier on
+$\R^d\times\mathbb T_P$, a closed Hilbert gradient space, and the
+Sobolev product threshold \eqref{eq:packet-base-index}. In the
+three-dimensional proof the corresponding cylinder has dimension four;
+here the only changes are the $d+1$ Fourier variables, all $d$ quadratic
+coefficient matrices, and the dimension-dependent Sobolev constants.
+The argument uses the full transverse space and tensor coefficients.
+
+There is an explicit finite frequency choice. With
+\[
+ X=k^{1/203000},\qquad N=\lfloor X\rfloor,
+\]
+\eqref{eq:packet-tail-base} meets $B_N\le k^{1/100}$ at sufficiently
+large $k$. Denoting by $I_*$ the inverse-multiplier
+bound, the packet and correction smallness conditions hold if
+\begin{equation}\label{eq:packet-explicit-threshold}
+ k\ge\left(64+e+2^{202}C_*+I_*+12CT
+       +\frac{8CTD_*}{r_0}
+       +\left(\frac{8CT}{r_0}\right)^2\right)^{203000}.
+\end{equation}
+Indeed the $203000$th root controls $X$, the polynomial tail, $\log k$,
+and the two terms in the radius loss; the negative exponential in
+\eqref{eq:packet-small-residual} dominates $e^{3CT}$ and
+$e^{-\sqrt X}$. The constants in \eqref{eq:packet-explicit-threshold}
+depend only on the fixed source; no bound in terms of a subsequent
+parent's parameters is assumed.
+
+\subsection{The physical child and the signed pressure term}
+Define the perturbed solution, called the child, by
+\begin{equation}\label{eq:packet-exact-child}
+ U^+(t,x)=U(t,x)+\kappa F(t,y)
+          W(t,y,km_0\cdot y),\qquad y=\Phi_t^{-1}(x).
+\end{equation}
+The chain rule, $\Phi_t'=U\circ\Phi_t$, and
+\eqref{eq:packet-frame} transform
+\eqref{eq:packet-coordinate-equation} into the physical momentum equation
+with pressure force
+\[
+ \nabla P_U(t,x)+\kappa F(t,y)^{-\top}
+             \mathbf p(t,y,km_0\cdot y).
+\]
+This force is a gradient on physical space. Indeed, closed-gradient
+membership implies
+\[
+ D_{\kappa,i}\mathbf p_j-D_{\kappa,j}\mathbf p_i=0
+\]
+in distributions: it holds for each compact smooth gradient generator
+and is preserved by the $L^2$ limit. All spatial derivatives of the
+constructed pressure vector are continuous, so the same identity holds
+pointwise. The pullback chain rule for a one-form gives
+\[
+ \partial_{x_i}(\kappa F^{-\top}\mathbf p)_j
+ -\partial_{x_j}(\kappa F^{-\top}\mathbf p)_i
+ =\sum_{a,b}(F^{-1})_{bi}(F^{-1})_{aj}
+       (D_{\kappa,b}\mathbf p_a-D_{\kappa,a}\mathbf p_b)=0
+\]
+after graph evaluation. The terms differentiating $F^{-1}=D\Phi_t^{-1}$
+cancel by the symmetry of its ordinary second derivatives.
+
+Graph evaluation uses the smooth periodic representatives and one extra
+angular Sobolev trace estimate; the parent change of variables is volume
+preserving. It gives all physical $L^2$ spatial derivatives and their
+continuous time paths, both for the velocity and for this pressure force.
+A curl-free $L^2$ vector field on $\R^d$ lies in the ordinary closed
+gradient space, by its Fourier characterization. The Piola
+identity also transforms the closed cylinder solenoidal constraint into
+$\operatorname{div}U^+=0$. Taking the ordinary divergence of the physical
+momentum equation and applying the Helmholtz decomposition identifies
+its pressure force with the gradient of the Newton pressure in
+Lemma~\ref{lem:newton}. We choose that normalized scalar pressure.
+The smooth Sobolev local theory then identifies the constructed field
+with the Euler evolution on the whole interval. The mean and finite
+angular scalar pressures provide normalized
+representatives, while the correction is constructed directly in the
+closed gradient space.
+
+The same field has the decomposition
+\[
+ U^+=U+V^{[N]}(t,y,km_0\cdot y)
+        +\kappa F(t,y)E(t,y,km_0\cdot y).
+\]
+Thus its initial increment is exactly the finite packet, and the
+correction initially vanishes. The correction estimates at all derivative orders give
+physical velocity-gradient and pressure-Hessian errors bounded by fixed
+current-source constants times $\eta$. One fast derivative of the velocity
+correction is paired with its prefactor $\kappa$. The physical pressure
+force of the correction is
+$\kappa F^{-\top}\mathbf p^e$ evaluated on the graph. Its one
+physical derivative, which is the pressure Hessian, has the same
+cancellation of $\kappa$ against one fast derivative. For the finite
+scalar primary pressure the corresponding factor is its prefactor
+$\kappa^2$ against two fast derivatives. All remaining powers of
+$\kappa$ are nonnegative. A fixed number of the uniform weighted
+estimates controls the required coefficient and angular derivatives;
+the stated constants are independent of $k$.
+
+For both the joined and initial forward packets, set $P=2\pi$ and use
+the explicit profile
+\[
+ f_\delta(\theta)=\arctan\frac{\sin\theta}{1+\delta-\cos\theta},
+ \qquad 0<\delta\le1.
+\]
+Its first denominator is at least $\delta$, so the profile is smooth,
+odd and $2\pi$-periodic. Oddness gives zero mean over $[-\pi,\pi]$,
+and periodicity gives zero mean over any full period. Also
+$|f_\delta|\le\pi/2$. Direct differentiation gives
+\[
+ f_\delta'(\theta)=\frac{N_\delta(\theta)}{D_\delta(\theta)},\qquad
+ N_\delta=(1+\delta)\cos\theta-1,\qquad
+ D_\delta=(1+\delta)^2-2(1+\delta)\cos\theta+1\ge\delta^2.
+\]
+At zero the quotient equals $\delta^{-1}$. The identities
+\[
+ D_\delta+N_\delta=(1+\delta)(1+\delta-\cos\theta)>0,
+ \qquad
+ D_\delta-\delta N_\delta
+   =(1+\delta)(2+\delta)(1-\cos\theta)\ge0
+\]
+give the bounds used in the pressure estimate:
+\[
+ f_\delta'(0)=\delta^{-1},\qquad -1\le f_\delta'\le\delta^{-1}.
+\]
+The dependence of the Gevrey bounds on the width is explicit.
+All derivatives of
+$N_\delta$ have magnitude at most $3$, and the positive-order
+derivatives of $D_\delta$ have magnitude at most $4$.
+Differentiate $D_\delta D_\delta^{-1}=1$ and use the Gevrey binomial
+convolution to obtain, by induction,
+\[
+ \|(D_\delta^{-1})^{(n)}\|_\infty
+ \le 10\delta^{-2}(40\delta^{-2})^n(n!)^2.
+\]
+Multiplying by $N_\delta$ in the formula for $f_\delta'$ uses the same
+radius; the convolution factor is at most $3$. Since $40\delta^{-2}\ge1$,
+the resulting bound at order $n+1$, together with the bound
+$|f_\delta|\le\pi/2$ at order zero, yields
+\[
+ \|f_\delta^{(n)}\|_\infty
+ \le100\delta^{-2}(40\delta^{-2})^n(n!)^2\quad(n\ge0).
+\]
+Both the amplitude constant and radius are polynomial in $\delta^{-1}$.
+
+Use this profile for the joined primary \eqref{eq:packet-joined-primary}.
+The uncut physical high velocity is $b_Y$, and the amplitude is $\alpha$.
+At
+$y=\Phi_t^{-1}(x)$ and $\vartheta=km_0\cdot y$, the leading velocity
+and pressure Hessian tensors are respectively
+\begin{align}
+ \mathcal S&=\alpha\chi_{\rm in}(y)f_\delta'(\vartheta)\,
+                   b_Y\otimes m,\notag\\
+\mathcal Q&=-2\alpha\chi_{\rm in}(y)
+       \frac{\langle m,Mb_Y\rangle}{|m|^2}
+       f_\delta'(\vartheta)\,m\otimes m.
+                                                        \label{eq:packet-leading-tensors}
+\end{align}
+Direct differentiation of the primary velocity gives
+\[
+ D_x\{k^{-1}\alpha\chi_{\rm in}(y)f_\delta(\vartheta)b_Y(t,y)\}
+ =\mathcal S+k^{-1}\alpha f_\delta(\vartheta)
+                    D_y(\chi_{\rm in}b_Y)(t,y)F^{-1}(t,y).
+\]
+The slow coefficient therefore contributes a constant times $k^{-1}$.
+The corresponding pressure-force coefficient is
+$-2\alpha\chi_{\rm in}\langle m,Mb_Y\rangle m/|m|^2$;
+its derivative is the other slow primary remainder. To bound these
+derivatives, it suffices to bound the carrier and its first
+label derivative on the ball of radius $1/2$. Both coefficients
+vanish off the ball of radius $1/4$, so their derivatives vanish
+locally outside that support. The history inverse and the supported
+tail estimates above supply these carrier bounds. This gives uniform
+spatial remainder constants without any sharp shear estimate away
+from the central particle.
+The finite higher grades, derivatives of slow coefficients, and
+exact correction give
+\begin{equation}\label{eq:packet-low-errors}
+ \|DU^+-DU-\mathcal S\|\le C_v/k+C'_v\eta,
+ \quad
+ \|D^2P_{U^+}-D^2P_U-\mathcal Q\|\le C_p/k+C'_p\eta,
+\end{equation}
+uniformly on the closed time interval and physical space. The pressure
+identity follows first for the finite scalar pressure and then for
+the correction pressure; equality of their gradient with the
+canonical Euler pressure gradient transfers the identity to
+$P_{U^+}$.
+
+If $\langle m,Mb_Y\rangle\ge0$, the lower slope bound gives the one-sided
+estimate
+\begin{equation}\label{eq:packet-signed-curvature}
+ \langle\mathcal Qz,z\rangle
+ \le2\alpha\chi_{\rm in}\langle m,Mb_Y\rangle |z|^2.
+\end{equation}
+Without this sign condition, the absolute estimate is
+\[
+ \|\mathcal Q\|\le
+   2\alpha\|M\|\chi_{\rm in}|m|\,|b_Y|/\delta.
+\]
+The one-sided estimate retains the gain from the narrow profile in the
+mean curvature bound at the next stage.
+All tensors in \eqref{eq:packet-leading-tensors} act on the entire
+$\R^d$, and the norm identities used here hold in every dimension.
+
+For spatial localization the preceding construction is applied to the
+rescaled parent
+\[
+ U^\rho(t,x)=\rho^{-1}U(t,\rho x),\qquad
+ P_{U^\rho}(t,x)=\rho^{-2}P_U(t,\rho x),\qquad 0<\rho\le1.
+\]
+Direct substitution proves the Euler equations on the same time interval.
+Its flow is $\rho^{-1}\Phi_t(\rho y)$, so its frame, strain and
+pressure Hessian in labels are exactly $F(t,\rho y)$,
+$M(t,\rho y)$ and $H(t,\rho y)$. Undoing the scaling after constructing
+the child gives the physical field
+$\rho(U^\rho)^+(t,x/\rho)$. Velocity gradients and pressure Hessians
+are unchanged in size by these two inverse scalings, and the support
+radius of a compact oscillatory coefficient is multiplied by $\rho$.
+Thus the low error bounds and leading tensors above transfer to the
+original parent with no factor $\rho^{-1}$ in those two derivative
+orders. Higher-order initial derivatives retain their scaling
+factors as recorded in Section~\ref{sec:initial-summability}.
+
+\subsection{Physical localization of the mean boundary condition}
+The oscillatory localization scale and the mean cutoff scale are chosen
+separately. With a fixed physical cutoff parameter $\ell_*$ and physical
+unscaling $x=\rho y$, use the normalized cutoff parameter
+$\ell=\rho\ell_*$. Then
+$\chi(\ell y)=\chi(\ell_*x)$, and
+\eqref{eq:packet-mean-initial} places each physical mean initial
+increment in $\overline B(0,\ell_*^{-1})$. If
+$\operatorname{supp}\chi_{\rm in}\subset\overline B(0,1/4)$, the high
+and corrector initial increments are supported in
+$\overline B(0,\rho/4)$. The exact correction has initial value zero.
+Lemma~\ref{lem:fixed-cutoff} proves propagation of the mean reserve
+with this fixed physical cutoff, and Lemma~\ref{lem:common-support}
+gives the resulting common compact support through the iteration.
+
+
+\subsection{The packet construction for one parent}
+The following lemma summarizes the construction for use in the iteration.
+Its assumptions concern only the fixed source.
+
+\begin{lemma}[Exact joined packet child]\label{lem:exact-packet-child}
+Fix $d\ge3$ and a smooth Sobolev parent on $[0,T]$ with flow
+\eqref{eq:packet-frame}, the known coefficient bounds
+\eqref{eq:packet-known-jets}, and the mean reserve
+\eqref{eq:packet-mean-guard}. Fix its transverse terminal datum, compact
+Gevrey cutoffs, and the positive forward profile with
+\eqref{eq:packet-tail-propagator}. There is a finite constant determined
+by these data such that every sufficiently large $k$ gives the child
+\eqref{eq:packet-exact-child} from the joined strict-prefix family.
+It solves the full $d$-dimensional Euler equation with its Newton pressure
+on the whole closed interval and belongs to
+$C_tH^m\cap C_t^1H^{m-1}$ for every integer $m\ge1$.
+
+Its leading velocity-gradient and pressure-Hessian increments are
+exactly the two tensors in \eqref{eq:packet-leading-tensors}. After an
+explicit enlargement of the known-source frequency threshold, each
+error in \eqref{eq:packet-low-errors} is at most $k^{-1/4}$, uniformly in
+time and space. Its initial increment is the entire finite sum
+\eqref{eq:packet-finite-pairs} at time zero, including every higher-order
+high-frequency initial velocity and the terminal corrector $C_N$; the exact correction
+has initial value zero.
+
+If the parent is odd and the cutoffs are even, then the child is odd.
+If in addition a fixed orthogonal coordinate reflection $\mathscr R$
+obeys
+\[
+ U(t,\mathscr Rx)=\mathscr R U(t,x),\quad
+ \mathscr R m_0=m_0,\quad \mathscr R R_\perp Y=R_\perp Y,
+\]
+and preserves the cutoffs, then
+\[
+ U^+(t,\mathscr Rx)=\mathscr R U^+(t,x),\qquad
+ DU^+(t,\mathscr Rx)=\mathscr R DU^+(t,x)\mathscr R^{-1}.
+\]
+For the fixed physical mean cutoff described above, every
+initial increment is supported in
+$\overline B(0,\max(1/4,\ell_*^{-1}))$. Thus the child's initial support
+is contained in the union of this ball and the parent's initial support.
+\end{lemma}
+\begin{proof}
+The preceding constructions give existence, the Euler equation,
+the normalized pressure, and all Sobolev orders. The residual identity
+includes the terminal corrector and pressure.
+
+To obtain the stated error bound, let
+$\beta=203000$ and let $C_{\rm err}\ge1$ dominate the four constants in
+\eqref{eq:packet-low-errors}. Increase the lower bound for $X=k^{1/\beta}$
+to include $(2\beta)^4$ and $(4C_{\rm err})^2$, as well as the quantity
+inside parentheses in \eqref{eq:packet-explicit-threshold}.
+For $X\ge1$, $\log X\le4X^{1/4}$, and hence
+\[
+ \tfrac14\log k\le\tfrac12\sqrt X,
+ \qquad \log(4C_{\rm err})\le\tfrac12\sqrt X.
+\]
+It follows that
+$C_{\rm err}e^{-\sqrt X}\le k^{-1/4}/4$ and
+$C_{\rm err}/k\le k^{-1/4}/4$. The sum satisfies the asserted error
+bound. The enlarged threshold remains a fixed power of a sum of known
+source constants.
+
+For symmetry, uniqueness of the parent's flow first gives
+$\Phi_t(-y)=-\Phi_t(y)$ and the corresponding reflection covariance.
+The mean form commutes with the induced orthogonal action, since its
+cutoff tensor operator is constructed using all tensor indices and the
+cutoff is invariant. Uniqueness of its coercive inverse gives the mean
+parities. For the joined high operator the action preserves the fixed
+zero-trace displacement space; for the primary it also preserves the
+terminal datum. Uniqueness of the history inverse and then of the
+forward initial-value equation proves the high parities. The normalized
+angular primitive, the full tensor corrector, and each product
+in the strict-prefix force commute with the same actions. Induction
+therefore gives odd vector fields and even scalar pressures for the
+whole finite family, together with the stated reflection covariance.
+
+The projected coordinate equation and its closed solenoidal and gradient
+spaces are also invariant under these actions. Its unique correction
+with zero initial value has the same parities. Transforming back gives
+the child symmetry; differentiating this identity gives the
+claimed full derivative covariance. Finally, the initial support
+follows from \eqref{eq:packet-mean-initial}, support preservation of the
+joined high inverse and the tensor potential, and $E(0)=0$.
+\end{proof}
+\section{A fixed compact support and the full mean reserve}
+The initial mean boundary cutoff and the oscillatory packet have
+different spatial scales. In
+physical coordinates fix two parameters $0<\ell_*\leq1$ and
+$0\leq r_*\leq1/4$. Write $c_d=C_{2,d}$ for the nonnegative
+volume-error constant in the localized mean boundary inequality, and
+$C_{1,d}$ for its boundary-operator constant. These dimensional constants
+are denoted separately from the stage-dependent bound on the second
+frame coefficient.
+Let $s_{\rm cut,d}>0$ be the fixed dimensional cutoff scale and put
+$a_d=(3s_{\rm cut,d})^{-1}$. For the current
+solution horizon $L>0$, define the mean reserve by
+\begin{equation}\label{eq:full-mean-reserve}
+ \mathfrak M(L)=\tfrac12 K L^2+(B_e+c_d B_c r_*^d)L.
+\end{equation}
+The parameters $K,B_c,B_e$ are nonnegative. Here $K$ bounds the pressure
+Hessian above, while $B_c$ and $B_e$ bound
+the negative part of the initial symmetric gradient inside and outside
+the fixed ball of radius $a_d r_*/\ell_*$, respectively. The boundary
+penalty $\mathcal L$ is chosen to be at least $C_{1,d}B_c$.
+
+\begin{lemma}[Fixed-cutoff propagation]\label{lem:fixed-cutoff}
+For a constructed child let $e_p\geq0$ be its upper pressure-Hessian
+increment and $e_i\geq0$ its uniform initial-gradient increment. Retain
+the same physical $\ell_*,r_*$, replace
+\[
+ K\mapsto K+e_p,\quad B_e\mapsto B_e+e_i,\quad
+ B_c\mapsto B_c+e_i,\quad \mathcal L\mapsto C_{1,d}(B_c+e_i).
+\]
+All corresponding mean inequalities hold whenever the resulting
+$\mathfrak M(L)$ is less than $1/2$, and
+\begin{equation}\label{eq:mean-reserve-increment}
+ \mathfrak M_{\rm child}(L)-\mathfrak M_{\rm parent}(L)
+   =\tfrac12 e_p L^2+(1+c_d r_*^d)e_iL.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The pressure upper bound adds $e_p$. If the difference of the initial
+gradients has operator norm at most $e_i$, its quadratic form is at
+least $-e_i|z|^2$. The old interior and exterior inequalities therefore
+persist on exactly the same regions with the indicated new constants.
+The new boundary penalty meets the same coercivity requirement.
+Expanding \eqref{eq:full-mean-reserve} proves
+\eqref{eq:mean-reserve-increment}. On any shorter horizon the reserve
+only decreases. The updated parameters are used for the subsequent mean
+problem; the child's flow, inverse, time derivatives, and pressure remain
+those obtained from the packet construction.
+\end{proof}
+
+The comparisons in this lemma are made at the parent's horizon $L$.
+Passing to a shorter horizon decreases the reserve. Each nonnegative
+increment may be estimated using a common upper horizon, while the
+preceding reserve is evaluated on the current solution's horizon.
+
+The spatial normalization preserves this full functional exactly.
+At physical localization length $\rho$, the normalized mean scale is
+$\rho\ell_*$ and its splitting parameter is still $r_*$. Unscaling
+changes the scale back to $\ell_*$ and leaves $K,B_c,B_e,r_*$ unchanged.
+Since $\ell_*\leq1$, the final cutoff normalization makes no further
+change. Thus the physical interior radius remains $a_dr_*/\ell_*$,
+and both the normalized and physical mean reserves equal
+\eqref{eq:full-mean-reserve}. Changing auxiliary source bounds does
+not alter these mean parameters.
+
+The two initialization packets permit distinct initial increments $e_c,e_e$
+on the interior and exterior regions. The same proof then gives
+\[
+ \mathfrak M_{\rm child}(L)-\mathfrak M_{\rm parent}(L)
+      =\tfrac12 e_pL^2+(e_e+c_dr_*^de_c)L.
+\]
+For the seed the fixed physical choice is
+$\ell_*=1$, $r_*=X^{-1000}$. Its source and frequency bounds
+make the full child reserve at most $1/8$ by increasing $X$ after
+$J$ is fixed. The first normal forward packet contributes at most $1/16$
+to the pressure-time term and $1/16$ to the initial-time term.
+Consequently the first positive-history state has mean reserve at most
+$1/4$. These estimates include both the interior contribution and
+the nonzero exterior mean fields with the same fixed cutoff.
+
+For subsequent stages, the one-sided pressure estimate is as follows.
+Let $w$ be the transported primary carrier, including its selected
+amplitude $\alpha$, let $m$ be the transported normal, and let
+$M$ be the parent gradient in particle labels. On the packet support,
+$\|M\|\leq M_0$. Write $b=\chi|m||w|$, with the nonnegative
+spatial cutoff $\chi$. The principal pressure Hessian is
+\[
+ Q=-2\chi\frac{\langle m,Mw\rangle}{|m|^2}
+                   f'_\delta\,m\otimes m.
+\]
+For the chosen periodic profile $f'_\delta\geq-1$ and
+$|f'_\delta|\leq\delta^{-1}$ when $0<\delta\leq1$.
+On the good-time set the flux is nonnegative; hence
+$Q\leq2\chi\langle m,Mw\rangle I\leq2M_0bI$ as quadratic forms.
+The supported localization estimates give $b\leq\delta G$ there.
+On the complementary times they give $b\leq\delta E$, and the
+absolute estimate yields $\|Q\|\leq2M_0E$. Outside the cutoff $Q=0$.
+The child's canonical pressure Hessian therefore has the global upper
+increment
+\[
+ e_p\leq2M_0(\delta G+E)
+       +\frac{C_p(\mathcal W)}k
+       +C_{\rm corr}(\mathcal W)\delta_{\rm corr}(X_{\rm exp}).
+\]
+The remainder polynomials follow from the carrier and
+coefficient derivative estimates, including the correction that eliminates
+the residual. Every carrier norm is controlled by these estimates.
+The supported bounds on the selected profile give
+$G\leq C_d h_{\rm child}$ and
+$E\leq C_d(\mathcal P)h_{\rm child}e^{-x_n/8}$, where
+$\mathcal P$ is the source scale determined by the parent. The
+coefficient of $\delta h_{\rm child}$ is controlled by this scale,
+which excludes the angular factor $\delta^{-1}$.
+
+The initial-gradient increment satisfies
+$e_i\leq C_i(\mathcal W)(\alpha+k^{-2})$.
+Retain the factor $1+c_dr_*^d$ in
+\eqref{eq:mean-reserve-increment}, and bound it above in the new
+error terms by the fixed constant $B_{\rm weight}=1+C_{2,d}$.
+There are five error contributions: the principal pressure
+terms on the good-time set and its complement, the initial term
+proportional to $\alpha$, the pressure remainder, and the mean initial
+term proportional to $k^{-2}$. The prescribed
+expansion satisfies $\delta_{\rm corr}(X_{\rm exp})\leq k^{-1}$, so
+both pressure remainders are included in the same frequency-dependent
+contribution. The two initial contributions include $B_{\rm weight}$.
+The preceding reserve retains the factor $r_*^d$.
+
+The coefficient and damping estimates in
+Section~\ref{sec:parameter-envelope} and Section~\ref{sec:iteration}
+control these five contributions at the prescribed frequencies. In particular,
+$\delta h_{\rm child}\leq e^{-x_n/(2(J+n)^3)}$ and
+$h_{\rm child}e^{-x_n/8}\leq e^{-x_n/16}$, while the selected
+$\alpha$ and the frequency remainders have their own packet-source
+bounds. The finite parameter selection bounds the sum of each of these
+five contributions by $1/64$.
+At every finite positive-history stage the mean reserve is bounded
+by the partial sum
+\[
+ \frac14+\sum_{i<n}\sum_{a=1}^5\operatorname{cost}_{a,i}
+ \leq\frac14+\frac5{64}=\frac{21}{64}<\frac12.
+\]
+Including the nonnegative index-zero contribution in this partial sum
+preserves the upper bound, since the two initialization reserves have
+already been estimated separately. The dimensional multiplier
+and the seven additional initialization contributions belong to the finite
+list fixed before choosing $J$. The remaining lower bounds are met
+by enlarging $X$ before constructing any packet. This changes the
+frequency values through their fixed formulas, while all construction
+exponents, error contributions, and the chosen $J$ remain fixed.
+
+\begin{lemma}[One compact set for all initial increments]\label{lem:common-support}
+With this fixed-cutoff construction every initial increment is supported
+in $\overline B(0,\max(1/4,\ell_*^{-1}))$, irrespective of its
+frequency, localization length, or finite truncation order.
+\end{lemma}
+\begin{proof}
+At a stage with physical localization length $0<\rho\leq1$, normalized
+labels are $y=x/\rho$, and the mean cutoff is
+$\chi((\rho\ell_*)y)$. The mean boundary condition expresses
+its initial velocity as the compactly supported solenoidal boundary
+operator with this cutoff, multiplied by its scalar penalty.
+Hence the normalized mean initial field vanishes for
+$|y|>(\rho\ell_*)^{-1}$. Physical unscaling replaces $y$ by $x/\rho$,
+so it vanishes for $|x|>\ell_*^{-1}$. This holds for every
+mean grade. The oscillatory profiles and their full tensor correctors
+are supported in $|y|\leq1/4$, hence after unscaling in
+$|x|\leq\rho/4\leq1/4$. The exact correction has zero initial value.
+Summing the finite family, including its
+terminal corrector, proves the assertion. Adding the fixed compact
+support of the base datum gives one compact set for all finite-stage
+initial velocities and their pointwise limit.
+\end{proof}
+\section{Joined source estimates and a uniform parameter envelope}
+\label{sec:parameter-envelope}
+
+We fix the dimension throughout this section. The Sobolev base order
+$q=2d+5$ is fixed before any stage or truncation is chosen. Increasing this
+order changes constants and polynomial degrees only.
+
+\subsection{The variational history inverse}
+
+For every forced high grade, the inverse consists of a Dirichlet problem
+before activation and a forward evolution after activation. The Dirichlet
+coercivity estimate gives polynomial dependence on the parent coefficients
+on the history interval. On the forward interval this dependence follows
+from the relative propagator estimate. Compact-interval existence of a
+forward fundamental matrix alone does not provide either quantitative bound.
+
+The quantitative estimate is established in the transverse space
+$U=m_0^\perp$, of dimension $d-1$. Let
+\[
+ Q(t,x)=F(t,x)|_U,\qquad Q_t=Q_1,\qquad
+ Q_{tt}=-\mathcal H Q,\qquad
+ \|Qv\|^2\geq c\|v\|^2,\quad c>0.
+\]
+The symmetric matrix $\mathcal H$ is the pressure Hessian along
+the preceding particle map. For a positive activation time $0<t_0\leq T$, suppose on $[0,t_0]$
+\[
+ \langle\mathcal H v,v\rangle\leq K\|v\|^2,\qquad
+ 0\leq K,\qquad Kt_0^2/2\leq1/2.
+\]
+These are the inherited global one-sided pressure bounds. The absolute
+coefficient norms below are obtained from the particle-label fields:
+$F_1=D_x(\partial_t\Phi)$, $F_2=D_x(\partial_t^2\Phi)$,
+$\mathcal H=-F_2F^{-1}$, and $\det F=1$ expresses $F^{-1}$ by cofactors.
+The fixed Sobolev shift and factorial product bounds therefore make all
+these norms polynomial in the label amplitude and radius. The sharper
+central bounds of the preceding section are used for central
+endpoint selection and renewal. All norms below can also be taken in
+spatial-angular $L^2$; the multiplication coefficients have uniform
+pointwise bounds.
+
+For a forcing $f$, solve for $z\in H^1_0((0,t_0);U)$:
+\begin{equation}\label{eq:joined-history-form}
+ \int_0^{t_0}\!
+ \big\langle(Qz)',(Q\zeta)'\big\rangle
+ -\big\langle\mathcal H Qz,Q\zeta\big\rangle\,dt
+ =-\int_0^{t_0}\langle f,Q\zeta\rangle\,dt
+ \quad(\zeta\in H^1_0((0,t_0);U)).
+\end{equation}
+Its physical Jacobi displacement is $y=Qz$; its physical high velocity is
+\begin{equation}\label{eq:joined-history-high}
+ b=Qz',
+\end{equation}
+which is generally different from $y'$. In particular, $z(0)=z(t_0)=0$
+does not assert that $b(0)$ or $b(t_0)$ vanishes.
+
+\begin{lemma}[Polynomial history inverse]\label{lem:joined-history-polynomial}
+The solution of \eqref{eq:joined-history-form}, its high velocity,
+its time derivative and its terminal high velocity have bounds
+polynomial in
+\[
+ 1+t_0+t_0^{-1}+c^{-1}+
+ \|Q\|_\infty+\|Q_1\|_\infty+\|\mathcal H\|_\infty .
+\]
+Their fixed-order spatial-angular Sobolev bounds are also polynomial in
+the corresponding fixed-order coefficient bounds. The assertion holds
+in every finite transverse dimension.
+\end{lemma}
+\begin{proof}
+Put $C_0=\|Q\|_\infty$, $C_1=\|Q_1\|_\infty$ and
+$L=(Q^*Q)^{-1}Q^*$. Then $LQ=I$ and
+\[
+ \|L\|\leq c^{-1}C_0,\qquad
+ \|L'\|\leq c^{-1}C_1+2c^{-2}C_0^2C_1.
+\]
+Consequently, with
+\[
+ A=1+c^{-1}C_0+
+       t_0(c^{-1}C_1+2c^{-2}C_0^2C_1),
+\]
+the identity $z=Ly$ and the elementary inequality
+$\|y\|_{L^2}\leq t_0\|y'\|_{L^2}$ give
+$\|z'\|_{L^2}\leq A\|y'\|_{L^2}$.
+The sharper primitive bound
+$\|y\|_{L^2}^2\leq(t_0^2/2)\|y'\|_{L^2}^2$ gives
+\[
+ \int_0^{t_0}(|y'|^2-\langle\mathcal Hy,y\rangle)
+ \geq\tfrac12\|y'\|_{L^2}^2
+ \geq(2A^2)^{-1}\|z'\|_{L^2}^2.
+\]
+Thus the coercive variational theorem on the fixed Hilbert space $H^1_0$
+constructs the inverse. Testing with $z$ also gives
+\[
+ \|y'\|_{L^2}\leq2t_0\|f\|_{L^2},\qquad
+ \|z'\|_{L^2}\leq2At_0\|f\|_{L^2}.
+\]
+Both bounds are polynomial in $C_0$, $C_1$ and $\|\mathcal H\|$.
+
+Integration by parts and $Q''=-\mathcal HQ$ give
+\[
+ Q^*(Qz''+2Q_1z')=Q^*f.
+\]
+Therefore the acceleration is
+\begin{equation}\label{eq:joined-gram-acceleration}
+ z''=(Q^*Q)^{-1}\{Q^*f-2Q^*Q_1z'\},
+\end{equation}
+and
+\[
+ \|z''\|_{L^2}\leq
+ c^{-1}C_0(\|f\|_{L^2}+2C_1\|z'\|_{L^2}).
+\]
+The time trace inequality
+\[
+ \|z'\|_{C_t}\leq
+ t_0^{-1/2}\|z'\|_{L^2}+t_0^{1/2}\|z''\|_{L^2}
+\]
+bounds both endpoints polynomially. For continuous $f$,
+\eqref{eq:joined-gram-acceleration} gives continuous $z''$, and
+$b'=Q_1z'+Qz''$ is the derivative on the closed interval.
+In particular the forward initial datum $b(t_0)$ is a bounded trace
+of the solution of \eqref{eq:joined-history-form}.
+
+Spatial derivatives are obtained by differentiating the operator on
+the fixed space $H^1_0((0,t_0);U)$. Every commutator contains only
+coefficient derivatives and a lower derivative of the same solution.
+Applying the same coercive inverse proves the fixed-order estimates
+by finite induction. For example, a sufficient bound for the inverse is
+\[
+ I_0=I,\qquad I_{r+1}=I+I_r+2^rB I_r^2,
+\]
+where $I$ bounds the base inverse and $B$ the coefficient block.
+This is a polynomial after the fixed number $q$ of steps.
+The Gram inverse in \eqref{eq:joined-gram-acceleration} has the same
+positive-order commutator proof. These arguments use adjoints, norms
+and Hilbert-space coercivity in arbitrary transverse dimension.
+\end{proof}
+
+On $[t_0,T]$ solve the forward transverse equation with initial
+datum $b(t_0)$ obtained above. Its value and derivative match those of
+the history, by the same equation and forcing at the junction.
+The algebraic normal pressure is reconstructed from this joined field.
+The profile is $\gamma(t)=\alpha$ on the history interval and
+$\gamma(t)=\alpha g(t)$ afterwards, where $g(t_0)=1$ and $\alpha>0$.
+Normalization by $\gamma$ in spatial word estimates never differentiates
+$\gamma$ in time.
+
+\subsection{The full transverse relative estimate}
+\label{subsec:full-transverse-relative}
+
+We derive the estimate for the full transverse space. At activation
+let $p,q$ be the preceding unit normal and unit velocity, and put
+\[
+ a=\langle Bq,p\rangle>0,\qquad
+ \beta=\frac{\|\Pi_{\{p,q\}^{\perp}}Bq\|}{a},\qquad
+ \sigma=\sqrt\beta,\qquad \varepsilon=\sqrt{a/h}.
+\]
+Here $h$ is the preceding shear height. Assume $0<\sigma\leq1/4$,
+$1/2\leq a\leq2$ and $0<\varepsilon\leq1$.
+Choose the third unit vector $n$ in the direction of
+$\Pi_{\{p,q\}^{\perp}}Bq$; the positive tilt makes it nonzero.
+Write $E=\operatorname{span}\{p,q,n\}$ and
+$\mathcal E=E^\perp$. The center reflection fixes $E$ and reverses
+$\mathcal E$. The actual center coefficient therefore preserves this
+splitting. Neighboring coefficients need not preserve it.
+
+Use the inherited bounds $G\geq1$, $\|B\|\leq G$ and
+$\|B_t\|\leq G^2$. Transport the entire orthonormal frame by its skew
+connection $S$. In this frame, for the preceding background matrix $B$,
+\[
+ S=p\otimes B^*p-B^*p\otimes p+
+       q\otimes\Pi_{\{p,q\}^{\perp}}Bq
+       -\Pi_{\{p,q\}^{\perp}}Bq\otimes q .
+\]
+Consequently $\|S\|\leq4G$ if $\|B\|\leq G$, and the exact column identity is
+\begin{equation}\label{eq:full-connection-column}
+ (B+S)q=2\langle Bq,p\rangle p+\langle Bq,q\rangle q.
+\end{equation}
+The normal-normal connection is zero. Differentiating the transported
+background gives norm at most $G^2+2(4G)G=9G^2$.
+At activation its column outside the $q$ diagonal is
+$a(p+\beta n)$. At later physical time $t$ its defect is therefore at
+most $9G^2|t-t_0|$. These statements concern the complete vector column,
+including all additional components.
+
+Use fast time $\tau=a(t-t_0)/\varepsilon$. The estimate is restricted to
+$0\leq\tau\leq\tau_{\rm end}$; assume
+$\tau_{\rm end}\leq\Theta$, where $\Theta\geq1$ is the numerical horizon.
+The estimate does not require extending the coefficients.
+At a neighboring label the actual gradient in this same frame is
+\[
+ M=B+h(t)\,q\otimes p+\mathcal R,\qquad
+ \|\mathcal R\|\leq e_{\rm old}+\rho L_M .
+\]
+The rank-one term uses the center pair; the neighboring discrepancy is
+included in $\mathcal R$.
+
+Define the diagonal maps
+\[
+ D_r=\operatorname{diag}(1,\varepsilon,1,I_{\mathcal E}),\qquad
+ D_v=\operatorname{diag}(\varepsilon,1,\varepsilon,
+                                      \varepsilon I_{\mathcal E}).
+\]
+They satisfy $D_rD_v=\varepsilon I$ and both have norm at most one.
+The actual ray and high velocity, including every extra coordinate, are
+\begin{equation}\label{eq:ambient-scaled-states}
+ m=s_0 O(t)D_r y,\quad y=(P,Q,N,r),\qquad
+ v=O(t)D_v z,\quad z=(U,V,W,Z),\quad r,Z\in\mathcal E.
+\end{equation}
+The primary solution uses one fixed coordinate endpoint at every label.
+More precisely, if the endpoint lemma selects the physical vector
+$Y_{\rm phys}\in m(t_0,0)^\perp$, set
+\[
+ Y_{\rm coord}=R_\perp^*F(t_0,0)^{-1}Y_{\rm phys}.
+\]
+At the center, $F(t_0,0)R_\perp Y_{\rm coord}=Y_{\rm phys}$.
+At every other label the history has the same coordinate endpoint
+$Y_{\rm coord}$. Its norm is at most
+$\|F(t_0,0)^{-1}\|\|Y_{\rm phys}\|$. Thus $Y_*$ in the history
+Lipschitz estimates below includes this inverse-frame factor.
+
+For $t_0>0$, the unlocalized history is solved pointwise in the finite-dimensional
+transverse space and has uniform spatial derivative bounds. Its
+cylinder $L^2$ realization is obtained after multiplication by the
+compact seed. To verify this directly, put
+$Z(y,\theta)=\chi_{\rm in}(y)f_\delta(\theta)Y_{\rm coord}$
+and $z_{\rm lin}(t,y,\theta)=tZ(y,\theta)/t_0$.
+The zero-trace remainder $w=z-z_{\rm lin}$ solves
+\eqref{eq:joined-history-form} with forcing
+\[
+ f_{\rm lin}=-(2/t_0)Q_1Z.
+\]
+This identity follows from $Q_{tt}=-\mathcal HQ$ and
+$z_{\rm lin,tt}=0$. The forcing is a continuous path in every
+cylinder Sobolev space, is angular-mean zero, and has compact spatial
+support. Thus the Hilbert-space inverse applies. Its uniqueness
+identifies the result with the localized pointwise history. All
+cylinder estimates concern this localized field. For $t_0=0$ the
+prescribed forward primary is used instead of the history construction.
+
+Here $s_0>0$ and $O(t)$ is the transported orthogonal frame.
+The velocity $v$ is the unamplified selected high solution. The packet
+uses $\alpha v$, with $\alpha>0$ determined by its target size below.
+Set
+\[
+ A=a^{-1}D_rMD_v,\qquad C=a^{-1}D_r(M+S)D_v .
+\]
+Direct substitution into the ray and high equations gives
+\begin{equation}\label{eq:ambient-exact-generator}
+ y'=(C^*-2A^*)y,\qquad
+ z'=\mathscr B_\varepsilon(y)z,\qquad
+ \mathscr B_\varepsilon(y)
+  =-C+2\frac{D_r^2y}{|D_ry|^2}\otimes A^*y .
+\end{equation}
+For example, the pressure numerator transforms by
+$\langle D_ry,MD_vz\rangle=a\langle y,Az\rangle$.
+Thus \eqref{eq:ambient-exact-generator} is the rescaled equation
+for all transverse components.
+
+Let
+\[
+ A_0=(p+\beta n)\otimes q+q\otimes p,\qquad
+ C_0=2p\otimes q+q\otimes p .
+\]
+The large shear term scales to
+$(\varepsilon^2h(t)/a)q\otimes p$.
+For any matrix $L$, separating its $q$ input column gives
+\[
+ a^{-1}D_rLD_v
+ =(\varepsilon/a)D_rL+
+          ((1-\varepsilon)/a)(D_rLq)\otimes q.
+\]
+Together with \eqref{eq:full-connection-column}, this proves
+\begin{equation}\label{eq:ambient-matrix-gap}
+ \max(\|A-A_0\|,\|C-C_0\|)
+ \leq \left|\frac{\varepsilon^2h(t)}a-1\right|
+ +\frac{11\varepsilon G+18G^2|t-t_0|+
+                    e_{\rm old}+\rho L_M}{a}.
+\end{equation}
+One obtains the slightly better coefficient 3 in place of 11 for $A$;
+the displayed common bound suffices. The norm of an additional input
+column has the small factor $\varepsilon$: the shear is zero on
+$\{p,q\}^\perp$. Both diagonal maps have norm at most one, so matrix
+scaling introduces no factor $\varepsilon^{-1}$.
+
+The logarithmic derivative of $h(t)$ is bounded by $2G$.
+For $G\varepsilon\Theta/a$ small, its contribution to
+\eqref{eq:ambient-matrix-gap} is $O(G\varepsilon\Theta/a)$.
+Choose a single error parameter $e\geq\varepsilon$ large enough that
+the right side of \eqref{eq:ambient-matrix-gap} is at most $2e$,
+and that the initial ray error is at most $e$.
+It is bounded by a fixed constant times
+\begin{equation}\label{eq:ambient-error-input}
+ \varepsilon\Theta G^2+
+ e_{\rm old}+
+ \rho\left(L_M+\frac{3L_m}{s_0\varepsilon}
+          +\frac{2L_{\rm hist}Y_*}{\varepsilon}\right).
+\end{equation}
+The lower bound on $a$ was used here. The constant $L_m$ bounds the
+spatial Lipschitz norm of the normal at activation. The constant
+$L_{\rm hist}$ bounds, in operator norm, the spatial derivative of the
+linear map $Y_{\rm coord}\mapsto b_{Y_{\rm coord}}(t_0,y)$.
+Finally $Y_*$ bounds the norm of the selected coordinate endpoint.
+Consequently the spatial variation of its high velocity is at most
+$\rho L_{\rm hist}Y_*$.
+
+The reference ray is
+\[
+ y_0(\tau)=(\beta\tau^2,-2\beta\tau,1,0).
+\]
+Its full generator $C_0^*-2A_0^*=-p\otimes q-2\beta q\otimes n$
+is nilpotent of order three. Its evolution is exactly
+\[
+ I-(\tau-s)p\otimes q-2\beta(\tau-s)q\otimes n+
+                  \beta(\tau-s)^2p\otimes n
+\]
+and has norm at most $5\Theta^2$.
+Duhamel's formula and absorption in the supremum norm give, if
+$60e\Theta^3\leq1$,
+\begin{equation}\label{eq:ambient-ray-error}
+ \|y-y_0\|\leq310e\Theta^5.
+\end{equation}
+Indeed the difference generator has norm at most $6e$; the resulting
+bound is
+$10\Theta^2(e+30e\Theta^3)\leq310e\Theta^5$.
+Under the stronger smallness condition used below, this is at most
+$1/2$. Thus
+\[
+ N\geq\tfrac12,\qquad |D_ry|^2\geq\tfrac14,\qquad
+ \|y\|\leq6\Theta^2.
+\]
+In particular, \eqref{eq:ambient-ray-error} controls the extra ray components $r$.
+
+Tangency is $y\cdot z=0$, so the eliminated coordinate is exactly
+\begin{equation}\label{eq:extra-tangent-elimination}
+ W=-\frac{PU+QV+r\cdot Z}{N}.
+\end{equation}
+Let $\zeta=(U,V,Z)$, let $\Pi$ omit the $n$ coordinate, and let
+$E_y\zeta$ insert the value \eqref{eq:extra-tangent-elimination}.
+Then $\|E_y\|\leq1+2\|y\|\leq13\Theta^2$, and the actual reduced
+equation on the full $d-1$ dimensional transverse space is
+$\zeta'=\Pi\mathscr B_\varepsilon(y)E_y\zeta$.
+It retains all couplings to $Z$.
+
+The pressure denominator admits the following operator-norm estimate on
+the full ambient space. If
+$r_*=\|y-y_0\|\leq1/2$, $R_*\geq\max(\|y\|,\|y_0\|)$ and
+$\eta=\max(\|A-A_0\|,\|C-C_0\|)\leq1$, then
+\begin{align}
+ \|\mathscr B_\varepsilon(y)-\mathscr B_0(y_0)\|
+ &\leq \eta+
+ 8R_*(4+8R_*^2)(r_*+\varepsilon R_*)\nonumber\\
+ &\hspace{18mm}+2R_*(\eta R_*+3r_*).              \label{eq:ambient-generator-gap}
+\end{align}
+To prove it, put $u_\varepsilon=D_r^2y/|D_ry|^2$.
+The preceding lower denominator bounds and
+$\|D_ry-D_0y_0\|\leq r_*+\varepsilon R_*$
+give
+$\|u_\varepsilon-u_0\|\leq
+(4+8R_*^2)(r_*+\varepsilon R_*)$.
+Also
+$\|A^*y-A_0^*y_0\|\leq\eta R_*+3r_*$,
+$\|A^*y\|\leq4R_*$ and $\|u_0\|\leq R_*$.
+Insert these estimates in the difference of the two rank-one
+operators in \eqref{eq:ambient-exact-generator}.
+All estimates are Euclidean operator estimates on the complete space.
+
+Using \eqref{eq:ambient-ray-error}, $\eta\leq2e$,
+$R_*\leq6\Theta^2$, and $\varepsilon\leq e$, the right side of
+\eqref{eq:ambient-generator-gap} is at most
+$5\cdot10^6e\Theta^{11}$.
+The ideal generator has zero $n$ input column.
+Therefore
+$\Pi\mathscr B_0(y_0)(E_y-E_{y_0})=0$, and the actual reduced generator
+differs from the ideal reduced generator by at most
+\begin{equation}\label{eq:ambient-reduced-gap}
+ 65\cdot10^6e\Theta^{13}.
+\end{equation}
+The ideal reduced generator is explicitly
+\[
+ \begin{pmatrix}
+ \dfrac{2P_0Q_0}{1+P_0^2}&
+       -2+\dfrac{2P_0(P_0+\beta)}{1+P_0^2}\\[2mm]
+ -1&0
+ \end{pmatrix}
+ \oplus0_{\mathcal E},
+ \qquad P_0=\beta\tau^2,\quad Q_0=-2\beta\tau .
+\]
+Hence its active equation is
+\[
+ ((1+\beta^2\tau^4)V')'=2(1-\beta^2\tau^2)V,\qquad U=-V',
+\]
+and every ideal extra coordinate is constant.
+
+Let $g=V_0$ be the positive scalar solution with $g(0)=1$, $g'(0)=0$.
+The scalar relative propagator and the ratio estimate
+$g(s)/g(t)\leq C\Theta$ bound the complete ideal reduced evolution by
+\[
+ K_d\frac{g(t)}{g(s)},\qquad K_d=C_d\Theta^8 .
+\]
+The extra identity block is included using this ratio estimate;
+$g$ need not be nondecreasing. Whenever the reduced
+coefficient gap is $\Delta$, the weighted Duhamel estimate gives
+\[
+ \frac{g(s)}{g(t)}\|U(t,s)\|
+ \leq K_d+K_d\Delta
+       \int_s^t\frac{g(s)}{g(r)}\|U(r,s)\|\,dr .
+\]
+Thus $K_d\Theta\Delta\leq1/2$ implies
+$\|U(t,s)\|\leq2K_dg(t)/g(s)$.
+This estimate covers arbitrary transverse initial data and forcing,
+including additional modes.
+
+It also bounds the joined high evolution in the fixed transverse
+coordinates used in the history problem. At each endpoint the actual
+physical field and reduced coordinates are related by
+\[
+ b=O D_vE_y\zeta,\qquad
+ \zeta=\Pi D_v^{-1}O^*b.
+\]
+Their operator norms are at most $13\Theta^2$ and
+$\varepsilon^{-1}$, respectively. If $R_\perp:U\to m_0^\perp$
+is an isometric identification and $b=F R_\perp a_{\rm hist}$, then
+\[
+ a_{\rm hist}=R_\perp^*F^{-1}b,\qquad
+ b=F R_\perp a_{\rm hist}.
+\]
+These two endpoint transformations have norms at most $\|F^{-1}\|$ and $\|F\|$.
+Thus the evolution in the actual $a_{\rm hist}$ coordinates is bounded
+by $26K_d\Theta^2\varepsilon^{-1}
+\sup\|F^{-1}\|\sup\|F\|\,g(t)/g(s)$.
+Every factor has a known polynomial bound in the source parameters.
+Applying the same endpoint maps to the variation-of-constants formula gives the forced
+tail bound with these factors. This is the full $d-1$ dimensional
+forward operator joined to the history trace, including its action
+on all additional transverse components.
+
+For the selected primary let $\lambda\geq0$ be its actual normalized
+initial slope and let $V_\lambda(0)=1$, $V_\lambda'(0)=\lambda$.
+The ideal reduced initial vector is $(-\lambda,1,0)$.
+At a neighboring label the discrepancy of $(U,V,Z)$ is at most
+$\rho L_{\rm hist}Y_*/\varepsilon$, hence at most $e$ after the choice
+\eqref{eq:ambient-error-input}. In particular the extra primary
+initial component is bounded by the same history Lipschitz estimate. The remaining initial component is
+determined by \eqref{eq:extra-tangent-elimination}.
+
+The weighted Duhamel estimate applied to the difference from
+$\zeta_\lambda=(-V_\lambda',V_\lambda,0)$ yields
+\begin{equation}\label{eq:ambient-primary-relative}
+ \|\zeta-\zeta_\lambda\|
+ \leq C_de\Theta^{30}(1+\lambda)g(\tau).
+\end{equation}
+Indeed the initial term is $K_de\,g(\tau)$ and the integral term is
+at most $2K_d^2\Theta\Delta(1+\lambda+e)g(\tau)$.
+The exponent is $2\cdot8+1+13=30$.
+Restoring the eliminated coordinate introduces at most two more powers
+of $\Theta$, by \eqref{eq:extra-tangent-elimination} and
+\eqref{eq:ambient-ray-error}.
+
+The late-interval comparison is uniform in $\lambda$.
+The second fundamental solution satisfies
+\[
+ \frac{V_1(\tau)-g(\tau)}{g(\tau)}
+   =\int_0^\tau\frac{ds}{(1+\beta^2s^4)g(s)^2}.
+\]
+On $[0,1]$ the scalar equation has uniformly bounded coefficients,
+so this integral at one has a fixed positive lower bound.
+Consequently, for $\tau\geq1$,
+$V_\lambda(\tau)\geq c(1+\lambda)g(\tau)$.
+The actual normalized flux is $J=\langle y,Az\rangle$; the physical
+flux for the unamplified field equals $s_0aJ$; the amplified field has
+flux $\alpha s_0aJ$.
+The ideal flux is
+$J_0=Q_0(-V_\lambda')+(P_0+\beta)V_\lambda$.
+Equations \eqref{eq:ambient-ray-error}--\eqref{eq:ambient-primary-relative}
+give
+\begin{equation}\label{eq:ambient-flux-relative}
+ |J-J_0|/V_\lambda\leq C_de\Theta^{34}
+ \quad(1\leq\tau\leq\tau_{\rm end}).
+\end{equation}
+For example, expand its difference into
+$\langle y,(A-A_0)z\rangle+
+ \langle y-y_0,A_0z\rangle+
+ \langle y_0,A_0(z-z_\lambda)\rangle$.
+The final term introduces two powers of $\Theta$ beyond the restored-state
+bound; the other two terms are smaller.
+
+The scalar formula gives $J_0/V_\lambda\geq\beta=\sigma^2$.
+Below the threshold $x=\sigma\tau=1$, both the
+$Q_0(-V_\lambda'/V_\lambda)$ contribution and $P_0$ are nonnegative.
+Above the threshold $x=1$, its equivalent expression is
+$x^2-\beta+2\sqrt\beta\,z/x\geq1-\beta\geq3/4$, with the
+nonnegative scalar Riccati variable $z$.
+Let $x_{\rm tar}\geq2$ be the target coordinate and assume
+$\tau_{\rm tar}=x_{\rm tar}/\sigma\leq\Theta$.
+Then $\beta\geq4/\Theta^2$.
+The geometric smallness condition is
+\begin{equation}\label{eq:ambient-forty-guard}
+ C_de\Theta^{40}\leq1.
+\end{equation}
+Indeed the flux error is then at most a fixed small multiple of
+$\Theta^{-6}$, which is at most $\beta/2$ after fixing the dimensional
+constant. This gives a strictly positive lower bound for the late flux.
+The ray, denominator, reduced-propagator and relative-state estimates above
+involve smaller powers and follow from the same smallness condition.
+Enlarge the fixed $C_d$ to cover their finitely many numerical constants, including
+the full transverse dimensional perturbation bound. The power $60$
+in the separate short-extension estimate concerns the numerical time
+envelope; it is not an additional geometric-error hypothesis.
+
+The same condition transfers the ideal uniform-size estimate to the actual
+neighbor. Indeed the unamplified size is
+$s_0\|D_ry\|\|D_vz\|$; the packet size is $\alpha$ times this quantity.
+Subtract the corresponding central reference expression for the packet
+size and apply the two state bounds. At the target the actual $q$ velocity component is at least
+$V_\lambda(\tau_{\rm tar})/2$ and the normal component $N$ is at least
+$1/2$. Hence the unamplified target size is at least
+$s_0V_\lambda(\tau_{\rm tar})/4$.
+The actual normalization $\alpha\,\mathrm{size}_{\rm target}
+=\delta h_{\rm child}$ and the scalar ratio
+$g(\tau)/g(\tau_{\rm tar})\leq C\Theta$ make this size error at most
+$C_de\Theta^{40}\delta h_{\rm child}$, hence at most
+$\delta h_{\rm child}$.
+On $0\leq\tau\leq1$, the reference states are at most $C(1+\lambda)$
+and the perturbation bound adds at most the same size.
+The scalar target growth gives
+$\alpha s_0(1+\lambda)\leq
+ C\Theta\delta h_{\rm child}e^{-b/\sigma}$.
+Here $b>0$ is a fixed constant from the scalar growth lemma, decreased
+if needed. Thus the early size retains its exponentially small factor and a
+fixed polynomial in $\Theta$ (the larger $\Theta^5$ bound suffices).
+All these statements concern the actual short interval ending at
+$\tau_{\rm end}$; the ideal scalar equation alone is defined globally.
+
+\paragraph{The bounded profile height.}
+The preceding normalization also establishes the polynomial bound for the
+profile constant $H_0$ through cancellation of the scalar growth
+against the terminal normalization.
+The forward scalar profile is $g=V_0$. In physical time this means
+$\gamma(t)=\alpha$ for $t\leq t_0$ and
+$\gamma(t)=\alpha V_0(a(t-t_0)/\varepsilon)$ for $t\geq t_0$.
+Since $V_0\leq V_\lambda$,
+the scalar ratio estimate on the retained interval through the target
+and its stipulated short extension gives
+$g(\tau)/V_\lambda(\tau_{\rm tar})\leq C\Theta$.
+Together with the actual target-size lower bound this yields
+\begin{equation}\label{eq:actual-profile-height}
+ H_0=\max(1,\sup\gamma)
+ \leq1+C\Theta\,\delta h_{\rm child}s_0^{-1}.
+\end{equation}
+The constant $s_0$ is that of the actual unit initial phase:
+$s_0^{-1}=\|F(t_0)^*n_{\rm new}\|\leq\|F(t_0)\|$.
+It therefore has a bound in terms of the preceding particle-label parameters.
+Likewise the scalar target lower bound gives
+\[
+ \alpha\leq
+ C\Theta\,\delta h_{\rm child}s_0^{-1}
+              (1+\lambda)^{-1}e^{-b/\sigma}.
+\]
+Thus both the polynomial height and the small history amplitude come
+from normalization at the same target; the resulting source majorant
+has polynomial dependence on the parent parameters.
+
+Finally, \eqref{eq:ambient-error-input} explains how to choose a
+quantitative spatial neighborhood. Only preceding unnormalized coefficient
+and history Lipschitz bounds occur. Their positive-word inverse and
+endpoint estimates are polynomial in the preceding particle-label data.
+These bounds depend only on the parent geometry, its selected history
+and $\varepsilon^{-1}$. In particular, they are independent of the new
+angular width $\delta_n$. The prescribed $\rho_n$ below satisfies
+the resulting neighborhood conditions.
+
+\subsection{A common radius and polynomial source bounds}
+
+For an ordered-word Gevrey block put
+$\mathfrak m_{R,b}(n)=R^{n+b}((n+b)!)^2$. The fixed-base coefficient
+constant is bounded by the explicit polynomial
+\[
+ S_{d,q}(R_c,C)=2^q C\sum_{r=0}^q(4(d+1)R_c)^r(r!)^2.
+\]
+Here $R_c$ is the known coefficient radius. The full word alphabet is
+$\{1,\ldots,d+1\}$.
+
+Indeed, at external order $n$ and base order $0\leq r\leq q$,
+\[
+ (n+r)!^2\leq4^{n+r}(n!)^2(r!)^2.
+\]
+The $(d+1)^{n+r}$ ordered coordinate choices therefore give a
+coefficient-block bound
+\[
+ S_{d,q}(R_c,C)\,[4(d+1)R_c]^n(n!)^2.
+\]
+Thus the known coefficient radius is replaced once by
+$4(d+1)R_c$. In the commutator argument below $R_c$ denotes this
+enlarged known radius. This conversion is applied only to coefficient
+tensor bounds; the forcing is already measured by its full ordered-word
+block.
+
+For a positive continuous profile $\gamma$ and a fixed base order $q$,
+the normalized block used here is
+\[
+ \mathcal B_n^\gamma(f)=
+ \sum_{I\in\{1,\ldots,d+1\}^{n}}
+ \bigl\|\gamma^{-1}\partial_I f\bigr\|_{C([0,T];H^q)}.
+\]
+The finite sum is outside the time norm. At each fixed time the block
+dominates the corresponding sum of Sobolev norms and hence the
+weighted norms used in the correction estimates. Equivalent choices
+of the base $H^q$ norm change only constants depending on $d,q$.
+
+\begin{lemma}[Same-radius joined bounds]\label{lem:joined-same-radius}
+There is a threshold $R_*\geq1$, polynomial in the known source coefficients,
+their reciprocal coercivity bounds, inverse time lengths and the relative
+propagator constant of Section~\ref{subsec:full-transverse-relative}, such that
+for every $R\geq R_*$ the joined high inverse maps a forcing satisfying
+$\mathcal B_n^\gamma(f)\leq A\mathfrak m_{R,b}(n)$ to velocity and
+time derivative bounds
+\[
+ \mathcal B_n^\gamma(h_f)\leq C_{\rm v}A\mathfrak m_{R,b+3}(n),\qquad
+ \mathcal B_n^\gamma(\partial_t h_f)\leq C_{\rm t}A\mathfrak m_{R,b+3}(n).
+\]
+Here $h_f$ denotes the joined high field. The constants and radius
+threshold are independent of $A$, $b$ and $R\geq R_*$. The
+mean inverse, pressure inverse and tensor corrector have analogous
+fixed-shift bounds at this same radius.
+\end{lemma}
+\begin{proof}
+The history base estimate is Lemma~\ref{lem:joined-history-polynomial}.
+Its terminal trace supplies the actual forward datum. The forward
+base estimate is the relative estimate in Section~\ref{subsec:full-transverse-relative}, on the
+fixed packet support. Products with the known frame turn coordinate
+velocities into physical velocities, and the Gram equation controls
+the true time derivative.
+
+We prove the all-order estimate by induction at the same radius. Differentiating
+the actual equation produces positive-order coefficient commutators.
+The elementary inequality
+\[
+ \binom nj(j!)^2((n-j+b)!)^2\leq((n+b)!)^2
+\]
+holds for every $b\geq0$. If $M$ is the fixed-base inverse or forward
+constant and $B R_c^j(j!)^2$ is the known coefficient block, the normalized
+positive-order sum is bounded by
+\[
+ MB\sum_{j\geq1}(R_c/R)^j\leq\tfrac12
+ \quad\hbox{when}\quad R\geq R_c(1+2MB).
+\]
+Thus a factor two closes the induction at all orders, without changing
+the unknown forcing radius. The subsets of an ordered word give exactly
+the binomial convolution above. A dimensional factor is permitted when
+converting the known coefficient tensor bounds into word bounds;
+it is absorbed once into $R_c$.
+
+The fixed-base inverse is the finite polynomial recursion in
+Lemma~\ref{lem:joined-history-polynomial}. The mean form and pressure
+equation have the same commutator identity and use their actual coercive
+inverses. The corrector uses known coefficient products, one angular
+primitive, and one spatial derivative. The primitive has operator norm bounded by
+the fixed period and the coordinate sums are finite ($\leq d^3$
+terms). Taking the sum of these finitely many required radii gives
+a polynomial common radius. Linearity, applied after dividing the
+forcing and datum by $A$, proves that the radius is independent of
+$A$; uniqueness gives the zero-amplitude case. The time profile itself
+is never differentiated.
+\end{proof}
+
+These estimates define an explicit polynomial source majorant. Replace
+known primitive bounds by $W\geq1$, coefficient blocks by $S_{d,q}$,
+fixed inverses by their $q$-step polynomial recursion, and maxima by
+sums. Reciprocal coercivity, ray and Gram constants are first replaced
+by the bounds proved above. Every remaining operation in the
+source construction is addition, multiplication, a fixed
+power or one of these fixed recursions. The resulting positive
+polynomial $\Phi_d(W)$ gives the bound
+\[
+ \Phi_d(W)\leq A_dW^{e_d},\qquad
+ e_d=\deg\Phi_d,\qquad A_d=1+\sum_j|[W^j]\Phi_d|.
+\]
+The exponent is therefore determined by a fixed finite recursion.
+The mean and high grade recursion uses this common radius at every grade.
+
+\subsection{The explicit nonlinear threshold}
+
+Let $p=202$ be the tail-polynomial degree proved in
+\eqref{eq:packet-tail-base}, and put
+$\vartheta=1/(1000(p+1))=1/203000$. Write
+$Z=k^\vartheta$, $N=\lfloor Z\rfloor$. Let $C,I,G,D,T,r_{\mathrm a}^{-1}$
+be the tail, inverse, correction-growth, drift, time and reciprocal
+radius constants of that packet, with $C,I,G,D,T\geq0$.
+Here $r_{\mathrm a}>0$ is its analytic
+radius; it is distinct from the physical localization length $\rho$ and
+from the fixed mean cutoff parameter $\ell_*$. Define
+\begin{equation}\label{eq:source-cap}
+ H=64+\exp(1)+2^pC+I+12GT+\frac{8GTD}{r_{\mathrm a}}
+                   +\left(\frac{8GT}{r_{\mathrm a}}\right)^2,\qquad
+ k_*=H^{1000(p+1)}.
+\end{equation}
+For $k\geq k_*$ one has $H\leq Z$, $Z\geq64$ and $\log k\geq1$.
+In particular
+\[
+ C(N+1)^p\leq C(2Z)^p\leq Z^{p+1}=k^{1/1000}.
+\]
+The residual and correction tolerance obey
+\[
+ 2[2e^{-(7/10)Z\log k}]e^{3GT}\leq\tfrac12e^{-\sqrt Z},
+ \qquad
+ 2G(D/k+e^{-\sqrt Z})T\leq r_{\mathrm a}/2.
+\]
+Indeed $3GT\leq Z/4$, $\sqrt Z\leq Z/8$, $\log8\leq Z/8$ prove
+the first inequality. For the second, use
+$8GTD\leq r_{\mathrm a}k$ and
+$8GT/r_{\mathrm a}\leq\sqrt Z\leq e^{\sqrt Z}$.
+This gives a polynomial frequency threshold for the exponential
+correction-growth condition.
+
+If these constants are bounded by $Q\geq1$, the explicit bound is
+\begin{equation}\label{eq:polynomial-frequency-threshold}
+ k_*\leq(2^p+200)^{1000(p+1)}Q^{6000(p+1)}.
+\end{equation}
+For $p=202$ the power of $Q$ is $1\,218\,000$. This exponent is
+independent of the stage and the truncation.
+
+\subsection{The next particle-label bound}
+
+Use the lifted and physical fields constructed in
+Lemmas~\ref{lem:graph-invariant}--\ref{lem:physical-labels} and
+\eqref{eq:graph-l2-jet}. If $u$ is the corrected coordinate packet,
+its lifted velocity is
+\[
+ \mathcal V=(k^{-1}u,\langle m_0,u\rangle),\qquad \|m_0\|=1,
+\]
+and its material acceleration is the field
+$(\mathcal V_t+D\mathcal V\,\mathcal V)\circ\Psi$.
+The cylinder time-derivative estimate and the finite product and
+composition bounds define the source polynomial $C_{\rm rel}(W)$
+of the lifted-flow construction. At the prescribed scales its
+smallness conditions are
+\[
+ 16C_{\rm rel}(W)\leq k^{1/2},\qquad
+ \rho^{-1}\leq k^{1/2},\qquad
+ \delta_{\rm corr}(k^\vartheta)\leq k^{-1}.
+\]
+Here $\delta_{\rm corr}$ is the correction tolerance, distinct from
+the profile width. The drift cancellation gives
+$BRT\leq C_{\rm rel}(W)(k^{-1}+\delta_{\rm corr})\leq1/8$.
+The graph trace and physical scaling therefore give common
+relative-field amplitude $M\leq k$ and radius $S\leq k^2$.
+These bounds hold for displacement, material velocity and material
+acceleration in $L^2$, and for displacement and material velocity
+also in supremum norm. All fields come from the same lifted flow. The
+preceding conditions require only the prescribed source smallness exponents.
+
+Write $X_{\rm parent}=\mathrm{id}+D_0$, with material velocity
+$V_0$ and acceleration $W_0$. In original physical labels the relative
+map is $Y=\mathrm{id}+a=\rho\psi^{\rm norm}(\cdot/\rho)$, with
+time derivatives $b,c$. The full particle map is $X_{\rm parent}\circ Y$,
+so its three fields are
+\[
+ \begin{split}
+ D_0^+&=D_0\circ Y+a,\\
+ V_0^+&=V_0\circ Y+b+(DD_0\circ Y)b,\\
+ W_0^+&=W_0\circ Y+2(DV_0\circ Y)b+
+        (D^2D_0\circ Y)[b,b]+c+(DD_0\circ Y)c.
+ \end{split}
+\]
+The parent fields are estimated in the original physical labels, with
+common $L^2$ and supremum amplitude and radius $K\leq k$. Volume
+preservation of $Y$ retains the parent $L^2$ factors in each composition term. The product and composition
+estimates proved in the lifted-flow section give common child
+$L^2$ amplitude and radius
+\[
+ C^+=K+M+9K^2M+36K^3M^2,\qquad
+ R^+=(1+S)((1+M)16K+2)+S.
+\]
+For the fixed lower frequency bound $k\geq69$, these satisfy
+$C^+\leq47k^5\leq k^6$ and $R^+\leq69k^4\leq k^5$.
+The fixed Sobolev evaluation shift in
+\eqref{eq:fixed-sobolev-jet-shift} has order $q_{\rm ev}=d+2$,
+separate from the packet base order $q=2d+5$. After absorbing its fixed
+dimensional constants at the prescribed frequency, it yields
+supremum amplitude at most $k^{6q_{\rm ev}+7}$ and radius at most
+$k^6$. Thus the single bound
+\[
+ K^+=k^{10(d+4)}
+\]
+controls all three child fields in both norms, since the sum of one,
+the two $L^2$ bounds and the two supremum bounds is at most
+$5k^{6q_{\rm ev}+7}\leq k^{6q_{\rm ev}+8}\leq k^{10(d+4)}$.
+In particular, the acceleration has the supremum jet bounds
+needed for the next $F_2^+$ source. These are the fixed
+source-polynomial and frequency conditions included in the single
+scale choice.
+
+The full inverse deformation is polynomial as well. Since
+$\det F^+=1$, its inverse is the adjugate. If
+$\|D^nF^+\|\leq A R^n(n!)^2$, expansion of each cofactor into
+$(d-1)!$ products and the Gevrey product constant 3 give
+\[
+ \|D^n(F^{+,-1})\|
+ \leq d(d-1)!\,3^{d-2}A^{d-1}R^n(n!)^2.
+\]
+The factor $d$ bounds operator norm by the largest entry.
+The time derivative satisfies
+$(F^{+,-1})_t=-F^{+,-1}F_1^+F^{+,-1}$.
+Also $F_1^+=D_xV_0^+$ and $F_2^+=D_xW_0^+$.
+Thus the source coefficients have fixed polynomial bounds in the
+new particle-label parameter. Fix, for instance,
+\[
+ D_d=10(d+4)
+\]
+for the particle-label invariant $K^+\leq k^{D_d}$.
+The inverse and coefficient bounds are fixed polynomials in $K^+$,
+possibly with exponents different from $D_d$.
+
+\subsection{Uniform scales and a single frequency choice}
+
+Set $s_n=J+n$ and
+\[
+ x_0=X,\quad x_{n+1}=s_n^2x_n,\quad
+ k_n=e^{x_n/s_n^2},\quad h_n=e^{x_n/s_n^5},\quad
+ \delta_n=e^{-x_n/s_n^3},\quad\rho_n=e^{-x_n/s_n^{7/2}}.
+\]
+Here $n=j-J$ and $x_n=x_{j-1}$ in the notation of
+Section~\ref{sec:iteration}; $\rho_n$ is the physical localization,
+not the fixed mean cutoff $\ell_*$. For $n\geq1$ the identities
+\[
+ \log k_{n-1}=\frac{x_n}{(s_n-1)^4},\quad
+ \log h_{n-1}=\frac{x_n}{(s_n-1)^7},\quad
+ \log\rho_{n-1}^{-1}=\frac{x_n}{(s_n-1)^{11/2}}
+\]
+are exact. If $K_n\leq k_{n-1}^{D_d}$, every preceding geometric constant in
+\eqref{eq:ambient-error-input} is bounded by
+$Cs_n^a x_n^b e^{c x_n/(s_n-1)^4}$.
+For sufficiently large fixed $J$ and then $X$,
+\[
+ \rho_n Cs_n^a x_n^b e^{c x_n/(s_n-1)^4}
+ \leq e^{-x_n/(2s_n^{7/2})}.
+\]
+The additional factors in the ambient smallness condition have the same
+inherited scale: $\Theta_n\leq C(1+s_n^2x_n^2)$,
+$s_0^{-1}\leq\|F(t_0,0)\|$, and
+$\varepsilon^{-1}\leq C\sqrt{h_{n-1}}$.
+They therefore contribute only polynomial factors in $s_n,x_n$ or an
+exponential with denominator $(s_n-1)^7$, which is already absorbed
+by the displayed denominator $(s_n-1)^4$. The terms
+$\varepsilon\Theta G^2$ and $e_{\rm old}$ in
+\eqref{eq:ambient-error-input} are controlled by the separate shear
+separation and preceding frequency-error comparisons in
+Section~\ref{sec:iteration}; they are not made small by localization.
+At $n=0$ the activation time is zero, and the forward high construction
+is used. This case contains no reciprocal history-length factor.
+The seed predecessor has polynomial bounds in $X$. The normal-stage
+factor $e^{-X/J^{7/2}}$ dominates those bounds for the same final large choice of $X$.
+
+Consequently all neighborhood conditions hold at the prescribed
+localization length $\rho_n$.
+
+The full source list additionally includes $\delta_n^{-1}$ and the
+new scalar height. Its positive-polynomial bounds therefore have the
+form
+\begin{equation}\label{eq:uniform-parameter-envelope}
+ \mathcal P_n=Cs_n^a x_n^b
+              \exp\left(\frac{c x_n}{(s_n-1)^3}\right).
+\end{equation}
+In particular the radius, $H_0$, reciprocal analytic radii, history
+and mean inverse constants, and the constants in \eqref{eq:source-cap}
+are bounded by fixed powers of \eqref{eq:uniform-parameter-envelope}.
+
+\begin{lemma}[Uniform domination]\label{lem:uniform-source-domination}
+For a finite list of fixed $A,C,c,a,b,N>0$ and $\gamma>0$, one common
+choice of $J$ and then $X$ ensures
+\[
+ A\mathcal P_n^N\leq k_n^\gamma\qquad(n\geq0)
+\]
+for every entry of the list.
+\end{lemma}
+\begin{proof}
+Choose $J$ so that
+$Nc/(s-1)^3\leq\gamma/(2s^2)$ for $s\geq J$;
+$J\geq16Nc/\gamma+2$ suffices. Increase $X$ until
+\[
+ \log(AC^N)+Na\log s_n+Nb\log x_n
+ \leq\frac{\gamma x_n}{2s_n^2}
+\]
+uniformly in $n$. To see the uniformity, use
+$x_n=X\prod_{r<n}(J+r)^2$.
+The sequences
+$s_n^2\log s_n/\prod_{r<n}(J+r)^2$ and
+$s_n^2\log(\prod_{r<n}(J+r)^2)/\prod_{r<n}(J+r)^2$
+are bounded, since the denominator eventually dominates every
+polynomial in $n$ while its logarithm grows at most
+$2n\log(J+n)$. The resulting bound is
+$O_J((1+\log X)/X)$ and tends to zero.
+Adding the two inequalities proves the assertion. Take the maximum
+of the finitely many choices of $J,X$.
+\end{proof}
+
+Apply this lemma simultaneously to the source constants, the neighborhood
+conditions, \eqref{eq:polynomial-frequency-threshold}, the lifted-flow smallness
+conditions and their numerical constants. It gives the actual nonlinear
+correction at the preselected $k_n$ and then
+$K_{n+1}\leq k_n^{D_d}$. The exponent $D_d$ is fixed first;
+the source polynomials and their degrees are then fixed; $J,X$ are
+chosen once for the resulting finite list. The same exponents and starting
+index apply to every subsequent child.
+
+The zero-history initialization adds seven fixed constants to this same
+finite list: the actual forward family, weighted carrier localization,
+support geometry, gradient and pressure errors, relative particle
+fields, and the initial amplitude ratio. Their exponents and constants
+are fixed before the single choice of $J$. The finitely many remaining
+seed and first forward-stage thresholds depend on $d,J$ and
+are met by increasing $X$ alone. The seed cutoff normalization, the two
+initial mean reserves, and the preserved core difference are specified
+in Section~\ref{sec:iteration}. Thus the first positive-history state
+and every successor use the same $J,X$ and the same prescribed
+frequencies. The induction then applies to the joined variational-history
+family and the quantitative neighborhood constructed in this section.
+\section{Initial increments at every Sobolev order}
+\label{sec:initial-summability}
+
+We use the joined displacement-history and forward inverse of
+Lemma~\ref{lem:packet-joined-high}. When the activation time is positive,
+the forced high coefficients generally have nonzero initial velocities;
+all of them enter the estimates below.
+
+Fix the dimension $d$ and an admissible integer base Sobolev order $s$ for the
+packet estimates. Constants below may depend on $d$ and on a fixed
+derivative order, but the frequency condition will not depend on that
+derivative order. Write $\mathcal P\ge1$ for a bound on the source primitives,
+including the coefficient and inverse constants, the terminal datum, the
+reciprocal phase scale, the fixed mean cutoff constant, and the common Gevrey
+radius. Section~\ref{sec:parameter-envelope} bounds these primitives for the
+constructed sources, uniformly along the prescribed scale sequence.
+
+\subsection{The initial coefficient sums}
+Put $\kappa=k^{-1}$ and let $N$ be the chosen truncation. At time zero,
+the parent flow is the identity and the nonlinear correction vanishes.
+The initial increment is
+\begin{align}
+ u_{\mathrm{osc},0}(a)
+ &=\rho\sum_{p=1}^{N}
+    \bigl[\kappa^p A_p+\kappa^{p+1}C_p\bigr]
+       (0,a/\rho,km_0\cdot a/\rho),\label{eq:initial-osc-sum}\\
+ u_{\mathrm{mean},0}(a)
+ &=\rho\sum_{p=2}^{N}\kappa^p B_p(0,a/\rho),
+ \qquad
+ \Delta u_0=u_{\mathrm{osc},0}+u_{\mathrm{mean},0}.
+ \label{eq:initial-mean-sum}
+\end{align}
+Here $C_p$ is the full ambient antisymmetric-potential corrector and $B_p$
+is independent of the angle. The estimates include every high coefficient, its tensor corrector,
+and every mean coefficient.
+Formula~\eqref{eq:initial-osc-sum} extends
+\cite[\S3.9, (3.60)]{OAI} to the full ambient tensor construction.
+
+Let $\alpha>0$ be the selected primary amplitude. The joined profile is
+\[
+ \gamma(t)=\alpha\quad(0\le t\le t_0),\qquad
+ \gamma(t)=\alpha g(t)\quad(t_0\le t\le T),\qquad g(t_0)=1,
+\]
+and put $H_0=\max(1,\alpha,\sup\alpha g)$. The coefficient induction
+assigns the oscillatory profiles $\gamma H_0^{2p-2}$ and the mean profiles
+$H_0^{2p-2}$.
+
+The factor $\alpha$ on the history interval follows from linearity.
+The primary terminal displacement is $\alpha$ times the normalized compact
+datum, and the displacement inverse is linear. In every higher zero-mean
+force, terms containing only means cancel under angle-mean subtraction.
+Every remaining term contains a previous oscillatory factor or a derivative
+of one. The term involving the newly solved mean is
+$-(m\cdot B_p)\partial_\theta A_1$, which also contains this factor.
+Extra oscillatory factors are bounded by the indicated powers of $H_0$.
+The history inverse and the angular tensor primitive therefore
+retain $\alpha$ at time zero. This factor is preserved at each step of the graded construction
+by linearity of its high solver.
+
+Suppose first that $t_0>0$. In fixed transverse coordinates, every
+forced history solves
+$\xi(0)=\xi(t_0)=0$ and has velocity $A=FR_\perp\xi_t$.
+The primary instead has $\xi(0)=0$ and
+$\xi(t_0)=\alpha\chi_{\rm in}(y)f_\delta(\theta)\xi_T$, where $\xi_T$ is the
+selected terminal coordinate. It is obtained from the physical
+central endpoint by the inverse frame; its norm is included in $\mathcal P$.
+Subtracting the affine extension
+$(t/t_0)\alpha\chi_{\rm in}f_\delta\xi_T$ reduces this primary problem to the
+same zero-endpoint inverse. All spatial and phase words of the forced
+problem still have zero endpoint values. For the primary, differentiating
+this explicit affine extension supplies exactly the differentiated
+boundary datum; the differentiated boundary traces are therefore explicit.
+The forward solution starts with the trace $FR_\perp\xi_t(t_0)$.
+It agrees there with the history solution, and the common velocity equation
+then gives equality of the time derivatives at the junction. These are
+the boundary conditions of Lemma~\ref{lem:packet-joined-high}.
+When $t_0=0$, the primary instead has its prescribed forward datum
+and the forced high fields have zero initial velocity. The forward
+estimates give the same bounds below, without a history inverse or
+reciprocal factor $t_0^{-1}$. This applies both to the exceptional seed
+and to the first normal stage $j=J$; positive history begins at $j=J+1$.
+
+The all-word estimate uses the same inverse. After
+translation in the label and angle, write the equation as
+$L(a)u(a)=f(a)$. At a fixed admissible base Sobolev order let its inverse constant
+be $M$, and let the known coefficient derivative bounds be
+$B R_c^j(j!)^2$. Differentiating a word of length $n$ gives the exact
+Leibniz identity
+\[
+ L\partial^\omega u=\partial^\omega f-
+ \sum_{\varnothing\ne S\subset\{1,\ldots,n\}}
+ (\partial^{\omega_S}L)\partial^{\omega_{S^c}}u.
+\]
+The homogeneous boundary space is unchanged, so the same inverse applies
+to each term. In the block norm this yields a binomial convolution.
+For $b\ge0$,
+\[
+ \binom nj(j!)^2((n-j+b)!)^2\le((n+b)!)^2.
+\]
+Consequently a forcing bound $F R^{n+b}((n+b)!)^2$ gives
+$2MF R^{n+b}((n+b)!)^2$ for the solution as soon as
+$R\ge R_c(1+2MB)$: the positive-order convolution contributes at most
+$MB\sum_{j\ge1}(R_c/R)^j\le1/2$.
+The initial finite base inverse is obtained by the finite Sobolev
+commutator recursion. Its order is fixed by $d$, not by the packet grade.
+Time traces follow from the $H^1$ equation and have a polynomial bound
+in the reciprocal history length and known frame bounds. The same estimate
+on the forward interval uses its relative propagator and the
+history trace. This proves preservation of the unknown forcing radius;
+known coefficient conversion enlarges $R_c$ only once.
+
+The displacement argument uses the full transverse space of dimension
+$d-1$. If $R_\perp$ has orthonormal columns, $\eta=FR_\perp\xi$, and
+$\eta(t_0)=0$, then
+\[
+ \int_0^{t_0}\bigl(|\eta_t|^2-\langle H\eta,\eta\rangle\bigr)\,dt
+ \ge \left(1-\frac{K_+t_0^2}{2}\right)
+                       \int_0^{t_0}|\eta_t|^2\,dt
+ \ge\frac12\int_0^{t_0}|\eta_t|^2\,dt.
+\]
+The one-sided Poincar\'e inequality here follows by integrating
+$\eta(t)=-\int_t^{t_0}\eta_t(r)\,dr$. Conversion to $\xi$ uses only the
+known bounds for $F^{-1}$ and its derivative. Thus the inverse constant is
+polynomial in those bounds in every transverse dimension.
+
+\subsection{Separating derivative order from expansion order}
+For a fixed integer $m\ge0$, the coefficient estimates need derivatives
+only through $m+s+1$. Their shift is at most $100p$; replacing this fixed
+coefficient by a larger dimensional constant makes no change to the
+argument. For $b=m+s+1$,
+\[
+ (b+100p)!\le2^{b+100p}b!(100p)!,\qquad
+ ((b+100p)!)^2\le C_b(Cp)^{200p}.
+\]
+Also $R^{b+100p}=R^b(R^{100})^p$. Consequently all dependence on $m$
+can be put in a prefactor $C_{d,m}\mathcal P^{c_{d,m}}$, while the
+expansion-order bound has the form
+\begin{equation}
+ B_N^{p+1},\qquad B_N=\mathcal P^{c_d}(C_dN)^{L_d}.
+ \label{eq:initial-grade-base}
+\end{equation}
+with one finite exponent $L_d$ independent of $m$.
+For the displayed shifts one may take $L_d=300$ after enlarging constants.
+Choose $N=\lfloor k^\vartheta\rfloor$ with
+$L_d\vartheta<1/100$. A single fixed source-to-frequency condition then
+ensures $B_N\le k^{1/100}$.
+
+At time zero the cylinder Sobolev norms of $A_p$ and $C_p$ are bounded by
+\[ \alpha C_{d,m}\mathcal P^{c_{d,m}}B_N^{p+1}. \]
+The mean has the same bound without $\alpha$. For $k\ge4$,
+\[
+ \sum_{p=1}^{N}k^{-p}B_N^{p+1}\le C,
+ \quad
+ \sum_{p=1}^{N}k^{-p-1}B_N^{p+1}\le C,
+ \quad
+ \sum_{p=3}^{N}k^{-p}B_N^{p+1}\le Ck^{-2}.
+\]
+These follow by summing the geometric series with ratio $k^{-99/100}$.
+In the last sum its first power is $k^{-3+4/100}\le k^{-2}$.
+The grade-two mean is estimated separately at its fixed order, giving
+$C_{d,m}\mathcal P^{c_{d,m}}k^{-2}$ as well. This fixed-order estimate preserves
+the power $k^{-2}$ in the mean bound.
+
+For $T_kf(y)=f(y,km_0\cdot y)$ and $|m_0|=1$, the chain rule and
+$H^1(\mathbb T)\hookrightarrow L^\infty(\mathbb T)$ give
+\[
+ \|T_kf\|_{H^m(\R^d)}
+       \le C_{d,m}(1+k)^m
+                    \|f\|_{H^{m+1}(\R^d\times\mathbb T)}.
+\]
+Indeed each spatial derivative is a product of the commuting operators
+$\partial_{y_i}+km_{0,i}\partial_\theta$. Apply the periodic one-dimensional
+estimate to each resulting derivative at fixed $y$, then integrate in $y$.
+Exactly one additional angle derivative is needed. For the mean, angle
+independence eliminates the additional graph derivative.
+Finally, physical scaling multiplies the $L^2$ norm of an order-$r$
+derivative by $\rho^{1+d/2-r}\le\rho^{-m}$ for $r\le m$ and
+$0<\rho\le1$. We obtain the estimates
+\begin{align}
+ \|u_{\mathrm{osc},0}\|_{H^m}
+ &\le C_{d,m}\rho^{-m}k^m\alpha \mathcal P^{c_{d,m}},\label{eq:joined-initial-high}\\
+ \|u_{\mathrm{mean},0}\|_{H^m}
+ &\le C_{d,m}\rho^{-m}k^{-2}\mathcal P^{c_{d,m}}.
+ \label{eq:joined-initial-mean}
+\end{align}
+The selected central amplitude satisfies
+\[
+ \alpha\le \mathcal P^{c_d}e^{-b x}
+\]
+for a fixed $b>0$, by the central target growth, with
+the normalized terminal and reciprocal phase constants included in $\mathcal P$.
+In the scalar indexing below, $n=j-J$ corresponds to normal stage $j$
+of Section~\ref{sec:iteration}: $a_n=j$, $x_n=x_{j-1}$,
+$k_n=k_j$, and $\rho_n=\rho_j$. The inherited geometric parameter
+is therefore $x_n$, while the new target is $x_{n+1}$. The amplitude
+factor is $e^{-b x_n}$. This exponential factor applies to
+all initial high coefficients, including those produced by positive
+history intervals.
+
+\subsection{One scale sequence gives all orders of summability}
+\begin{lemma}[Scalar summability]\label{lem:initial-scalar-sum}
+Fix $J\ge2$, $X\ge1$, and define
+\[
+ a_n=J+n,\quad x_0=X,\quad x_{n+1}=a_n^2x_n,
+ \quad k_n=e^{x_n/a_n^2},\quad \rho_n=e^{-x_n/a_n^{7/2}}.
+\]
+Here $\rho_n$ is the physical packet length; it is distinct from the
+fixed physical mean-cutoff parameter $\ell_*$ and from the Gevrey
+weight radius used in the cylinder estimates. Let
+\[
+ \mathcal P_n=C a_n^p x_n^q
+           \exp\left(\frac{c x_n}{(a_n-1)^3}\right)
+\]
+with fixed $C\ge1$, $c\ge0$, $p,q\in\N$ and $b>0$. For every fixed
+$m,\nu\in\N$, both series
+\[
+ \sum_n\rho_n^{-m}\mathcal P_n^\nu k_n^m e^{-b x_n},
+ \qquad
+ \sum_n\rho_n^{-m}\mathcal P_n^\nu k_n^{-2}
+\]
+converge.
+\end{lemma}
+\begin{proof}
+We have $x_n\ge X4^n$ and
+$\log x_n\le\log X+2n\log(J+n)$. Therefore, for every fixed $r\ge0$,
+\[
+ \frac{a_n^r(1+\log a_n+\log x_n)}{x_n}\longrightarrow0.
+\]
+The logarithm of the first summand, divided by $x_n$, tends to $-b$:
+its other exponential terms are $m/a_n^2$, $m/a_n^{7/2}$ and
+$c\nu/(a_n-1)^3$, and its logarithmic terms vanish. Eventually the summand
+is at most $e^{-b x_n/2}$, a summable sequence.
+
+For the second summand, divide its logarithm by $x_n/a_n^2$. The result
+tends to $-2$, since
+\[
+ ma_n^{-3/2}\to0,\qquad
+ c\nu\frac{a_n^2}{(a_n-1)^3}\to0,
+\]
+and the logarithmic terms again vanish. Eventually it is at most
+$e^{-x_n/a_n^2}\le e^{-n}$, proving convergence.
+\end{proof}
+
+The choices of $J,X$ in this lemma are independent of $m$. Only the
+starting index of the convergence comparison depends on $m$; the
+construction itself uses the same scales for every Sobolev order.
+The same proof permits a localization scale whose reciprocal is bounded
+by a polynomial times $\exp(c_0x_n/a_n^\beta)$ for any fixed $\beta>2$.
+The quantitative localization estimate is therefore part of the
+source construction.
+
+To verify that the prescribed frequency satisfies all construction
+conditions, consider any finite list $A\mathcal P_n^\nu\le k_n^\theta$ with
+$\theta>0$. Choose $J$ so that
+$c\nu a^2/(a-1)^3\le\theta/2$ for all $a\ge J$ and every condition.
+Writing $x_n=Xb_n$ with $b_n\ge J^{2n}$, the sequences
+$a_n^2/b_n$, $a_n^2\log a_n/b_n$ and $a_n^2\log b_n/b_n$ are bounded.
+Hence a single increase of $X$ absorbs all the remaining logarithmic terms,
+uniformly in $n$. This proves the conditions at the prescribed $k_n$.
+Only finitely many construction conditions enter at fixed $d$; the fixed-$m$
+prefactors in \eqref{eq:joined-initial-high}--\eqref{eq:joined-initial-mean}
+do not introduce further construction conditions.
+
+\subsection{The smooth compact limit}
+Section~\ref{sec:parameter-envelope} bounds the stage-$n$ source
+primitives by $\mathcal P_n$ and verifies the prescribed localization
+scale for the joined construction. The preceding estimates consequently give
+\[
+ \sum_n\|\Delta u_n(0)\|_{H^m}<\infty
+ \qquad\text{for every integer }m\ge0.
+\]
+For each spatial order $r$, take $m>r+d/2$. The Sobolev
+embedding in dimension $d$ gives uniform convergence of the derivative
+series through order $r$. Include the base solution, the seed increment and
+the first normal zero-history forward increment in $u_{\mathrm{seed},0}$.
+The latter two are fixed finite packet increments, including their
+mean fields and terminal tensor correctors. The remaining sum starts
+with the first positive-history joined increment; this finite index
+shift changes neither the convergence proof nor the already fixed
+$J,X$. Consequently the single sum
+$u_0=u_{\mathrm{seed},0}+\sum_{n\geq1}\Delta u_n(0)$ is smooth, has the termwise
+derivatives, and is divergence free. The fixed physical mean-cutoff
+construction puts the supports of all these initial increments
+in one compact ball. Enlarging it to contain the base support proves
+$u_0\in C^\infty_{c,\sigma}(\R^d)$.
+\section{The scale choice and the finite-stage induction}
+\label{sec:iteration}
+The construction uses one prescribed scale sequence. The quantitative source estimate supplies a fixed exponent $D_d$
+for the particle-map invariant and a finite list of polynomial construction
+conditions. All choices in this section are made after those exponents have
+been fixed.
+
+\subsection{The base flow and the order of choices}
+Choose an oriented orthonormal basis $(p,q,n)$ of $E$ and let the full
+matrix $L_B$ vanish on $E^\perp$ and satisfy
+\[
+ L_Bq=p+X^{-2}n,\qquad L_Bp=L_Bn=0.
+\]
+It is trace free. Lemma~\ref{lem:potential}, with a fixed radial cutoff,
+gives a compact, odd, reflection-equivariant solenoidal datum equal to
+$L_Bx$ near zero. Its Sobolev and Gevrey bounds are uniform for $X\geq1$.
+Lemma~\ref{lem:local} gives its actual Euler solution $u_B$ on a uniform
+short interval. Its Gevrey bounds also persist on a uniform shorter
+interval: with fixed base order $q_d> (d+1)/2+2$ and radius $r(t)$,
+set
+\[
+ \mathcal X_r=\sum_{n\geq0}\frac{r^n}{(n!)^2}
+                  \sum_{|I|=n}\|\partial_Iu_B\|_{H^{q_d}},
+ \qquad
+ \mathcal Y_r=\sum_{n\geq0}\frac{nr^n}{(n!)^2}
+                  \sum_{|I|=n}\|\partial_Iu_B\|_{H^{q_d}}.
+\]
+At each finite cutoff the differentiated transport cancellation and
+factorial product convolution give
+$\mathcal X_r'\leq C_d\mathcal X_r^2+
+(r'/r+C_d\mathcal X_r/r)\mathcal Y_r$.
+Choose $r'$ a sufficiently negative fixed constant. A short-time
+bootstrap bounds $\mathcal X_r$ and keeps $r>0$ uniformly in the
+cutoff. Passing to the increasing sums proves the claim. The projected
+Euler equation controls the time derivative and material acceleration
+at a smaller radius. The integral flow equation then bounds the actual
+particle map and its first two time derivatives in the same manner.
+This proof uses the Sobolev embedding at an order appropriate to the fixed dimension.
+Write $K_B$ for a uniform upper bound on its pressure Hessian.
+
+First fix $d$, the packet base order and all finite inverse, coefficient,
+flow and source exponents, including $D_d$. Fix $C_M,C_H$ large enough
+for the central gradient and Hessian induction below. The global
+coefficient bounds are separately supplied by the actual particle-label
+invariant; the global pressure bound is one-sided. These fix the
+endpoint constant and then its small threshold $\zeta$.
+Choose $D_0$ sufficiently large for the first geometric comparison;
+$D_0=1000$ suffices for the displayed exponent $60$.
+All seed mean-cutoff and boundary bounds are fixed powers of $X$.
+Choose $D_k\geq1000$ larger than the resulting seed polynomial exponent
+divided by each of the finitely many frequency margins, including the
+seed gradient, pressure and particle-label estimates. Fix also
+$C_{\rm init}=2C_{\rm lit}$, where
+$C_{\rm lit}=1+\pi C_{\chi,d}$ and $C_{\chi,d}$ is the fixed seed cutoff
+derivative bound. This bounds the combined contribution of the two
+initializations to $B_c-B_e$.
+
+The same finite scale choice includes the twelve later-stage estimates and
+seven additional estimates for the first normal forward stage: its finite
+family and correction, weighted carrier localization, support geometry,
+gradient error, pressure error, relative particle fields, and initial
+amplitude ratio. All seven are fixed source polynomials multiplied by
+the prescribed frequency or exponential damping. In particular, the last
+condition is
+\[
+ [1+c_d(1+\pi C_{\chi,d})]\,\alpha_J/\delta_J\leq1/64.
+\]
+Choose the starting index $J$ once for this combined list, and then
+increase $X$ to meet the seed, short-time, support and reserve
+thresholds. These thresholds depend only on $d,J$ and constants already
+fixed before $J$. No second choice of $J$, frequency or exponent is made
+in either initialization or the later induction.
+
+Put $h_{J-2}=1$, $x_{J-1}=X$, and $x_j=j^2x_{j-1}$ for $j\geq J$.
+The auxiliary value $h_{J-2}$ records the uniform scale of the base
+solution. Prescribe
+\begin{align}
+ h_{J-1}=X^{D_0},\quad k_{J-1}=X^{D_k},\quad
+ \rho_{J-1}=s_{\rm cut,d}^{-1}X^{-D_0},\quad \delta_{J-1}=X^{-(D_0+10)},
+ \label{eq:seed-scales}\\
+ h_j=e^{x_{j-1}/j^5},\quad k_j=e^{x_{j-1}/j^2},\quad
+ \delta_j=e^{-x_{j-1}/j^3},\quad
+ \rho_j=e^{-x_{j-1}/j^{7/2}}\quad(j\geq J).
+ \label{eq:normal-scales}
+\end{align}
+Here $s_{\rm cut,d}>0$ is the fixed dimensional cutoff scale, normalized so that
+$a_d=1/(3s_{\rm cut,d})$. The seed frequency is fixed by its polynomial source
+bound in $X$; the source-envelope lemma establishes the required estimates at the prescribed normal
+frequencies. Use the explicit physical mean-cutoff parameters
+\[
+ \ell_*=1,\qquad r_*=X^{-D_0}.
+\]
+For large $X$, $r_*\leq1/4$. The splitting ball of radius
+$a_dr_*/\ell_* = \rho_{J-1}/3$ contains the oscillatory seed support
+of radius $\rho_{J-1}/4$. The normalized seed mean has parameters
+$\ell=\rho_{J-1}$ and $r=r_*$, hence splitting radius $1/3$.
+These parameters are fixed functions of the seed value before the final
+choice of $X$; their physical values are retained throughout the
+iteration and are not replaced by the shrinking $\rho_j$.
+Their reciprocals and all subsequent boundary penalties are bounded by
+fixed powers of $X$. The multiplier in the full mean reserve is at most
+$1+c_d$, a dimensional constant fixed before the scale choice.
+The first normal support condition follows from
+$\rho_Js_{\rm cut,d}X^{D_0}\leq1$: for fixed $d,J$, the left side tends to zero
+as $X\to\infty$. Thus this condition only enlarges the final lower bound on the seed parameter.
+
+\subsection{Time and geometric comparisons}
+Let
+\[
+ W_j=\frac{3x_jx_{j-1}}{\sqrt{h_{j-1}}},\qquad
+ S_{J-1}:=S_{\rm base}=2W_J=6J^2X^{2-D_0/2},\qquad t_{J-1}=0.
+\]
+At stage $j$, the preceding solution determines $a_j,\beta_j$.
+Define
+\begin{equation}\label{eq:actual-times}
+ t_j=t_{j-1}+\frac{x_j}{\sqrt{\beta_ja_jh_{j-1}}},
+ \qquad S_j=t_j+2W_{j+1}.
+\end{equation}
+When $a_j,\beta_jx_{j-1}^2\in[1/2,2]$,
+$W_j/6\leq t_j-t_{j-1}\leq2W_j/3$.
+For $j>J$ the exact identities
+\[
+ \log k_{j-1}=\frac{x_{j-1}}{(j-1)^4},\qquad
+ \log h_{j-1}=\frac{x_{j-1}}{(j-1)^7}
+\]
+show that $W_{j+1}/W_j$ is arbitrarily small uniformly after $J$:
+its logarithm is
+\[
+ 2\log j+2\log(j+1)-\frac{x_{j-1}}{2j^5}
+                    +\frac{x_{j-1}}{2(j-1)^7}.
+\]
+At $j=J$ the last term is instead $(D_0/2)\log X$.
+The negative term dominates in both cases. Hence $S_j\leq S_{j-1}$,
+and with the numerical envelope
+$\widehat\Theta_j=C(1+x_jx_{j-1})$ the extra scaled interval obeys
+$\Delta\tau_j=2\sqrt{a_jh_{j-1}}W_{j+1}\leq\widehat\Theta_j^{-60}$.
+The actual central parameter is
+$\Theta_j=H_j^{\rm sc}=x_j/\sqrt{\beta_j}+\Delta\tau_j$
+and satisfies $\Theta_j\leq\widehat\Theta_j$. In particular
+$\Delta\tau_j\leq\Theta_j^{-60}$. The superscript distinguishes
+this scaled horizon from a pressure Hessian.
+Also $t_J\geq S_{\rm base}/12$, so at positive-history stages
+$t_{j-1}^{-1}\leq12S_{\rm base}^{-1}\leq h_{j-1}$.
+
+Use $E_*=k_{j-1}^{-1/4}$, $G_*=1+h_{j-2}$ and
+$K_h=k_{j-1}^{D_d}$. Each part of \eqref{eq:geometric-error} satisfies
+its smallness condition at the same scale choice. For the spatial term the
+logarithm is at most
+\[
+ -\frac{x_{j-1}}{j^{7/2}}+
+       \frac{c_dD_dx_{j-1}}{(j-1)^4}
+       +\frac{Cx_{j-1}}{(j-1)^7}+C\log x_{j-1}
+ \leq-\frac{x_{j-1}}{2j^{7/2}}.
+\]
+This estimate uses the inherited geometric bound, which excludes the new
+$\delta_j^{-1}$; using the complete source list here would not imply the required smallness.
+The old frequency error has logarithm
+$-x_{j-1}/(4(j-1)^4)$. For $j\geq J+2$,
+\[
+ \log(\epsilon G_*^2)\leq
+ -\frac{x_{j-1}}{2(j-1)^7}+
+ \frac{2x_{j-1}}{(j-1)^2(j-2)^7}+C
+ \leq-\frac{2x_{j-1}}{5(j-1)^7}+C.
+\]
+For $j=J$, $\epsilon\widehat\Theta_J^{61}\leq C(J)X^{122-D_0/2}$;
+for $j=J+1$ the new exponential dominates the preceding polynomial shear.
+These cover the two exceptional stages. Multiplying by any of the
+fixed powers of $x_{j-1},\widehat\Theta_j$ still gives the required
+smallness, including the actual $e\Theta_j^{40}$ condition.
+The same comparisons give
+\begin{equation}\label{eq:shear-separation}
+ h_j/h_{j-1}^2\gg1,\qquad
+ \frac{\sqrt{h_{j-1}}}{x_{j-1}x_j}\gg G_*+1,\qquad
+ \rho_j<r_{\rm core}.
+\end{equation}
+Here $r_{\rm core}>0$ is the fixed physical seed core radius.
+Each use of $\gg$ in this proof denotes a fixed finite inequality whose
+constant was chosen before $J,X$.
+
+\subsection{Summable error bounds}
+For positive-history stages let $\mathcal P_j^{\rm par}\geq1$
+bound the parent coefficient and geometric bounds, including $C_1,C_I$,
+but excluding the new reciprocal phase scale. The particle-label
+invariant and determinant-one inverse formula give
+\[
+ \mathcal P_j^{\rm par}
+ \leq Cj^a x_{j-1}^b\exp\!\left(\frac{c x_{j-1}}{(j-1)^4}\right).
+\]
+At the first normal stage its predecessor bounds are fixed polynomials
+in $X$. The full packet envelope $\mathcal P_j$ also includes
+$\delta_j^{-1}$ and has denominator $(j-1)^3$ as in
+\eqref{eq:uniform-parameter-envelope}.
+
+The relative size estimate for the selected packet bounds the history,
+early-time and initial primary errors by a fixed polynomial times
+$h_j e^{-b x_{j-1}}$. After enlarging that polynomial to cover all the
+actual initial fields, a common bound is
+\[
+ b_j=C_d\mathcal P_j^{c_d}h_j e^{-b x_{j-1}}
+                         \leq e^{-b x_{j-1}/2}.
+\]
+The logarithm of the prefactor divided by $x_{j-1}$ is at most
+$C_d/(j-1)^3+o(1)$; the seed predecessor contributes only a polynomial
+in $X$. This comparison is ensured by the same finite choice of $J,X$.
+
+The late upper-pressure estimate uses the actual global parent strain
+bound $M_{\rm all}\leq3C_1C_I\leq3(\mathcal P_j^{\rm par})^2$.
+The pressure sign \eqref{eq:positive-flux} on the packet support and
+$f_\delta'\geq-1$ therefore bound its late contribution by
+$C_d(\mathcal P_j^{\rm par})^2\delta_jh_j$.
+The large positive part of $f_\delta'$ gives a nonpositive leading
+Hessian contribution; only its bounded negative part enters this upper
+bound. Outside the support the leading tensor is zero. In particular,
+no global sharp bound of size $h_{j-1}$ on the parent gradient is needed.
+Since
+\[
+ \delta_jh_j\leq e^{-x_{j-1}/(2j^3)},
+\]
+the parent-only polynomial factor is absorbed by the stronger damping
+with denominator $j^3$. For large fixed $J$ and then $X$, the resulting
+contribution is at most $e^{-x_{j-1}/(4j^3)}$. This absorption would not be
+valid with an envelope containing the new $\delta_j^{-1}$.
+
+The exact packet gradient and Hessian remainders are bounded by
+$k_j^{-1/4}$. Thus nonnegative bounds for the increments are
+\begin{equation}\label{eq:actual-increment-budgets}
+ e_{p,j}=C_d\bigl(b_j+(\mathcal P_j^{\rm par})^2\delta_jh_j
+                         +k_j^{-1/4}\bigr),\qquad
+ e_{i,j}=C_d(b_j+k_j^{-1/4}).
+\end{equation}
+The latter applies to the complete initial finite family, including all
+means and terminal correctors. For each fixed $A>0$,
+$x_{j-1}/j^A$ increases at least geometrically for large $J$.
+The damped error terms and fixed negative powers of $x_{j-1}$ consequently
+have arbitrarily small sums after increasing $X$. The five terms in
+the full mean-reserve increment are bounded by $1/64$ each;
+their total is at most $5/64$.
+
+The initial core term in that reserve is retained. With the fixed
+cutoff above and $B_c=O_d(X^{D_0})$, it satisfies
+\[
+ c_dB_cr_*^dS_{\rm base}
+     =O_d\!\left(J^2X^{2+(1/2-d)D_0}\right)\longrightarrow0.
+\]
+The remaining seed reserve terms also tend to zero. The
+seed solution is chosen with full reserve at most $1/8$, and the first
+normal forward step contributes at most another $1/8$. Later finite prefixes
+are therefore at most $1/4+5/64=21/64<1/2$, on their actual horizons.
+
+Boundary penalties remain polynomial by an exact difference invariant,
+not by a global sharp initial-gradient assertion. After the two
+initializations,
+\[
+ B_c-B_e\leq C_{\rm init}X^{D_0}.
+\]
+Every subsequent joined update adds the same $e_i$ to $B_c,B_e$, so
+this inequality persists. On a positive-history horizon $T$ the full
+reserve implies $B_eT\leq1/2$, while $T\geq S_{\rm base}/12$.
+For the already chosen large $X$ these give
+\[
+ B_e\leq2X^{D_0},\quad
+ B_c\leq(C_{\rm init}+2)X^{D_0},\quad
+ |\mathcal L|\leq C_{1,d}(C_{\rm init}+2)X^{D_0}.
+\]
+These are the boundary bounds used in the next source envelope.
+
+\subsection{Seed and induction step}
+Set $u_{J-2}=u_B$. Apply Lemma~\ref{lem:exact-packet-child} on
+$[0,S_{\rm base}]$ with the seed scales, $m_0=p$, $v(0)=q$ and
+$\alpha=\delta_{J-1}h_{J-1}=X^{-10}$. The base mean parameters have
+$B_c=B_e=C_{B,d}$, $K=K_{B,d}$ and
+$\mathcal L=C_{1,d}C_{B,d}$, with fixed nonnegative dimensional
+constants. Its positive core radius and cutoff are exactly the
+normalized parameters specified above. Their full mean reserve is small on
+the short base interval; no boundary term is set to zero.
+
+At time zero $m\cdot M_Bv=1$ throughout the oscillatory support.
+The uniformly bounded base equations preserve
+$m\cdot M_Bv\geq1/2$ on the chosen short interval. The seed
+upper-pressure increment is therefore at most
+$C_dX^{-10}+k_{J-1}^{-1/4}$. The forced high initial data vanish in
+this zero-time forward construction, but the actual mean initial
+fields need not vanish. Retain every finite mean and full tensor
+corrector. The correction removing the residual has zero initial value,
+so the initial increment is precisely this complete finite sum.
+
+The estimates for that sum give interior and exterior gradient bounds
+\[
+ e_i=\frac{\alpha}{\delta_{J-1}}
+          +\frac{\pi C_{\chi,d}\alpha+C_\nabla}{k_{J-1}},
+ \qquad e_o=\frac{C_\nabla}{k_{J-1}}.
+\]
+Here $C_\nabla$ is the higher-grade source bound, controlled at the
+prescribed seed frequency. Update $B_c$ by $e_i$ and $B_e$ by $e_o$;
+retain the physical cutoff and set the new penalty to $C_{1,d}(B_c+e_i)$.
+The difference obeys $B_c^+-B_e^+\leq C_{\rm lit}X^{D_0}$.
+The nonoscillatory initial terms outside the small core are bounded by
+$e_o$ and remain in the common fixed compact support. The full reserve
+of this seed child is at most $1/8$ by the explicit short-time
+and frequency estimates above.
+
+The seed expansion is, at the fixed origin,
+\[
+ M_{J-1}=M_B+h(t)q(t)p(t)^T+\mathcal E(t),\qquad
+ |\mathcal E|\leq k_{J-1}^{-1/4},\qquad h(0)=h_{J-1}.
+\]
+The normalized frame is transported by the actual base gradient.
+Its activation parameters are exactly $a_J=1$ and $\beta_J=X^{-2}$.
+The actual lifted flow estimate gives its polynomial particle-map
+bound at $k_{J-1}$. Thus the complete input state for stage $J$ consists
+of two exact solutions, the actual frame and shear decomposition,
+the central gradient and Hessian bounds, the global one-sided pressure bound,
+the strict fixed-cutoff reserve and the polynomial label bounds.
+The first activation time is zero, so stage $J$ uses the forward primary
+with its actual weighted growth and initial amplitude. Its seven estimates
+were included in the sole scale choice. Its initial interior and exterior
+updates can differ; their difference adds at most
+$C_{\rm lit}X^{D_0}$. Thus $C_{\rm init}=2C_{\rm lit}$ covers both
+initializations. Its pressure-time and initial-time reserve increments
+are each at most $1/16$, leaving the first positive-history state with
+full mean reserve at most $1/4$. Its actual activation time is $t_J>0$;
+all later steps use the joined history construction.
+
+Assume that state at stage $j$. The actual parent is available on
+$[0,S_{j-1}]$, and $S_{j-1}-t_{j-1}=2W_j$ contains the target and
+short retained extension. Restrict it to $[0,S_j]$ when forming the
+actual central source and packet. The central horizon is precisely
+\[
+ H_j^{\rm sc}=a_j(S_j-t_{j-1})/\epsilon_j=\Theta_j;
+\]
+it is bounded by the numerical source envelope $\widehat\Theta_j$.
+Coefficient bounds inherited from the longer parent remain valid under
+restriction. The source envelope bounds the error contributions; it does
+not extend any field past its actual time domain. Duhamel and energy
+estimates and the relative target-size comparison are used only on the
+actual retained interval, whose scaled extension past the target is
+$\Delta\tau_j$. Along the older central solution,
+$\dot B=-B^2-H_{j-2}$, which gives the central bounds on $B,\dot B$.
+Lemma~\ref{lem:actual-endpoint} supplies the actual stationary history
+for $j>J$, and the zero-time prescription supplies it for $j=J$.
+The ambient comparison and source-envelope argument verify the
+quantitative neighborhood, full transverse propagator and every
+coefficient bound at the already prescribed $\rho_j,k_j$.
+Take
+\[
+ \alpha_j=\frac{\delta_jh_j}{|m(t_j,0)||v(t_j,0)|}.
+\]
+The joined construction in Lemma~\ref{lem:exact-packet-child} then gives
+an exact smooth odd reflection-equivariant solution $u_j$ on $[0,S_j]$.
+Its full ambient tensor correctors, all means and the residual correction
+are part of this same solution. The graph-flow identities give the
+next actual particle-map invariant $K_{h,\rm next}\leq k_j^{D_d}$.
+
+At the fixed central particle the expansion gives
+\[
+ \sup_{t\leq S_j}|M_j(t,0)-M_{j-1}(t,0)|
+       \leq C_dh_j+k_j^{-1/4},\qquad
+ \sup_{t\leq S_j}|H_j(t,0)-H_{j-1}(t,0)|
+       \leq C_dh_jh_{j-1}+k_j^{-1/4}.
+\]
+Here the leading Hessian uses the sharp central parent strain bound.
+Together with \eqref{eq:shear-separation} these preserve
+\[
+ \sup_{t\leq S_j}|M_j(t,0)|\leq C_Mh_j,\qquad
+ \sup_{t\leq S_j}|H_j(t,0)|\leq C_Hh_jh_{j-1}.
+\]
+These are the central gradient and Hessian bounds needed by the central endpoint and
+renewal equations. They are not asserted as full-space sharp norms.
+Full-space coefficient and spatial derivative bounds instead follow
+from the constructed particle-label fields and the determinant-one
+polynomial inverse. The one-sided bounds
+\eqref{eq:actual-increment-budgets} preserve the global pressure upper
+bound, the initial interior and exterior quadratic-form bounds, and
+the full fixed-cutoff reserve. The pressure is not assumed local:
+its signed leading expansion and its residual error estimate hold
+globally, with the leading tensor vanishing off the packet support.
+
+For $t\in[t_j,S_j]$, the new normalized pair $p_2,q_2$ satisfies
+\[
+ M_j=M_{j-1}+h(t)q_2p_2^T+\mathcal E_j,
+ \qquad |\mathcal E_j|\leq k_j^{-1/4},\qquad h(t_j)=h_j.
+\]
+Its frame equations have older field $M_{j-1}$, by the exact ray and
+velocity equations, and $h'/h=-(M_{j-1})_{p_2p_2}-(M_{j-1})_{q_2q_2}$.
+Lemma~\ref{lem:central-renewal} bounds each relative change in $a_j$
+by $C_dx_{j-1}^{-4}$, whose sum is arbitrarily small. Since $a_J=1$,
+the product of the successive relative factors remains in $[1/2,2]$. The same lemma gives directly
+$\beta_{j+1}x_j^2\in[1/2,2]$; that estimate is not multiplied across
+stages. Its compression bound and \eqref{eq:shear-separation} give
+$p_2\cdot M_{j-1}p_2<-1$, while $|\mathcal E_j|<1$.
+Also $(C_Mh_{j-1}+1)/h_j<\zeta$. These prove the two actual activation
+conditions for the next endpoint problem. The central gradient and Hessian bounds on the entire
+history and $t_j^{-1}\leq h_j$ prove the next endpoint-selection
+hypotheses. The global one-sided mean bound and polynomial label
+coefficients prove the full spatial history inverse hypotheses.
+These estimates establish every component of the induction hypotheses
+for the subsequent solution.
+
+\section{The limiting datum and endpoint}
+\label{sec:endpoint}
+The initial estimates of Section~\ref{sec:initial-summability}, applied
+to the same joined finite families and the actual source envelope, give
+\[
+ \sum_{j\geq J}\|u_j(0)-u_{j-1}(0)\|_{H^m}<\infty
+                         \qquad\text{for every fixed }m.
+\]
+The seed and the first normal forward increment are two fixed
+smooth increments; including the latter as the first term of this
+series or in the initial finite datum gives the same limit.
+Lemma~\ref{lem:common-support}
+places all these initial velocities in one compact set. Sobolev embedding
+at arbitrarily high fixed orders therefore proves that their single limit
+$u_0$ is smooth, compactly supported and divergence free.
+
+The target times increase to a finite positive $T_\infty\leq S_{\rm base}$.
+At the central target the exact expansion gives
+\[
+ |\nabla u_j(t_j,0)|_{\rm F}
+       \geq h_j-C_Mh_{j-1}-k_j^{-1/4}\longrightarrow\infty.
+\]
+Let $u$ be the unique maximal smooth Sobolev solution from $u_0$.
+If its lifetime $T^*$ exceeded $T_\infty$, it would be smooth on a
+closed interval containing all $t_j$, with bounded $H^{s+1}$ norm.
+Apply Lemma~\ref{lem:stability} on the actual varying intervals
+$[0,t_j]$ to $u_j$ and $u$. Their initial $H^s$ difference tends to
+zero, so their gradients converge uniformly on those intervals.
+The displayed divergence of the central gradients would contradict
+boundedness of $\nabla u$ there. Thus $0<T^*\leq T_\infty<\infty$.
+This argument does not assert equality of $T^*$ and $T_\infty$.
+Lemma~\ref{lem:continuation} now supplies the exact Frobenius gradient
+limsup and the once-counted antisymmetric-vorticity integral in $H_d$.
+Lemma~\ref{lem:newton} fixes the Newton pressure normalization, and
+Lemma~\ref{lem:local} supplies every required Sobolev order on each
+shorter closed time interval.
+
+The quantitative joined-source estimate and the prescribed scale
+sequence verify the hypotheses at every finite stage. The initial limit,
+finite lifetime and continuation conclusions therefore prove
+Theorem~\ref{target:Hd}, with no additional assumption on the dimension
+or on a prospective solution.
+
+\section*{Use of artificial intelligence}
+All mathematical derivations in this manuscript were produced using
+artificial intelligence.
 
 \begin{thebibliography}{9}
 \bibitem{OAI}

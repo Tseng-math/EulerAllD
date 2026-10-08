@@ -1,27 +1,34 @@
-# Finite-time breakdown for smooth compactly supported Euler data in every dimension d ≥ 3
+# Finite-time breakdown of Euler flows from smooth, compactly supported initial data
 
-**Author: Tseng**
+**Author:** Tseng  
+**Manuscript version:** 8 October 2026
 
-This repository contains the mathematical manuscript and its complete LaTeX source.
+This research manuscript studies finite-time breakdown of the incompressible Euler equation on $\mathbb{R}^d$ for each fixed integer $d \geq 3$, with smooth, compactly supported, divergence-free initial data. It presents a dimension-dependent extension of a localized oscillatory construction, together with transverse evolution, pressure estimates, and summability of the initial increments in every Sobolev space.
 
-- [Read the manuscript](main.pdf)
-- [Main LaTeX source](main.tex)
-- [Section sources](sections/)
+## Files
 
-## Build
+- [main.pdf](main.pdf): typeset manuscript.
+- [main.tex](main.tex): complete, self-contained LaTeX source, including the bibliography.
 
-Build from the repository root with a TeX distribution containing XeLaTeX and `latexmk`:
+## Compilation
+
+Use a current TeX distribution with `latexmk`, or Tectonic. No additional source files, figures, or bibliography database are required.
 
 ```sh
-latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-The source uses standard LaTeX packages: `geometry`, `amsmath`, `amssymb`, `amsthm`, `mathtools`, `fontenc`, `lmodern`, `microtype`, and `hyperref`.
+Alternatively:
 
-## Disclosure
+```sh
+tectonic main.tex
+```
 
-All derivations in this article were completed by artificial intelligence.
+## Reference and authorship
 
-## Reference
+The principal reference is OpenAI, *Finite time blowup for the Euler equation*, [manuscript](https://cdn.openai.com/pdf/315b36cd-ec98-4023-8342-93345194ece1/euler.pdf).
 
-The manuscript cites OpenAI, *Finite time blowup for the Euler equation*. The full reference and source link are provided in the manuscript.
+## Use of artificial intelligence
+
+All mathematical derivations in this manuscript were produced using
+artificial intelligence.
